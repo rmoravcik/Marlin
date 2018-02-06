@@ -37,7 +37,7 @@
 #define MAPPER_C3C4C5_SK
 #define DISPLAY_CHARSET_ISO10646_SK
 
-#define WELCOME_MSG                         MACHINE_NAME _UxGT(" pripravená.")
+#define WELCOME_MSG                         MACHINE_NAME _UxGT(" pripravený.")
 #define MSG_BACK                            _UxGT("Naspať")
 #define MSG_SD_INSERTED                     _UxGT("Karta vložená")
 #define MSG_SD_REMOVED                      _UxGT("Karta vybratá")
