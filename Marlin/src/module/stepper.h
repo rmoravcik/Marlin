@@ -108,14 +108,14 @@ class Stepper {
                                                  // i.e., the current amount of pressure applied
                                                  // to the spring (=filament).
     #else
-      #define _NEXT_ISR(T) HAL_timer_set_count(STEP_TIMER_NUM, T);
+      #define _NEXT_ISR(T) HAL_timer_set_compare(STEP_TIMER_NUM, T);
     #endif // LIN_ADVANCE
 
     static long acceleration_time, deceleration_time;
-    //unsigned long accelerate_until, decelerate_after, acceleration_rate, initial_rate, final_rate, nominal_rate;
-    static hal_timer_t acc_step_rate; // needed for deceleration start point
     static uint8_t step_loops, step_loops_nominal;
-    static hal_timer_t OCR1A_nominal;
+
+    static hal_timer_t OCR1A_nominal,
+                       acc_step_rate; // needed for deceleration start point
 
     static volatile long endstops_trigsteps[XYZ];
     static volatile long endstops_stepsTotal, endstops_stepsDone;

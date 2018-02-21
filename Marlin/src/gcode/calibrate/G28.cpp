@@ -35,6 +35,10 @@
   #include "../../feature/bedlevel/bedlevel.h"
 #endif
 
+#if ENABLED(SENSORLESS_HOMING)
+  #include "../../feature/tmc_util.h"
+#endif
+
 #include "../../lcd/ultralcd.h"
 
 #if ENABLED(QUICK_HOME)
@@ -58,9 +62,28 @@
                 mlratio = mlx > mly ? mly / mlx : mlx / mly,
                 fr_mm_s = min(homing_feedrate(X_AXIS), homing_feedrate(Y_AXIS)) * SQRT(sq(mlratio) + 1.0);
 
+    #if ENABLED(SENSORLESS_HOMING)
+      #if ENABLED(X_IS_TMC2130) && defined(X_HOMING_SENSITIVITY)
+        tmc_sensorless_homing(stepperX);
+      #endif
+      #if ENABLED(Y_IS_TMC2130) && defined(Y_HOMING_SENSITIVITY)
+        tmc_sensorless_homing(stepperY);
+      #endif
+    #endif
+
     do_blocking_move_to_xy(1.5 * mlx * x_axis_home_dir, 1.5 * mly * home_dir(Y_AXIS), fr_mm_s);
     endstops.hit_on_purpose(); // clear endstop hit flags
     current_position[X_AXIS] = current_position[Y_AXIS] = 0.0;
+
+    #if ENABLED(SENSORLESS_HOMING)
+      #if ENABLED(X_IS_TMC2130) && defined(X_HOMING_SENSITIVITY)
+        tmc_sensorless_homing(stepperX, false);
+      #endif
+      #if ENABLED(Y_IS_TMC2130) && defined(Y_HOMING_SENSITIVITY)
+        tmc_sensorless_homing(stepperY, false);
+      #endif
+      safe_delay(500); // Short delay needed to settle
+    #endif
   }
 
 #endif // QUICK_HOME
@@ -104,6 +127,10 @@
       // This causes the carriage on Dual X to unpark
       #if ENABLED(DUAL_X_CARRIAGE)
         active_extruder_parked = false;
+      #endif
+
+      #if ENABLED(SENSORLESS_HOMING)
+        safe_delay(500); // Short delay needed to settle
       #endif
 
       do_blocking_move_to_xy(destination[X_AXIS], destination[Y_AXIS]);
@@ -198,12 +225,7 @@ void GcodeSuite::G28(const bool always_home_all) {
 
     #if Z_HOME_DIR > 0  // If homing away from BED do Z first
 
-      if (home_all || homeZ) {
-        HOMEAXIS(Z);
-        #if ENABLED(DEBUG_LEVELING_FEATURE)
-          if (DEBUGGING(LEVELING)) DEBUG_POS("> HOMEAXIS(Z)", current_position);
-        #endif
-      }
+      if (home_all || homeZ) HOMEAXIS(Z);
 
     #endif
 
@@ -227,20 +249,23 @@ void GcodeSuite::G28(const bool always_home_all) {
 
     #endif
 
+    // Home Y (before X)
     #if ENABLED(HOME_Y_BEFORE_X)
 
-      // Home Y
-      if (home_all || homeY) {
-        HOMEAXIS(Y);
-        #if ENABLED(DEBUG_LEVELING_FEATURE)
-          if (DEBUGGING(LEVELING)) DEBUG_POS("> homeY", current_position);
+      if (home_all || homeY
+        #if ENABLED(CODEPENDENT_XY_HOMING)
+          || homeX
         #endif
-      }
+      ) HOMEAXIS(Y);
 
     #endif
 
     // Home X
-    if (home_all || homeX) {
+    if (home_all || homeX
+      #if ENABLED(CODEPENDENT_XY_HOMING) && DISABLED(HOME_Y_BEFORE_X)
+        || homeY
+      #endif
+    ) {
 
       #if ENABLED(DUAL_X_CARRIAGE)
 
@@ -265,20 +290,11 @@ void GcodeSuite::G28(const bool always_home_all) {
         HOMEAXIS(X);
 
       #endif
-
-      #if ENABLED(DEBUG_LEVELING_FEATURE)
-        if (DEBUGGING(LEVELING)) DEBUG_POS("> homeX", current_position);
-      #endif
     }
 
+    // Home Y (after X)
     #if DISABLED(HOME_Y_BEFORE_X)
-      // Home Y
-      if (home_all || homeY) {
-        HOMEAXIS(Y);
-        #if ENABLED(DEBUG_LEVELING_FEATURE)
-          if (DEBUGGING(LEVELING)) DEBUG_POS("> homeY", current_position);
-        #endif
-      }
+      if (home_all || homeY) HOMEAXIS(Y);
     #endif
 
     // Home Z last if homing towards the bed
@@ -288,9 +304,6 @@ void GcodeSuite::G28(const bool always_home_all) {
           home_z_safely();
         #else
           HOMEAXIS(Z);
-        #endif
-        #if ENABLED(DEBUG_LEVELING_FEATURE)
-          if (DEBUGGING(LEVELING)) DEBUG_POS("> (home_all || homeZ) > final", current_position);
         #endif
       } // home_all || homeZ
     #endif // Z_HOME_DIR < 0

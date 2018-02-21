@@ -95,11 +95,15 @@ int16_t lcd_preheat_hotend_temp[2], lcd_preheat_bed_temp[2], lcd_preheat_fan_spe
 
 uint8_t lcd_status_update_delay = 1, // First update one loop delayed
         lcd_status_message_level;    // Higher level blocks lower level
-char lcd_status_message[3 * (LCD_WIDTH) + 1] = WELCOME_MSG; // worst case is kana with up to 3*LCD_WIDTH+1
 
 #if ENABLED(STATUS_MESSAGE_SCROLLING)
+  #define MAX_MESSAGE_LENGTH max(CHARSIZE * 2 * (LCD_WIDTH), LONG_FILENAME_LENGTH)
   uint8_t status_scroll_pos = 0;
+#else
+  #define MAX_MESSAGE_LENGTH CHARSIZE * (LCD_WIDTH)
 #endif
+
+char lcd_status_message[MAX_MESSAGE_LENGTH + 1];
 
 #if ENABLED(SCROLL_LONG_FILENAMES)
   uint8_t filename_scroll_pos, filename_scroll_max, filename_scroll_hash;
@@ -2920,7 +2924,10 @@ void kill_screen(const char* lcd_msg) {
         manual_move_offset = 0.0;
         manual_move_axis = (int8_t)NO_AXIS;
 
-        // Set a blocking flag so no new moves can be added until all segments are done
+        // DELTA and SCARA machines use segmented moves, which could fill the planner during the call to
+        // move_to_destination. This will cause idle() to be called, which can then call this function while the
+        // previous invocation is being blocked. Modifications to manual_move_offset shouldn't be made while
+        // processing_manual_move is true or the planner will get out of sync.
         processing_manual_move = true;
         prepare_move_to_destination(); // will call set_current_from_destination()
         processing_manual_move = false;
@@ -3032,11 +3039,11 @@ void kill_screen(const char* lcd_msg) {
     }
     encoderPosition = 0;
     if (lcdDrawUpdate) {
-      const float pos = current_position[axis]
+      const float pos = (processing_manual_move ? destination[axis] : current_position[axis]
         #if IS_KINEMATIC
           + manual_move_offset
         #endif
-      ;
+      );
       lcd_implementation_drawedit(name, move_menu_scale >= 0.1 ? ftostr41sign(pos) : ftostr43sign(pos));
     }
   }
@@ -3206,11 +3213,36 @@ void kill_screen(const char* lcd_msg) {
     else
       MENU_ITEM(gcode, MSG_AUTO_HOME, PSTR("G28"));
 
-    #if ENABLED(SWITCHING_EXTRUDER) || ENABLED(DUAL_X_CARRIAGE)
+    #if ENABLED(SWITCHING_EXTRUDER)
+
+      #if EXTRUDERS == 4
+        switch (active_extruder) {
+          case 0: MENU_ITEM(gcode, MSG_SELECT " " MSG_E2, PSTR("T1")); break;
+          case 1: MENU_ITEM(gcode, MSG_SELECT " " MSG_E1, PSTR("T0")); break;
+          case 2: MENU_ITEM(gcode, MSG_SELECT " " MSG_E4, PSTR("T3")); break;
+          case 3: MENU_ITEM(gcode, MSG_SELECT " " MSG_E3, PSTR("T2")); break;
+        }
+      #elif EXTRUDERS == 3
+        if (active_extruder < 2) {
+          if (active_extruder)
+            MENU_ITEM(gcode, MSG_SELECT " " MSG_E1, PSTR("T0"));
+          else
+            MENU_ITEM(gcode, MSG_SELECT " " MSG_E2, PSTR("T1"));
+        }
+      #else
+        if (active_extruder)
+          MENU_ITEM(gcode, MSG_SELECT " " MSG_E1, PSTR("T0"));
+        else
+          MENU_ITEM(gcode, MSG_SELECT " " MSG_E2, PSTR("T1"));
+      #endif
+
+    #elif ENABLED(DUAL_X_CARRIAGE)
+
       if (active_extruder)
         MENU_ITEM(gcode, MSG_SELECT " " MSG_E1, PSTR("T0"));
       else
         MENU_ITEM(gcode, MSG_SELECT " " MSG_E2, PSTR("T1"));
+
     #endif
 
     MENU_ITEM(submenu, MSG_MOVE_E, lcd_move_get_e_amount);
@@ -5361,6 +5393,7 @@ void lcd_update() {
 inline void pad_message_string() {
   uint8_t i = 0, j = 0;
   char c;
+  lcd_status_message[MAX_MESSAGE_LENGTH] = '\0';
   while ((c = lcd_status_message[i]) && j < LCD_WIDTH) {
     if (PRINTABLE(c)) j++;
     i++;
@@ -5410,7 +5443,7 @@ bool lcd_hasstatus() { return (lcd_status_message[0] != '\0'); }
 
 void lcd_setstatus(const char * const message, const bool persist) {
   if (lcd_status_message_level > 0) return;
-  strncpy(lcd_status_message, message, 3 * (LCD_WIDTH));
+  strncpy(lcd_status_message, message, MAX_MESSAGE_LENGTH);
   lcd_finishstatus(persist);
 }
 
@@ -5418,7 +5451,7 @@ void lcd_setstatusPGM(const char * const message, int8_t level) {
   if (level < 0) level = lcd_status_message_level = 0;
   if (level < lcd_status_message_level) return;
   lcd_status_message_level = level;
-  strncpy_P(lcd_status_message, message, 3 * (LCD_WIDTH));
+  strncpy_P(lcd_status_message, message, MAX_MESSAGE_LENGTH);
   lcd_finishstatus(level > 0);
 }
 
@@ -5427,7 +5460,7 @@ void lcd_status_printf_P(const uint8_t level, const char * const fmt, ...) {
   lcd_status_message_level = level;
   va_list args;
   va_start(args, fmt);
-  vsnprintf_P(lcd_status_message, 3 * (LCD_WIDTH), fmt, args);
+  vsnprintf_P(lcd_status_message, MAX_MESSAGE_LENGTH, fmt, args);
   va_end(args);
   lcd_finishstatus(level > 0);
 }

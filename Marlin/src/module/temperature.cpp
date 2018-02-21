@@ -435,7 +435,9 @@ uint8_t Temperature::soft_pwm_amount[HOTENDS],
               _temp_error(hotend, PSTR(MSG_T_HEATING_FAILED), PSTR(MSG_HEATING_FAILED_LCD));
           }
           else if (current < target - (MAX_OVERSHOOT_PID_AUTOTUNE)) // Heated, then temperature fell too far?
-            _temp_error(hotend, PSTR(MSG_T_THERMAL_RUNAWAY), PSTR(MSG_THERMAL_RUNAWAY));
+            _temp_error(hotend, PSTR(MSG_T_THERMAL_RUNAWAY),
+              hotend >= 0 ? PSTR(MSG_THERMAL_RUNAWAY) : PSTR(MSG_THERMAL_RUNAWAY_BED)
+            );
         #endif
       } // every 2 seconds
 
@@ -744,6 +746,10 @@ float Temperature::get_pid_output(const int8_t e) {
  */
 void Temperature::manage_heater() {
 
+  #if ENABLED(PROBING_HEATERS_OFF) && ENABLED(BED_LIMIT_SWITCHING)
+    static bool last_pause_state;
+  #endif
+
   if (!temp_meas_ready) return;
 
   updateTemperaturesFromRawValues(); // also resets the watchdog
@@ -820,8 +826,15 @@ void Temperature::manage_heater() {
   #endif // WATCH_THE_BED
 
   #if DISABLED(PIDTEMPBED)
-    if (PENDING(ms, next_bed_check_ms)) return;
+    if (PENDING(ms, next_bed_check_ms)
+      #if ENABLED(PROBING_HEATERS_OFF) && ENABLED(BED_LIMIT_SWITCHING)
+        && paused == last_pause_state
+      #endif
+    ) return;
     next_bed_check_ms = ms + BED_CHECK_INTERVAL;
+    #if ENABLED(PROBING_HEATERS_OFF) && ENABLED(BED_LIMIT_SWITCHING)
+      last_pause_state = paused;
+    #endif
   #endif
 
   #if HAS_TEMP_BED
@@ -1403,7 +1416,9 @@ void Temperature::init() {
         else if (PENDING(millis(), *timer)) break;
         *state = TRRunaway;
       case TRRunaway:
-        _temp_error(heater_id, PSTR(MSG_T_THERMAL_RUNAWAY), PSTR(MSG_THERMAL_RUNAWAY));
+        _temp_error(heater_id, PSTR(MSG_T_THERMAL_RUNAWAY),
+          heater_id >= 0 ? PSTR(MSG_THERMAL_RUNAWAY) : PSTR(MSG_THERMAL_RUNAWAY_BED)
+        );
     }
   }
 

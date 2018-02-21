@@ -48,7 +48,7 @@
   #error "Oops!  Use 'BOARD_RAMPS_RE_ARM' to build for Re-ARM."
 #endif
 
-#if !ENABLED(IS_RAMPS_SMART) && !ENABLED(IS_RAMPS_DUO) && !ENABLED(IS_RAMPS4DUE) && !ENABLED(TARGET_LPC1768)
+#if DISABLED(IS_RAMPS_SMART) && DISABLED(IS_RAMPS_DUO) && DISABLED(IS_RAMPS4DUE) && DISABLED(TARGET_LPC1768)
   #if !defined(__AVR_ATmega1280__) && !defined(__AVR_ATmega2560__)
     #error "Oops!  Make sure you have 'Arduino Mega' selected from the 'Tools -> Boards' menu."
   #endif
@@ -155,8 +155,8 @@
   //#define X2_HARDWARE_SERIAL Serial1
   //#define Y_HARDWARE_SERIAL  Serial1
   //#define Y2_HARDWARE_SERIAL Serial1
-  #define Z_HARDWARE_SERIAL  Serial3
-  #define Z2_HARDWARE_SERIAL Serial1
+  //#define Z_HARDWARE_SERIAL  Serial1
+  //#define Z2_HARDWARE_SERIAL Serial1
   //#define E0_HARDWARE_SERIAL Serial1
   //#define E1_HARDWARE_SERIAL Serial1
   //#define E2_HARDWARE_SERIAL Serial1
@@ -167,23 +167,23 @@
    * Software serial
    */
 
-  #define X_SERIAL_TX_PIN    59
+  #define X_SERIAL_TX_PIN    40
   #define X_SERIAL_RX_PIN    63
   #define X2_SERIAL_TX_PIN   -1
   #define X2_SERIAL_RX_PIN   -1
 
-  #define Y_SERIAL_TX_PIN    64
-  #define Y_SERIAL_RX_PIN    40
+  #define Y_SERIAL_TX_PIN    59
+  #define Y_SERIAL_RX_PIN    64
   #define Y2_SERIAL_TX_PIN   -1
   #define Y2_SERIAL_RX_PIN   -1
 
-  #define Z_SERIAL_TX_PIN    44
-  #define Z_SERIAL_RX_PIN    42
+  #define Z_SERIAL_TX_PIN    42
+  #define Z_SERIAL_RX_PIN    65
   #define Z2_SERIAL_TX_PIN   -1
   #define Z2_SERIAL_RX_PIN   -1
 
-  #define E0_SERIAL_TX_PIN   66
-  #define E0_SERIAL_RX_PIN   65
+  #define E0_SERIAL_TX_PIN   44
+  #define E0_SERIAL_RX_PIN   66
   #define E1_SERIAL_TX_PIN   -1
   #define E1_SERIAL_RX_PIN   -1
   #define E2_SERIAL_TX_PIN   -1
