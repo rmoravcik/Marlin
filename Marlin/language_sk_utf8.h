@@ -38,7 +38,7 @@
 #define DISPLAY_CHARSET_ISO10646_SK
 #define CHARSIZE 2
 
-#define WELCOME_MSG                         MACHINE_NAME _UxGT(" pripravená.")
+#define WELCOME_MSG                         MACHINE_NAME _UxGT(" pripravený.")
 #define MSG_BACK                            _UxGT("Naspať")
 #define MSG_SD_INSERTED                     _UxGT("Karta vložená")
 #define MSG_SD_REMOVED                      _UxGT("Karta vybratá")
@@ -72,6 +72,11 @@
 #define MSG_PREHEAT_2_END                   MSG_PREHEAT_2 _UxGT(" hotend")
 #define MSG_PREHEAT_2_BEDONLY               MSG_PREHEAT_2 _UxGT(" podlož")
 #define MSG_PREHEAT_2_SETTINGS              MSG_PREHEAT_2 _UxGT(" nast")
+#define MSG_PREHEAT_3                       _UxGT("Zahriať PETG")
+#define MSG_PREHEAT_3_N                     MSG_PREHEAT_3 _UxGT(" ")
+#define MSG_PREHEAT_3_ALL                   MSG_PREHEAT_3 _UxGT(" všetko")
+#define MSG_PREHEAT_3_END                   MSG_PREHEAT_3 _UxGT(" hotend")
+#define MSG_PREHEAT_3_BEDONLY               MSG_PREHEAT_3 _UxGT(" podlož")
 #define MSG_COOLDOWN                        _UxGT("Schladiť")
 #define MSG_SWITCH_PS_ON                    _UxGT("Zapnúť napájanie")
 #define MSG_SWITCH_PS_OFF                   _UxGT("Vypnúť napájanie")
