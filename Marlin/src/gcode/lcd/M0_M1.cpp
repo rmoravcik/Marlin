@@ -57,7 +57,7 @@ void GcodeSuite::M0_M1() {
       lcd_setstatus(args, true);
     else {
       LCD_MESSAGEPGM(MSG_USERWAIT);
-      #if ENABLED(LCD_PROGRESS_BAR) && PROGRESS_MSG_EXPIRE > 0
+      #if (ENABLED(LCD_PROGRESS_BAR) && PROGRESS_MSG_EXPIRE > 0) || ENABLED(SHOW_FILENAME_WHILE_SD_PRINTING)
         dontExpireStatus();
       #endif
     }

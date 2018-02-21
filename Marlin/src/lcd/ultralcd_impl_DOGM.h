@@ -233,6 +233,10 @@
 
 #include "utf_mapper.h"
 
+#if ENABLED(SHOW_FILENAME_WHILE_SD_PRINTING)
+  static millis_t expire_status_ms = 0;  // millis at which to expire the status message
+#endif
+
 int16_t lcd_contrast; // Initialized by settings.load()
 static char currentfont = 0;
 
@@ -797,6 +801,23 @@ static void lcd_implementation_status_screen() {
         u8g.print('%');
       }
     #else
+      #if ENABLED(SHOW_FILENAME_WHILE_SD_PRINTING)
+        if (IS_SD_PRINTING && print_job_timer.isRunning()) {
+          if (!thermalManager.isHeatingBed()) {
+            HOTEND_LOOP()
+              if (thermalManager.isHeatingHotend(e))
+                break;
+
+            if (expire_status_ms > 0) {
+              if (ELAPSED(millis(), expire_status_ms)) {
+                if (strcmp(lcd_status_message, card.longFilename) != 0)
+                  strncpy(lcd_status_message, card.longFilename, 3 * (LCD_WIDTH));
+                expire_status_ms = 0;
+              }
+            }
+          }
+        }
+      #endif
       lcd_implementation_status_message(blink);
     #endif
   }

@@ -586,6 +586,14 @@
     //#define LCD_PROGRESS_BAR_TEST
   #endif
 
+  // Show filename in status message while printing from SD card
+  #define SHOW_FILENAME_WHILE_SD_PRINTING
+
+  #if ENABLED(SHOW_FILENAME_WHILE_SD_PRINTING)
+    // Amount of time (ms) to retain the status message
+    #define STATUS_MESSAGE_EXPIRE 2000
+  #endif
+
   // This allows hosts to request long names for files and folders with M33
   //#define LONG_FILENAME_HOST_SUPPORT
 
