@@ -4345,11 +4345,12 @@ void kill_screen(const char* lcd_msg) {
     void _change_filament_temp(const uint8_t index) {
       char cmd[11];
       sprintf_P(cmd, _change_filament_temp_command(), _change_filament_temp_extruder);
-      thermalManager.setTargetHotend(index == 1 ? PREHEAT_1_TEMP_HOTEND : PREHEAT_2_TEMP_HOTEND, _change_filament_temp_extruder);
+      thermalManager.setTargetHotend(index == 1 ? PREHEAT_1_TEMP_HOTEND : (index == 2 ? PREHEAT_2_TEMP_HOTEND : PREHEAT_3_TEMP_HOTEND), _change_filament_temp_extruder);
       lcd_enqueue_command(cmd);
     }
     void _lcd_change_filament_temp_1_menu() { _change_filament_temp(1); }
     void _lcd_change_filament_temp_2_menu() { _change_filament_temp(2); }
+    void _lcd_change_filament_temp_3_menu() { _change_filament_temp(3); }
 
     static const char* change_filament_header(const AdvancedPauseMode mode) {
       switch (mode) {
@@ -4370,6 +4371,7 @@ void kill_screen(const char* lcd_msg) {
       MENU_BACK(MSG_FILAMENTCHANGE);
       MENU_ITEM(submenu, MSG_PREHEAT_1, _lcd_change_filament_temp_1_menu);
       MENU_ITEM(submenu, MSG_PREHEAT_2, _lcd_change_filament_temp_2_menu);
+      MENU_ITEM(submenu, MSG_PREHEAT_3, _lcd_change_filament_temp_3_menu);
       END_MENU();
     }
     void lcd_temp_menu_e0_filament_change()  { _lcd_temp_menu_filament_op(ADVANCED_PAUSE_MODE_PAUSE_PRINT, 0); }
