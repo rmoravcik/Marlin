@@ -1836,14 +1836,14 @@ void lcd_quick_feedback(const bool clear_buttons) {
       START_MENU();
       MENU_BACK(MSG_PREPARE);
       #if HOTENDS == 1
-        #if TEMP_SENSOR_BED != 0
+        #if HAS_HEATED_BED
           MENU_ITEM(function, MSG_PREHEAT_3, lcd_preheat_m3_e0);
           MENU_ITEM(function, MSG_PREHEAT_3_END, lcd_preheat_m3_e0_only);
         #else
           MENU_ITEM(function, MSG_PREHEAT_3, lcd_preheat_m3_e0_only);
         #endif
       #else
-        #if TEMP_SENSOR_BED != 0
+        #if HAS_HEATED_BED
           MENU_ITEM(function, MSG_PREHEAT_3_N MSG_H1, lcd_preheat_m3_e0);
           MENU_ITEM(function, MSG_PREHEAT_3_END " " MSG_E1, lcd_preheat_m3_e0_only);
           MENU_ITEM(function, MSG_PREHEAT_3_N MSG_H2, lcd_preheat_m3_e1);
@@ -1853,21 +1853,21 @@ void lcd_quick_feedback(const bool clear_buttons) {
           MENU_ITEM(function, MSG_PREHEAT_3_N MSG_H2, lcd_preheat_m3_e1_only);
         #endif
         #if HOTENDS > 2
-          #if TEMP_SENSOR_BED != 0
+          #if HAS_HEATED_BED
             MENU_ITEM(function, MSG_PREHEAT_3_N MSG_H3, lcd_preheat_m3_e2);
             MENU_ITEM(function, MSG_PREHEAT_3_END " " MSG_E3, lcd_preheat_m3_e2_only);
           #else
             MENU_ITEM(function, MSG_PREHEAT_3_N MSG_H3, lcd_preheat_m3_e2_only);
           #endif
           #if HOTENDS > 3
-            #if TEMP_SENSOR_BED != 0
+            #if HAS_HEATED_BED
               MENU_ITEM(function, MSG_PREHEAT_3_N MSG_H4, lcd_preheat_m3_e3);
               MENU_ITEM(function, MSG_PREHEAT_3_END " " MSG_E4, lcd_preheat_m3_e3_only);
             #else
               MENU_ITEM(function, MSG_PREHEAT_3_N MSG_H4, lcd_preheat_m3_e3_only);
             #endif
             #if HOTENDS > 4
-              #if TEMP_SENSOR_BED != 0
+              #if HAS_HEATED_BED
                 MENU_ITEM(function, MSG_PREHEAT_3_N MSG_H5, lcd_preheat_m3_e4);
                 MENU_ITEM(function, MSG_PREHEAT_3_END " " MSG_E5, lcd_preheat_m3_e4_only);
               #else
@@ -1878,7 +1878,7 @@ void lcd_quick_feedback(const bool clear_buttons) {
         #endif // HOTENDS > 2
         MENU_ITEM(function, MSG_PREHEAT_3_ALL, lcd_preheat_m3_all);
       #endif // HOTENDS > 1
-      #if TEMP_SENSOR_BED != 0
+      #if HAS_HEATED_BED
         MENU_ITEM(function, MSG_PREHEAT_3_BEDONLY, lcd_preheat_m3_bedonly);
       #endif
       END_MENU();
