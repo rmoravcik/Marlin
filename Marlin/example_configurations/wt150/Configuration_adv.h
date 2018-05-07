@@ -32,7 +32,7 @@
  */
 #ifndef CONFIGURATION_ADV_H
 #define CONFIGURATION_ADV_H
-#define CONFIGURATION_ADV_H_VERSION 010107
+#define CONFIGURATION_ADV_H_VERSION 010109
 
 // @section temperature
 
@@ -182,10 +182,12 @@
 
 // @section temperature
 
-//These defines help to calibrate the AD595 sensor in case you get wrong temperature measurements.
-//The measured temperature is defined as "actualTemp = (measuredTemp * TEMP_SENSOR_AD595_GAIN) + TEMP_SENSOR_AD595_OFFSET"
-#define TEMP_SENSOR_AD595_OFFSET 0.0
-#define TEMP_SENSOR_AD595_GAIN   1.0
+// Calibration for AD595 / AD8495 sensor to adjust temperature measurements.
+// The final temperature is calculated as (measuredTemp * GAIN) + OFFSET.
+#define TEMP_SENSOR_AD595_OFFSET  0.0
+#define TEMP_SENSOR_AD595_GAIN    1.0
+#define TEMP_SENSOR_AD8495_OFFSET 0.0
+#define TEMP_SENSOR_AD8495_GAIN   1.0
 
 /**
  * Controller Fan
@@ -493,9 +495,6 @@
 
 // Include a page of printer information in the LCD Main Menu
 #define LCD_INFO_MENU
-
-// Leave out seldom-used LCD menu items to recover some Program Memory
-//#define SLIM_LCD_MENUS
 
 // Scroll a longer status message into view
 //#define STATUS_MESSAGE_SCROLLING
@@ -1032,8 +1031,7 @@
  * You may also use software SPI if you wish to use general purpose IO pins.
  */
 //#define HAVE_TMC2130
-#if ENABLED(HAVE_TMC2130)
-  // Choose your axes here. This is mandatory!
+#if ENABLED(HAVE_TMC2130)  // Choose your axes here. This is mandatory!
   //#define X_IS_TMC2130
   //#define X2_IS_TMC2130
   //#define Y_IS_TMC2130
@@ -1220,7 +1218,7 @@
    *   stepperY.interpolate(0); \
    * }
    */
-  #define  TMC_ADV() {  }
+  #define TMC_ADV() {  }
 
 #endif // TMC2130 || TMC2208
 
