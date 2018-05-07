@@ -407,76 +407,76 @@ void Planner::init() {
 
       __asm__ __volatile__(
         // %8:%7:%6 = interval
-        // r31:r30: MUST be those registers, and they must point to the inv_tab 
+        // r31:r30: MUST be those registers, and they must point to the inv_tab
 
-        " clr %13" "\n\t"                 // %13 = 0 
+        " clr %13" "\n\t"                 // %13 = 0
 
-        // Now we must compute 
-        // result = 0xFFFFFF / d 
+        // Now we must compute
+        // result = 0xFFFFFF / d
         // %8:%7:%6 = interval
-        // %16:%15:%14 = nr 
+        // %16:%15:%14 = nr
         // %13 = 0
 
-        // A plain division of 24x24 bits should take 388 cycles to complete. We will 
+        // A plain division of 24x24 bits should take 388 cycles to complete. We will
         // use Newton-Raphson for the calculation, and will strive to get way less cycles
         // for the same result - Using C division, it takes 500cycles to complete .
 
-        " clr %3" "\n\t"                  // idx = 0 
+        " clr %3" "\n\t"                  // idx = 0
         " mov %14,%6" "\n\t"
         " mov %15,%7" "\n\t"
-        " mov %16,%8" "\n\t"              // nr = interval 
-        " tst %16" "\n\t"                 // nr & 0xFF0000 == 0 ? 
-        " brne 2f" "\n\t"                 // No, skip this 
+        " mov %16,%8" "\n\t"              // nr = interval
+        " tst %16" "\n\t"                 // nr & 0xFF0000 == 0 ?
+        " brne 2f" "\n\t"                 // No, skip this
         " mov %16,%15" "\n\t"
-        " mov %15,%14" "\n\t"             // nr <<= 8, %14 not needed 
-        " subi %3,-8" "\n\t"              // idx += 8 
-        " tst %16" "\n\t"                 // nr & 0xFF0000 == 0 ? 
-        " brne 2f" "\n\t"                 // No, skip this 
-        " mov %16,%15" "\n\t"             // nr <<= 8, %14 not needed 
-        " clr %15" "\n\t"                 // We clear %14 
-        " subi %3,-8" "\n\t"              // idx += 8 
+        " mov %15,%14" "\n\t"             // nr <<= 8, %14 not needed
+        " subi %3,-8" "\n\t"              // idx += 8
+        " tst %16" "\n\t"                 // nr & 0xFF0000 == 0 ?
+        " brne 2f" "\n\t"                 // No, skip this
+        " mov %16,%15" "\n\t"             // nr <<= 8, %14 not needed
+        " clr %15" "\n\t"                 // We clear %14
+        " subi %3,-8" "\n\t"              // idx += 8
 
-        // here %16 != 0 and %16:%15 contains at least 9 MSBits, or both %16:%15 are 0 
+        // here %16 != 0 and %16:%15 contains at least 9 MSBits, or both %16:%15 are 0
         "2:" "\n\t"
-        " cpi %16,0x10" "\n\t"            // (nr & 0xf00000) == 0 ? 
-        " brcc 3f" "\n\t"                 // No, skip this 
-        " swap %15" "\n\t"                // Swap nibbles 
-        " swap %16" "\n\t"                // Swap nibbles. Low nibble is 0 
+        " cpi %16,0x10" "\n\t"            // (nr & 0xf00000) == 0 ?
+        " brcc 3f" "\n\t"                 // No, skip this
+        " swap %15" "\n\t"                // Swap nibbles
+        " swap %16" "\n\t"                // Swap nibbles. Low nibble is 0
         " mov %14, %15" "\n\t"
-        " andi %14,0x0f" "\n\t"           // Isolate low nibble 
-        " andi %15,0xf0" "\n\t"           // Keep proper nibble in %15 
-        " or %16, %14" "\n\t"             // %16:%15 <<= 4 
-        " subi %3,-4" "\n\t"              // idx += 4 
+        " andi %14,0x0f" "\n\t"           // Isolate low nibble
+        " andi %15,0xf0" "\n\t"           // Keep proper nibble in %15
+        " or %16, %14" "\n\t"             // %16:%15 <<= 4
+        " subi %3,-4" "\n\t"              // idx += 4
 
         "3:" "\n\t"
-        " cpi %16,0x40" "\n\t"            // (nr & 0xc00000) == 0 ? 
+        " cpi %16,0x40" "\n\t"            // (nr & 0xc00000) == 0 ?
         " brcc 4f" "\n\t"                 // No, skip this
         " add %15,%15" "\n\t"
         " adc %16,%16" "\n\t"
         " add %15,%15" "\n\t"
-        " adc %16,%16" "\n\t"             // %16:%15 <<= 2 
-        " subi %3,-2" "\n\t"              // idx += 2 
+        " adc %16,%16" "\n\t"             // %16:%15 <<= 2
+        " subi %3,-2" "\n\t"              // idx += 2
 
         "4:" "\n\t"
-        " cpi %16,0x80" "\n\t"            // (nr & 0x800000) == 0 ? 
-        " brcc 5f" "\n\t"                 // No, skip this 
+        " cpi %16,0x80" "\n\t"            // (nr & 0x800000) == 0 ?
+        " brcc 5f" "\n\t"                 // No, skip this
         " add %15,%15" "\n\t"
-        " adc %16,%16" "\n\t"             // %16:%15 <<= 1 
-        " inc %3" "\n\t"                  // idx += 1 
+        " adc %16,%16" "\n\t"             // %16:%15 <<= 1
+        " inc %3" "\n\t"                  // idx += 1
 
         // Now %16:%15 contains its MSBit set to 1, or %16:%15 is == 0. We are now absolutely sure
         // we have at least 9 MSBits available to enter the initial estimation table
         "5:" "\n\t"
         " add %15,%15" "\n\t"
         " adc %16,%16" "\n\t"             // %16:%15 = tidx = (nr <<= 1), we lose the top MSBit (always set to 1, %16 is the index into the inverse table)
-        " add r30,%16" "\n\t"             // Only use top 8 bits 
-        " adc r31,%13" "\n\t"             // r31:r30 = inv_tab + (tidx) 
-        " lpm %14, Z" "\n\t"              // %14 = inv_tab[tidx] 
-        " ldi %15, 1" "\n\t"              // %15 = 1  %15:%14 = inv_tab[tidx] + 256 
+        " add r30,%16" "\n\t"             // Only use top 8 bits
+        " adc r31,%13" "\n\t"             // r31:r30 = inv_tab + (tidx)
+        " lpm %14, Z" "\n\t"              // %14 = inv_tab[tidx]
+        " ldi %15, 1" "\n\t"              // %15 = 1  %15:%14 = inv_tab[tidx] + 256
 
         // We must scale the approximation to the proper place
-        " clr %16" "\n\t"                 // %16 will always be 0 here 
-        " subi %3,8" "\n\t"               // idx == 8 ? 
+        " clr %16" "\n\t"                 // %16 will always be 0 here
+        " subi %3,8" "\n\t"               // idx == 8 ?
         " breq 6f" "\n\t"                 // yes, no need to scale
         " brcs 7f" "\n\t"                 // If C=1, means idx < 8, result was negative!
 
@@ -503,13 +503,13 @@ void Planner::init() {
         " or %15,%12" "\n\t"              // %15:%16 <<= 4
         "16:" "\n\t"
         " sbrs %3,3" "\n\t"               // shift by 8bits position?
-        " rjmp 6f" "\n\t"                 // No, we are done 
+        " rjmp 6f" "\n\t"                 // No, we are done
         " mov %16,%15" "\n\t"
         " mov %15,%14" "\n\t"
         " clr %14" "\n\t"
         " jmp 6f" "\n\t"
 
-        // idx < 8, now %3 = idx - 8. Get the count of bits 
+        // idx < 8, now %3 = idx - 8. Get the count of bits
         "7:" "\n\t"
         " neg %3" "\n\t"                  // %3 = -idx = count of bits to move right. idx range:[1...8]
         " sbrs %3,0" "\n\t"               // shift by 1 bit position ?
@@ -541,7 +541,7 @@ void Planner::init() {
         // Now, we must refine the estimation present on %16:%15:%14 using 1 iteration
         // of Newton-Raphson. As it has a quadratic convergence, 1 iteration is enough
         // to get more than 18bits of precision (the initial table lookup gives 9 bits of
-        // precision to start from). 18bits of precision is all what is needed here for result 
+        // precision to start from). 18bits of precision is all what is needed here for result
 
         // %8:%7:%6 = d = interval
         // %16:%15:%14 = x = initial estimation of 0x1000000 / d
@@ -585,7 +585,7 @@ void Planner::init() {
 
         // %16:%15:%14 = x = initial estimation of 0x1000000 / d
         // %3:%2:%1:%0 = (1<<25) - x*d = acc
-        // %13 = 0 
+        // %13 = 0
 
         // result = %11:%10:%9:%5:%4
         " mul %14,%0" "\n\t"              // r1:r0 = LO(x) * LO(acc)
@@ -599,7 +599,7 @@ void Planner::init() {
         " adc %5,r1" "\n\t"
         " adc %9,%13" "\n\t"
         " adc %10,%13" "\n\t"
-        " adc %11,%13" "\n\t"             // %11:%10:%9:%5:%4 += MI(x) * LO(acc) 
+        " adc %11,%13" "\n\t"             // %11:%10:%9:%5:%4 += MI(x) * LO(acc)
         " mul %16,%0" "\n\t"              // r1:r0 = HI(x) * LO(acc)
         " add %5,r0" "\n\t"
         " adc %9,r1" "\n\t"
@@ -645,12 +645,12 @@ void Planner::init() {
         " mul %16,%3" "\n\t"              // r1:r0 = HI(x) * HI(acc)
         " add %11,r0" "\n\t"              // %11:%10:%9:%5:%4 += MI(x) * HI(acc) << 32
 
-        // At this point, %11:%10:%9 contains the new estimation of x. 
+        // At this point, %11:%10:%9 contains the new estimation of x.
 
         // Finally, we must correct the result. Estimate remainder as
-        // (1<<24) - x*d 
-        // %11:%10:%9 = x 
-        // %8:%7:%6 = d = interval" "\n\t"  
+        // (1<<24) - x*d
+        // %11:%10:%9 = x
+        // %8:%7:%6 = d = interval" "\n\t"
         " ldi %3,1" "\n\t"
         " clr %2" "\n\t"
         " clr %1" "\n\t"
@@ -682,23 +682,23 @@ void Planner::init() {
         " mul %7,%11" "\n\t"              // r1:r0 = MI(d) * HI(x)
         " sub %3,r0" "\n\t"               // %3:%2:%1:%0 -= MI(d) * HI(x) << 24
         // %3:%2:%1:%0 = r = (1<<24) - x*d
-        // %8:%7:%6 = d = interval 
+        // %8:%7:%6 = d = interval
 
         // Perform the final correction
         " sub %0,%6" "\n\t"
         " sbc %1,%7" "\n\t"
         " sbc %2,%8" "\n\t"               // r -= d
-        " brcs 14f" "\n\t"                // if ( r >= d) 
+        " brcs 14f" "\n\t"                // if ( r >= d)
 
-        // %11:%10:%9 = x 
+        // %11:%10:%9 = x
         " ldi %3,1" "\n\t"
         " add %9,%3" "\n\t"
         " adc %10,%13" "\n\t"
         " adc %11,%13" "\n\t"             // x++
         "14:" "\n\t"
 
-        // Estimation is done. %11:%10:%9 = x 
-        " clr __zero_reg__" "\n\t"        // Make C runtime happy 
+        // Estimation is done. %11:%10:%9 = x
+        " clr __zero_reg__" "\n\t"        // Make C runtime happy
         // [211 cycles total]
         : "=r" (r2),
           "=r" (r3),
@@ -1382,15 +1382,9 @@ void Planner::_buffer_steps(const int32_t (&target)[XYZE]
   const float esteps_float = de * e_factor[extruder];
   const int32_t esteps = abs(esteps_float) + 0.5;
 
-  // Calculate the buffer head after we push this byte
-  const uint8_t next_buffer_head = next_block_index(block_buffer_head);
-
-  // If the buffer is full: good! That means we are well ahead of the robot.
-  // Rest here until there is room in the buffer.
-  while (block_buffer_tail == next_buffer_head) idle();
-
-  // Prepare to set up new block
-  block_t* block = &block_buffer[block_buffer_head];
+  // Wait for the next available block
+  uint8_t next_buffer_head;
+  block_t * const block = get_next_free_block(next_buffer_head);
 
   // Clear all flags, including the "busy" bit
   block->flag = 0x00;
@@ -2033,6 +2027,43 @@ void Planner::_buffer_steps(const int32_t (&target)[XYZE]
 } // _buffer_steps()
 
 /**
+ * Planner::buffer_sync_block
+ * Add a block to the buffer that just updates the position
+ */
+void Planner::buffer_sync_block() {
+  // Wait for the next available block
+  uint8_t next_buffer_head;
+  block_t * const block = get_next_free_block(next_buffer_head);
+
+  block->flag = BLOCK_FLAG_SYNC_POSITION;
+
+  block->steps[A_AXIS] = position[A_AXIS];
+  block->steps[B_AXIS] = position[B_AXIS];
+  block->steps[C_AXIS] = position[C_AXIS];
+  block->steps[E_AXIS] = position[E_AXIS];
+
+  #if ENABLED(LIN_ADVANCE)
+    block->use_advance_lead = false;
+  #endif
+
+  block->nominal_speed   =
+  block->entry_speed     =
+  block->max_entry_speed =
+  block->millimeters     =  
+  block->acceleration    = 0;
+
+  block->step_event_count          =
+  block->nominal_rate              =
+  block->initial_rate              =
+  block->final_rate                =
+  block->acceleration_steps_per_s2 =
+  block->segment_time_us           = 0;
+
+  block_buffer_head = next_buffer_head;
+  stepper.wake_up();
+} // buffer_sync_block()
+
+/**
  * Planner::buffer_segment
  *
  * Add a new linear movement to the buffer in axis units.
@@ -2160,19 +2191,19 @@ void Planner::_set_position_mm(const float &a, const float &b, const float &c, c
   #else
     #define _EINDEX E_AXIS
   #endif
-  const int32_t na = position[A_AXIS] = LROUND(a * axis_steps_per_mm[A_AXIS]),
-                nb = position[B_AXIS] = LROUND(b * axis_steps_per_mm[B_AXIS]),
-                nc = position[C_AXIS] = LROUND(c * axis_steps_per_mm[C_AXIS]),
-                ne = position[E_AXIS] = LROUND(e * axis_steps_per_mm[_EINDEX]);
+  position[A_AXIS] = LROUND(a * axis_steps_per_mm[A_AXIS]),
+  position[B_AXIS] = LROUND(b * axis_steps_per_mm[B_AXIS]),
+  position[C_AXIS] = LROUND(c * axis_steps_per_mm[C_AXIS]),
+  position[E_AXIS] = LROUND(e * axis_steps_per_mm[_EINDEX]);
   #if HAS_POSITION_FLOAT
-    position_float[X_AXIS] = a;
-    position_float[Y_AXIS] = b;
-    position_float[Z_AXIS] = c;
+    position_float[A_AXIS] = a;
+    position_float[B_AXIS] = b;
+    position_float[C_AXIS] = c;
     position_float[E_AXIS] = e;
   #endif
-  stepper.set_position(na, nb, nc, ne);
   previous_nominal_speed = 0.0; // Resets planner junction speeds. Assumes start from rest.
   ZERO(previous_speed);
+  buffer_sync_block();
 }
 
 void Planner::set_position_mm_kinematic(const float (&cart)[XYZE]) {
@@ -2220,23 +2251,23 @@ void Planner::set_position_mm(const AxisEnum axis, const float &v) {
   #if HAS_POSITION_FLOAT
     position_float[axis] = v;
   #endif
-  stepper.set_position(axis, position[axis]);
   previous_speed[axis] = 0.0;
+  buffer_sync_block();
 }
 
 // Recalculate the steps/s^2 acceleration rates, based on the mm/s^2
 void Planner::reset_acceleration_rates() {
   #if ENABLED(DISTINCT_E_FACTORS)
-    #define HIGHEST_CONDITION (i < E_AXIS || i == E_AXIS + active_extruder)
+    #define AXIS_CONDITION (i < E_AXIS || i == E_AXIS + active_extruder)
   #else
-    #define HIGHEST_CONDITION true
+    #define AXIS_CONDITION true
   #endif
   uint32_t highest_rate = 1;
   LOOP_XYZE_N(i) {
     max_acceleration_steps_per_s2[i] = max_acceleration_mm_per_s2[i] * axis_steps_per_mm[i];
-    if (HIGHEST_CONDITION) NOLESS(highest_rate, max_acceleration_steps_per_s2[i]);
+    if (AXIS_CONDITION) NOLESS(highest_rate, max_acceleration_steps_per_s2[i]);
   }
-  cutoff_long = 4294967295UL / highest_rate;
+  cutoff_long = 4294967295UL / highest_rate; // 0xFFFFFFFFUL
 }
 
 // Recalculate position, steps_to_mm if axis_steps_per_mm changes!

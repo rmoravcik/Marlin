@@ -109,10 +109,10 @@ int16_t Stepper::cleaning_buffer_counter = 0;
   bool Stepper::locked_z_motor = false, Stepper::locked_z2_motor = false;
 #endif
 
-long Stepper::counter_X = 0,
-     Stepper::counter_Y = 0,
-     Stepper::counter_Z = 0,
-     Stepper::counter_E = 0;
+int32_t Stepper::counter_X = 0,
+        Stepper::counter_Y = 0,
+        Stepper::counter_Z = 0,
+        Stepper::counter_E = 0;
 
 volatile uint32_t Stepper::step_events_completed = 0; // The number of step events executed in the current block
 
@@ -159,7 +159,7 @@ volatile int32_t Stepper::count_position[NUM_AXIS] = { 0 };
 volatile signed char Stepper::count_direction[NUM_AXIS] = { 1, 1, 1, 1 };
 
 #if ENABLED(MIXING_EXTRUDER)
-  long Stepper::counter_m[MIXING_STEPPERS];
+  int32_t Stepper::counter_m[MIXING_STEPPERS];
 #endif
 
 uint8_t Stepper::step_loops, Stepper::step_loops_nominal;
@@ -169,7 +169,7 @@ hal_timer_t Stepper::OCR1A_nominal;
   hal_timer_t Stepper::acc_step_rate; // needed for deceleration start point
 #endif
 
-volatile long Stepper::endstops_trigsteps[XYZ];
+volatile int32_t Stepper::endstops_trigsteps[XYZ];
 
 #if ENABLED(X_DUAL_ENDSTOPS) || ENABLED(Y_DUAL_ENDSTOPS) || ENABLED(Z_DUAL_ENDSTOPS)
   #define LOCKED_X_MOTOR  locked_x_motor
@@ -1144,26 +1144,20 @@ void Stepper::set_directions() {
 
 HAL_STEP_TIMER_ISR {
   HAL_timer_isr_prologue(STEP_TIMER_NUM);
+
   #if ENABLED(LIN_ADVANCE)
     Stepper::advance_isr_scheduler();
   #else
     Stepper::isr();
   #endif
+
+  HAL_timer_isr_epilogue(STEP_TIMER_NUM);
 }
 
 void Stepper::isr() {
 
   #define ENDSTOP_NOMINAL_OCR_VAL 1500 * HAL_TICKS_PER_US // Check endstops every 1.5ms to guarantee two stepper ISRs within 5ms for BLTouch
   #define OCR_VAL_TOLERANCE        500 * HAL_TICKS_PER_US // First max delay is 2.0ms, last min delay is 0.5ms, all others 1.5ms
-
-  #if DISABLED(LIN_ADVANCE)
-    // Disable Timer0 ISRs and enable global ISR again to capture UART events (incoming chars)
-    DISABLE_TEMPERATURE_INTERRUPT(); // Temperature ISR
-    DISABLE_STEPPER_DRIVER_INTERRUPT();
-    #ifndef CPU_32_BIT
-      sei();
-    #endif
-  #endif
 
   hal_timer_t ocr_val;
   static uint32_t step_remaining = 0;  // SPLIT function always runs.  This allows 16 bit timers to be
@@ -1191,7 +1185,6 @@ void Stepper::isr() {
 
     #if DISABLED(LIN_ADVANCE)
       HAL_timer_restrain(STEP_TIMER_NUM, STEP_TIMER_MIN_INTERVAL * HAL_TICKS_PER_US);
-      HAL_ENABLE_ISRs();
     #endif
 
     return;
@@ -1215,7 +1208,6 @@ void Stepper::isr() {
     }
     current_block = NULL;                       // Prep to get a new block after cleaning
     _NEXT_ISR(HAL_STEPPER_TIMER_RATE / 10000);  // Run at max speed - 10 KHz
-    HAL_ENABLE_ISRs();
     return;
   }
 
@@ -1224,6 +1216,16 @@ void Stepper::isr() {
 
     // Anything in the buffer?
     if ((current_block = planner.get_current_block())) {
+
+      // Sync block? Sync the stepper counts and return
+      while (TEST(current_block->flag, BLOCK_BIT_SYNC_POSITION)) {
+        _set_position(
+          current_block->steps[A_AXIS], current_block->steps[B_AXIS],
+          current_block->steps[C_AXIS], current_block->steps[E_AXIS]
+        );
+        planner.discard_current_block();
+        if (!(current_block = planner.get_current_block())) return;
+      }
 
       // Initialize the trapezoid generator from the current block.
       static int8_t last_extruder = -1;
@@ -1291,7 +1293,6 @@ void Stepper::isr() {
         if (current_block->steps[Z_AXIS] > 0) {
           enable_Z();
           _NEXT_ISR(HAL_STEPPER_TIMER_RATE / 1000); // Run at slow speed - 1 KHz
-          HAL_ENABLE_ISRs();
           return;
         }
       #endif
@@ -1299,7 +1300,6 @@ void Stepper::isr() {
     else {
       // If no more queued moves, postpone next check for 1mS
       _NEXT_ISR(HAL_STEPPER_TIMER_RATE / 1000); // Run at slow speed - 1 KHz
-      HAL_ENABLE_ISRs();
       return;
     }
   }
@@ -1631,9 +1631,6 @@ void Stepper::isr() {
     current_block = NULL;
     planner.discard_current_block();
   }
-  #if DISABLED(LIN_ADVANCE)
-    HAL_ENABLE_ISRs();
-  #endif
 }
 
 #if ENABLED(LIN_ADVANCE)
@@ -1755,10 +1752,6 @@ void Stepper::isr() {
   }
 
   void Stepper::advance_isr_scheduler() {
-    // Disable Timer0 ISRs and enable global ISR again to capture UART events (incoming chars)
-    DISABLE_TEMPERATURE_INTERRUPT(); // Temperature ISR
-    DISABLE_STEPPER_DRIVER_INTERRUPT();
-    sei();
 
     // Run main stepping ISR if flagged
     if (!nextMainISR) isr();
@@ -1787,9 +1780,6 @@ void Stepper::isr() {
 
     // Make sure stepper ISR doesn't monopolize the CPU
     HAL_timer_restrain(STEP_TIMER_NUM, STEP_TIMER_MIN_INTERVAL * HAL_TICKS_PER_US);
-
-    // Restore original ISR settings
-    HAL_ENABLE_ISRs();
   }
 
 #endif // LIN_ADVANCE
@@ -1996,12 +1986,7 @@ void Stepper::synchronize() { while (planner.has_blocks_queued() || cleaning_buf
  * This allows get_axis_position_mm to correctly
  * derive the current XYZ position later on.
  */
-void Stepper::set_position(const long &a, const long &b, const long &c, const long &e) {
-
-  synchronize(); // Bad to set stepper counts in the middle of a move
-
-  CRITICAL_SECTION_START;
-
+void Stepper::_set_position(const int32_t &a, const int32_t &b, const int32_t &c, const int32_t &e) {
   #if CORE_IS_XY
     // corexy positioning
     // these equations follow the form of the dA and dB equations on http://www.corexy.com/theory.html
@@ -2024,29 +2009,15 @@ void Stepper::set_position(const long &a, const long &b, const long &c, const lo
     count_position[Y_AXIS] = b;
     count_position[Z_AXIS] = c;
   #endif
-
   count_position[E_AXIS] = e;
-  CRITICAL_SECTION_END;
-}
-
-void Stepper::set_position(const AxisEnum &axis, const long &v) {
-  CRITICAL_SECTION_START;
-  count_position[axis] = v;
-  CRITICAL_SECTION_END;
-}
-
-void Stepper::set_e_position(const long &e) {
-  CRITICAL_SECTION_START;
-  count_position[E_AXIS] = e;
-  CRITICAL_SECTION_END;
 }
 
 /**
  * Get a stepper's position in steps.
  */
-long Stepper::position(const AxisEnum axis) {
+int32_t Stepper::position(const AxisEnum axis) {
   CRITICAL_SECTION_START;
-  const long count_pos = count_position[axis];
+  const int32_t count_pos = count_position[axis];
   CRITICAL_SECTION_END;
   return count_pos;
 }
@@ -2115,9 +2086,9 @@ void Stepper::endstop_triggered(const AxisEnum axis) {
 
 void Stepper::report_positions() {
   CRITICAL_SECTION_START;
-  const long xpos = count_position[X_AXIS],
-             ypos = count_position[Y_AXIS],
-             zpos = count_position[Z_AXIS];
+  const int32_t xpos = count_position[X_AXIS],
+                ypos = count_position[Y_AXIS],
+                zpos = count_position[Z_AXIS];
   CRITICAL_SECTION_END;
 
   #if CORE_IS_XY || CORE_IS_XZ || IS_DELTA || IS_SCARA
