@@ -107,12 +107,20 @@ class Endstops {
     /**
      * Get current endstops state
      */
-    FORCE_INLINE static esbits_t state() { return live_state; }
+    FORCE_INLINE static esbits_t state() {
+      return
+        #if ENABLED(ENDSTOP_NOISE_FILTER)
+          validated_live_state
+        #else
+          live_state
+        #endif
+      ;
+    }
 
     /**
-     * Print an error message reporting the position when the endstops were last hit.
+     * Report endstop hits to serial. Called from loop().
      */
-    static void report_state(); //call from somewhere to create an serial error message with the locations the endstops where hit, in case they were triggered
+    static void report_state();
 
     /**
      * Report endstop positions in response to M119
@@ -129,7 +137,7 @@ class Endstops {
     static void not_homing();
 
     // Clear endstops (i.e., they were hit intentionally) to suppress the report
-    static void hit_on_purpose();
+    FORCE_INLINE static void hit_on_purpose() { hit_state = 0; }
 
     // Enable / disable endstop z-probe checking
     #if HAS_BED_PROBE
