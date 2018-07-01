@@ -634,14 +634,6 @@
   // Enable this option to scroll long filenames in the SD card menu
   #define SCROLL_LONG_FILENAMES
 
-  // Show filename in status message while printing from SD card
-  #define SHOW_FILENAME_WHILE_SD_PRINTING
-
-  #if ENABLED(SHOW_FILENAME_WHILE_SD_PRINTING)
-    // Amount of time (ms) to retain the status message
-    #define STATUS_MESSAGE_EXPIRE 2000
-  #endif
-
   /**
    * This option allows you to abort SD printing when any endstop is triggered.
    * This feature must be enabled with "M540 S1" or from the LCD menu.

@@ -397,17 +397,6 @@ static_assert(X_MAX_LENGTH >= X_BED_SIZE && Y_MAX_LENGTH >= Y_BED_SIZE,
 #endif
 
 /**
- * Show filename in status message while printing from SD card
- */
-#if ENABLED(SHOW_FILENAME_WHILE_SD_PRINTING)
-  #if ENABLED(LCD_PROGRESS_BAR)
-    #error "SHOW_FILENAME_WHILE_SD_PRINTING and LCD_PROGRESS_BAR are not fully compatible. Comment out this line to use both."
-  #elif DISABLED(DOGLCD)
-    #error "SHOW_FILENAME_WHILE_SD_PRINTING requires a graphical displays."
-  #endif
-#endif
-
-/**
  * Custom Boot and Status screens
  */
 #if DISABLED(DOGLCD) && (ENABLED(SHOW_CUSTOM_BOOTSCREEN) || ENABLED(CUSTOM_STATUS_SCREEN_IMAGE))

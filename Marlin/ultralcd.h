@@ -62,7 +62,7 @@
 
   void lcd_quick_feedback(const bool clear_buttons); // Audible feedback for a button click - could also be visual
 
-  #if (ENABLED(LCD_PROGRESS_BAR) && PROGRESS_MSG_EXPIRE > 0) || ENABLED(SHOW_FILENAME_WHILE_SD_PRINTING)
+  #if ENABLED(LCD_PROGRESS_BAR) && PROGRESS_MSG_EXPIRE > 0
     void dontExpireStatus();
   #endif
 

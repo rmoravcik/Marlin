@@ -6397,7 +6397,7 @@ inline void gcode_G92() {
         lcd_setstatus(args, true);
       else {
         LCD_MESSAGEPGM(MSG_USERWAIT);
-        #if (ENABLED(LCD_PROGRESS_BAR) && PROGRESS_MSG_EXPIRE > 0) || ENABLED(SHOW_FILENAME_WHILE_SD_PRINTING)
+        #if ENABLED(LCD_PROGRESS_BAR) && PROGRESS_MSG_EXPIRE > 0
           dontExpireStatus();
         #endif
       }

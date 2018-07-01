@@ -221,10 +221,6 @@
 
 #include "utf_mapper.h"
 
-#if ENABLED(SHOW_FILENAME_WHILE_SD_PRINTING)
-  static millis_t expire_status_ms = 0;  // millis at which to expire the status message
-#endif
-
 int16_t lcd_contrast; // Initialized by settings.load()
 static char currentfont = 0;
 

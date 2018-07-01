@@ -1615,6 +1615,7 @@ void lcd_quick_feedback(const bool clear_buttons) {
     void lcd_preheat_m3_e1_only() { _lcd_preheat(1, PREHEAT_3_TEMP_HOTEND, -1, PREHEAT_3_FAN_SPEED); }
     #if HAS_HEATED_BED
       void lcd_preheat_m1_e1() { _lcd_preheat(1, lcd_preheat_hotend_temp[0], lcd_preheat_bed_temp[0], lcd_preheat_fan_speed[0]); }
+      void lcd_preheat_m2_e1() { _lcd_preheat(1, lcd_preheat_hotend_temp[1], lcd_preheat_bed_temp[1], lcd_preheat_fan_speed[1]); }
       void lcd_preheat_m3_e1() { _lcd_preheat(1, PREHEAT_3_TEMP_HOTEND, PREHEAT_3_TEMP_BED, PREHEAT_3_FAN_SPEED); }
     #endif
     #if HOTENDS > 2
@@ -5576,7 +5577,7 @@ void lcd_update() {
 
 void lcd_finishstatus(const bool persist=false) {
 
-  #if !(ENABLED(LCD_PROGRESS_BAR) && (PROGRESS_MSG_EXPIRE > 0)) && !(ENABLED(SHOW_FILENAME_WHILE_SD_PRINTING) && (STATUS_MESSAGE_EXPIRE > 0))
+  #if !(ENABLED(LCD_PROGRESS_BAR) && (PROGRESS_MSG_EXPIRE > 0))
     UNUSED(persist);
   #endif
 
@@ -5588,10 +5589,6 @@ void lcd_finishstatus(const bool persist=false) {
   #endif
   lcd_refresh();
 
-  #if ENABLED(SHOW_FILENAME_WHILE_SD_PRINTING)
-    expire_status_ms = persist ? 0 : millis() + STATUS_MESSAGE_EXPIRE;
-  #endif
-
   #if ENABLED(FILAMENT_LCD_DISPLAY) && ENABLED(SDSUPPORT)
     previous_lcd_status_ms = millis();  //get status message to show up for a while
   #endif
@@ -5601,7 +5598,7 @@ void lcd_finishstatus(const bool persist=false) {
   #endif
 }
 
-#if (ENABLED(LCD_PROGRESS_BAR) && PROGRESS_MSG_EXPIRE > 0) || ENABLED(SHOW_FILENAME_WHILE_SD_PRINTING)
+#if ENABLED(LCD_PROGRESS_BAR) && PROGRESS_MSG_EXPIRE > 0
   void dontExpireStatus() { expire_status_ms = 0; }
 #endif
 
