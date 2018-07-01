@@ -5570,7 +5570,7 @@ void lcd_update() {
 
 void lcd_finishstatus(const bool persist=false) {
 
-  #if !(ENABLED(LCD_PROGRESS_BAR) && (PROGRESS_MSG_EXPIRE > 0)) && !(ENABLED(SHOW_FILENAME_WHILE_SD_PRINTING) && (STATUS_MESSAGE_EXPIRE > 0))
+  #if !(ENABLED(LCD_PROGRESS_BAR) && (PROGRESS_MSG_EXPIRE > 0))
     UNUSED(persist);
   #endif
 
@@ -5582,10 +5582,6 @@ void lcd_finishstatus(const bool persist=false) {
   #endif
   lcd_refresh();
 
-  #if ENABLED(SHOW_FILENAME_WHILE_SD_PRINTING)
-    expire_status_ms = persist ? 0 : millis() + STATUS_MESSAGE_EXPIRE;
-  #endif
-
   #if ENABLED(FILAMENT_LCD_DISPLAY) && ENABLED(SDSUPPORT)
     previous_lcd_status_ms = millis();  //get status message to show up for a while
   #endif
@@ -5595,7 +5591,7 @@ void lcd_finishstatus(const bool persist=false) {
   #endif
 }
 
-#if (ENABLED(LCD_PROGRESS_BAR) && PROGRESS_MSG_EXPIRE > 0) || ENABLED(SHOW_FILENAME_WHILE_SD_PRINTING)
+#if ENABLED(LCD_PROGRESS_BAR) && PROGRESS_MSG_EXPIRE > 0
   void dontExpireStatus() { expire_status_ms = 0; }
 #endif
 
