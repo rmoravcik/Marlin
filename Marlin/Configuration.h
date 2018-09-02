@@ -630,7 +630,7 @@
  * Override with M203
  *                                      X, Y, Z, E0 [, E1[, E2[, E3[, E4]]]]
  */
-#define DEFAULT_MAX_FEEDRATE          { 100, 100, 2.5, 25 }
+#define DEFAULT_MAX_FEEDRATE          { 100, 100, 2, 25 }
 
 /**
  * Default Max Acceleration (change/s) change = mm/s
@@ -1299,8 +1299,8 @@
 #if ENABLED(NOZZLE_PARK_FEATURE)
   // Specify a park position as { X, Y, Z }
   #define NOZZLE_PARK_POINT { (X_MIN_POS + 3), (Y_MIN_POS + 3), 20 }
-  #define NOZZLE_PARK_XY_FEEDRATE 100   // X and Y axes feedrate in mm/s (also used for delta printers Z axis)
-  #define NOZZLE_PARK_Z_FEEDRATE 5      // Z axis feedrate in mm/s (not used for delta printers)
+  #define NOZZLE_PARK_XY_FEEDRATE 50    // X and Y axes feedrate in mm/s (also used for delta printers Z axis)
+  #define NOZZLE_PARK_Z_FEEDRATE 2      // Z axis feedrate in mm/s (not used for delta printers)
 #endif
 
 /**
