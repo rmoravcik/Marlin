@@ -485,6 +485,10 @@ uint16_t max_display_update_time = 0;
     #define manual_move_e_index 0
   #endif
 
+  #if ENABLED(MANUAL_E_MOVES_RELATIVE)
+    float manual_move_e_origin = 0;
+  #endif
+
   #if IS_KINEMATIC
     bool processing_manual_move = false;
     float manual_move_offset = 0;
@@ -1054,19 +1058,19 @@ void lcd_quick_feedback(const bool clear_buttons) {
 
   #endif // HAS_DEBUG_MENU
 
-   /**
-    * IDEX submenu
-    */
+  /**
+   * IDEX submenu
+   */
   #if ENABLED(DUAL_X_CARRIAGE)
     static void IDEX_menu() {
       START_MENU();
       MENU_BACK(MSG_MAIN);
-      MENU_ITEM(gcode, MSG_IDEX_MODE_AUTOPARK,  PSTR("M605 S1\nG28 X\nG1 X100\n"));
+      MENU_ITEM(gcode, MSG_IDEX_MODE_AUTOPARK, PSTR("M605 S1\nG28 X\nG1 X100"));
       if (!TEST(axis_known_position, Y_AXIS) || !TEST(axis_known_position, Z_AXIS))
-        MENU_ITEM(gcode, MSG_IDEX_MODE_DUPLICATE, PSTR("T0\nG28\nM605 S2 X200\nG28 X\nG1 X100\n"));  // If Y or Z is not homed, a full G28 is done first.
-      else  
-        MENU_ITEM(gcode, MSG_IDEX_MODE_DUPLICATE, PSTR("T0\nM605 S2 X200\nG28 X\nG1 X100\n"));       // If Y and Z is homed, a full G28 is not needed first.
-      MENU_ITEM(gcode, MSG_IDEX_MODE_FULL_CTRL, PSTR("M605 S0\nG28 X\n"));
+        MENU_ITEM(gcode, MSG_IDEX_MODE_DUPLICATE, PSTR("T0\nG28\nM605 S2 X200\nG28 X\nG1 X100"));  // If Y or Z is not homed, a full G28 is done first.
+      else
+        MENU_ITEM(gcode, MSG_IDEX_MODE_DUPLICATE, PSTR("T0\nM605 S2 X200\nG28 X\nG1 X100"));       // If Y and Z is homed, a full G28 is not needed first.
+      MENU_ITEM(gcode, MSG_IDEX_MODE_FULL_CTRL, PSTR("M605 S0\nG28 X"));
       END_MENU();
     }
   #endif // DUAL_X_CARRIAGE
@@ -3170,6 +3174,9 @@ void lcd_quick_feedback(const bool clear_buttons) {
         #if IS_KINEMATIC
           + manual_move_offset
         #endif
+        #if ENABLED(MANUAL_E_MOVES_RELATIVE)
+          - manual_move_e_origin
+        #endif
       ));
     }
   }
@@ -3218,7 +3225,11 @@ void lcd_quick_feedback(const bool clear_buttons) {
         case Z_AXIS:
           STATIC_ITEM(MSG_MOVE_Z, true, true); break;
         default:
-          STATIC_ITEM(MSG_MOVE_E, true, true); break;
+          #if ENABLED(MANUAL_E_MOVES_RELATIVE)
+            manual_move_e_origin = current_position[E_AXIS];
+          #endif
+          STATIC_ITEM(MSG_MOVE_E, true, true);
+          break;
       }
     }
     MENU_BACK(MSG_MOVE_AXIS);
@@ -3942,7 +3953,7 @@ void lcd_quick_feedback(const bool clear_buttons) {
     #if DISABLED(NO_VOLUMETRICS) || ENABLED(ADVANCED_PAUSE_FEATURE)
       MENU_ITEM(submenu, MSG_FILAMENT, lcd_advanced_filament_menu);
     #elif ENABLED(LIN_ADVANCE)
-      MENU_ITEM_EDIT(float32, MSG_ADVANCE_K, &planner.extruder_advance_K, 0, 999);
+      MENU_ITEM_EDIT(float52, MSG_ADVANCE_K, &planner.extruder_advance_K, 0, 999);
     #endif
 
     // M540 S - Abort on endstop hit when SD printing
@@ -4515,15 +4526,16 @@ void lcd_quick_feedback(const bool clear_buttons) {
       return PSTR(MSG_FILAMENTCHANGE);
     }
 
-    void _change_filament_temp(const uint8_t index) {
+    void _change_filament_temp(const uint16_t temperature) {
       char cmd[11];
       sprintf_P(cmd, _change_filament_temp_command(), _change_filament_temp_extruder);
-      thermalManager.setTargetHotend(index == 1 ? PREHEAT_1_TEMP_HOTEND : (index == 2 ? PREHEAT_2_TEMP_HOTEND : PREHEAT_3_TEMP_HOTEND), _change_filament_temp_extruder);
+      thermalManager.setTargetHotend(temperature, _change_filament_temp_extruder);
       lcd_enqueue_command(cmd);
     }
-    void _lcd_change_filament_temp_1_menu() { _change_filament_temp(1); }
-    void _lcd_change_filament_temp_2_menu() { _change_filament_temp(2); }
-    void _lcd_change_filament_temp_3_menu() { _change_filament_temp(3); }
+    void _lcd_change_filament_temp_1_menu() { _change_filament_temp(PREHEAT_1_TEMP_HOTEND); }
+    void _lcd_change_filament_temp_2_menu() { _change_filament_temp(PREHEAT_2_TEMP_HOTEND); }
+    void _lcd_change_filament_temp_3_menu() { _change_filament_temp(PREHEAT_3_TEMP_HOTEND); }
+    void _lcd_change_filament_temp_custom_menu() { _change_filament_temp(thermalManager.target_temperature[_change_filament_temp_extruder]); }
 
     static const char* change_filament_header(const AdvancedPauseMode mode) {
       switch (mode) {
@@ -4545,6 +4557,23 @@ void lcd_quick_feedback(const bool clear_buttons) {
       MENU_ITEM(submenu, MSG_PREHEAT_1, _lcd_change_filament_temp_1_menu);
       MENU_ITEM(submenu, MSG_PREHEAT_2, _lcd_change_filament_temp_2_menu);
       MENU_ITEM(submenu, MSG_PREHEAT_3, _lcd_change_filament_temp_3_menu);
+      uint16_t max_temp;
+      switch (extruder) {
+        default: max_temp = HEATER_0_MAXTEMP;
+        #if HOTENDS > 1
+          case 1: max_temp = HEATER_1_MAXTEMP; break;
+          #if HOTENDS > 2
+            case 2: max_temp = HEATER_2_MAXTEMP; break;
+            #if HOTENDS > 3
+              case 3: max_temp = HEATER_3_MAXTEMP; break;
+              #if HOTENDS > 4
+                case 4: max_temp = HEATER_4_MAXTEMP; break;
+              #endif
+            #endif
+          #endif
+        #endif
+      }
+      MENU_MULTIPLIER_ITEM_EDIT_CALLBACK(int3, MSG_PREHEAT_CUSTOM, &thermalManager.target_temperature[_change_filament_temp_extruder], EXTRUDE_MINTEMP, max_temp - 15, _lcd_change_filament_temp_custom_menu);
       END_MENU();
     }
     void lcd_temp_menu_e0_filament_change()  { _lcd_temp_menu_filament_op(ADVANCED_PAUSE_MODE_PAUSE_PRINT, 0); }
