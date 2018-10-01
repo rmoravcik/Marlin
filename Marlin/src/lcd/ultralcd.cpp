@@ -172,11 +172,6 @@ uint16_t max_display_update_time = 0;
     #endif
   #endif
 
-  #if ENABLED(LONG_PRESS_FOR_MOVE_Z)
-    extern float move_menu_scale;
-    static void lcd_move_z();
-  #endif
-
   #if ENABLED(DAC_STEPPER_CURRENT)
     #include "../feature/dac/stepper_dac.h" //was dac_mcp4728.h MarlinMain uses stepper dac for the m-codes
     uint8_t driverPercent[XYZE];
@@ -539,22 +534,6 @@ uint16_t max_display_update_time = 0;
               lcd_babystep_z
             #endif
           ;
-      #endif
-
-      #if ENABLED(LONG_PRESS_FOR_MOVE_Z) && BUTTON_EXISTS(ENC)
-        millis_t long_press_expire_ms = 0;
-        if ((screen == lcd_main_menu) && (currentScreen == lcd_status_screen)) {
-          long_press_expire_ms = millis() + LONG_PRESS_MIN_INTERVAL;
-          while (BUTTON_PRESSED(ENC)) {
-            if (ELAPSED(millis(), long_press_expire_ms)) {
-              wait_for_unclick = true;
-              move_menu_scale = 1.0;
-              screen = lcd_move_z;
-              break;
-            }
-            safe_delay(50);
-          }
-        }
       #endif
 
       currentScreen = screen;
