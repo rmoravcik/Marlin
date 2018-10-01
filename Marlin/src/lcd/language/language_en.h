@@ -825,6 +825,12 @@
 #ifndef MSG_BLTOUCH_STOW
   #define MSG_BLTOUCH_STOW                    _UxGT("Stow BLTouch")
 #endif
+#ifndef MSG_MANUAL_DEPLOY
+  #define MSG_MANUAL_DEPLOY                   _UxGT("Deploy Z-Probe")
+#endif
+#ifndef MSG_MANUAL_STOW
+  #define MSG_MANUAL_STOW                     _UxGT("Stow Z-Probe")
+#endif
 #ifndef MSG_HOME
   #define MSG_HOME                            _UxGT("Home") // Used as MSG_HOME " " MSG_X MSG_Y MSG_Z " " MSG_FIRST
 #endif
@@ -982,7 +988,7 @@
   #define MSG_CASE_LIGHT                      _UxGT("Case light")
 #endif
 #ifndef MSG_CASE_LIGHT_BRIGHTNESS
-  #define MSG_CASE_LIGHT_BRIGHTNESS           _UxGT("Light BRIGHTNESS")
+  #define MSG_CASE_LIGHT_BRIGHTNESS           _UxGT("Light Brightness")
 #endif
 #if LCD_WIDTH >= 20
   #ifndef MSG_INFO_PRINT_COUNT
@@ -1055,6 +1061,9 @@
 #endif
 #ifndef MSG_FILAMENT_CHANGE_NOZZLE
   #define MSG_FILAMENT_CHANGE_NOZZLE          _UxGT("  Nozzle: ")
+#endif
+#ifndef MSG_RUNOUT_SENSOR_ENABLE
+  #define MSG_RUNOUT_SENSOR_ENABLE            _UxGT("Runout Sensor")
 #endif
 #ifndef MSG_ERR_HOMING_FAILED
   #define MSG_ERR_HOMING_FAILED               _UxGT("Homing failed")
