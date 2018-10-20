@@ -89,7 +89,7 @@
   #include "../feature/pause.h"
 #endif
 
-#if ENABLED(SINGLENOZZLE)
+#if EXTRUDERS > 1
   #include "tool_change.h"
   void M217_report(const bool eeprom);
 #endif
@@ -197,9 +197,9 @@ typedef struct SettingsDataStruct {
           delta_calibration_radius,                     // M665 B
           delta_tower_angle_trim[ABC];                  // M665 XYZ
   #elif ENABLED(X_DUAL_ENDSTOPS) || ENABLED(Y_DUAL_ENDSTOPS) || Z_MULTI_ENDSTOPS
-    float x2_endstop_adj,                                // M666 X
-          y2_endstop_adj,                                // M666 Y
-          z2_endstop_adj;                                // M666 Z
+    float x2_endstop_adj,                               // M666 X
+          y2_endstop_adj,                               // M666 Y
+          z2_endstop_adj;                               // M666 Z
     #if ENABLED(Z_TRIPLE_ENDSTOPS)
       float z3_endstop_adj;                             // M666 Z
     #endif
@@ -243,7 +243,6 @@ typedef struct SettingsDataStruct {
   //
   // HAS_TRINAMIC
   //
-  #define TMC_AXES (MAX_EXTRUDERS + 7)
   tmc_stepper_current_t tmc_stepper_current;            // M906 X Y Z X2 Y2 Z2 Z3 E0 E1 E2 E3 E4 E5
   tmc_hybrid_threshold_t tmc_hybrid_threshold;          // M913 X Y Z X2 Y2 Z2 Z3 E0 E1 E2 E3 E4 E5
   tmc_sgt_t tmc_sgt;                                    // M914 X Y Z
@@ -276,8 +275,8 @@ typedef struct SettingsDataStruct {
   //
   // SINGLENOZZLE toolchange values
   //
-  #if ENABLED(SINGLENOZZLE)
-    singlenozzle_settings_t sn_settings;                // M217 S P R
+  #if EXTRUDERS > 1
+    toolchange_settings_t toolchange_settings;                // M217 S P R
   #endif
 
 } SettingsData;
@@ -697,11 +696,14 @@ void MarlinSettings::postprocess() {
 
       #if ENABLED(FWRETRACT)
         EEPROM_WRITE(fwretract.settings);
-        EEPROM_WRITE(fwretract.autoretract_enabled);
       #else
         const fwretract_settings_t autoretract_defaults = { 3, 45, 0, 0, 0, 13, 0, 8 };
-        const bool autoretract_enabled = false;
         EEPROM_WRITE(autoretract_defaults);
+      #endif
+      #if ENABLED(FWRETRACT) && ENABLED(FWRETRACT_AUTORETRACT)
+        EEPROM_WRITE(fwretract.autoretract_enabled);
+      #else
+        const bool autoretract_enabled = false;
         EEPROM_WRITE(autoretract_enabled);
       #endif
     }
@@ -943,8 +945,8 @@ void MarlinSettings::postprocess() {
     //
 
     #if ENABLED(SINGLENOZZLE)
-      _FIELD_TEST(sn_settings);
-      EEPROM_WRITE(sn_settings);
+      _FIELD_TEST(toolchange_settings);
+      EEPROM_WRITE(toolchange_settings);
     #endif
 
     //
@@ -1311,11 +1313,14 @@ void MarlinSettings::postprocess() {
 
         #if ENABLED(FWRETRACT)
           EEPROM_READ(fwretract.settings);
-          EEPROM_READ(fwretract.autoretract_enabled);
         #else
           fwretract_settings_t fwretract_settings;
-          bool autoretract_enabled;
           EEPROM_READ(fwretract_settings);
+        #endif
+        #if ENABLED(FWRETRACT) && ENABLED(FWRETRACT_AUTORETRACT)
+          EEPROM_READ(fwretract.autoretract_enabled);
+        #else
+          bool autoretract_enabled;
           EEPROM_READ(autoretract_enabled);
         #endif
       }
@@ -1350,13 +1355,12 @@ void MarlinSettings::postprocess() {
       {
         _FIELD_TEST(tmc_stepper_current);
 
-        tmc_stepper_current_t tmc_stepper_current;
+        tmc_stepper_current_t currents;
+        EEPROM_READ(currents);
 
         #if HAS_TRINAMIC
 
           #define SET_CURR(Q) stepper##Q.rms_current(currents.Q ? currents.Q : Q##_CURRENT)
-          tmc_stepper_current_t currents;
-          EEPROM_READ(currents);
           if (!validating) {
             #if AXIS_IS_TMC(X)
               SET_CURR(X);
@@ -1398,9 +1402,6 @@ void MarlinSettings::postprocess() {
               SET_CURR(E5);
             #endif
           }
-        #else
-          uint16_t val;
-          for (uint8_t q=TMC_AXES; q--;) EEPROM_READ(val);
         #endif
       }
 
@@ -1572,10 +1573,10 @@ void MarlinSettings::postprocess() {
       // SINGLENOZZLE toolchange values
       //
       #if ENABLED(SINGLENOZZLE)
-        _FIELD_TEST(sn_settings);
-        EEPROM_READ(sn_settings);
+        _FIELD_TEST(toolchange_settings);
+        EEPROM_READ(toolchange_settings);
       #endif
-  
+
       eeprom_error = size_error(eeprom_index - (EEPROM_OFFSET));
       if (eeprom_error) {
         #if ENABLED(EEPROM_CHITCHAT)
@@ -1834,10 +1835,17 @@ void MarlinSettings::reset(PORTARG_SOLO) {
     #endif
   #endif
 
+  #if EXTRUDERS > 1
+    toolchange_settings.z_raise = TOOLCHANGE_ZRAISE;
+  #endif
+  
   #if ENABLED(SINGLENOZZLE)
-    sn_settings.swap_length = SINGLENOZZLE_SWAP_LENGTH;
-    sn_settings.prime_speed = SINGLENOZZLE_SWAP_PRIME_SPEED;
-    sn_settings.retract_speed = SINGLENOZZLE_SWAP_RETRACT_SPEED;
+    toolchange_settings.swap_length = SINGLENOZZLE_SWAP_LENGTH;
+    toolchange_settings.prime_speed = SINGLENOZZLE_SWAP_PRIME_SPEED;
+    toolchange_settings.retract_speed = SINGLENOZZLE_SWAP_RETRACT_SPEED;
+    #if ENABLED(SINGLENOZZLE_SWAP_PARK)
+      toolchange_settings.change_point = SINGLENOZZLE_TOOLCHANGE_XY;
+    #endif
   #endif
 
   //
@@ -2098,15 +2106,11 @@ void MarlinSettings::reset(PORTARG_SOLO) {
      */
     CONFIG_ECHO_START;
     #if ENABLED(INCH_MODE_SUPPORT)
-      #define LINEAR_UNIT(N) (float(N) / parser.linear_unit_factor)
-      #define VOLUMETRIC_UNIT(N) (float(N) / (parser.volumetric_enabled ? parser.volumetric_unit_factor : parser.linear_unit_factor))
       SERIAL_ECHOPGM_P(port, "  G2");
       SERIAL_CHAR_P(port, parser.linear_unit_factor == 1.0 ? '1' : '0');
       SERIAL_ECHOPGM_P(port, " ;");
       SAY_UNITS_P(port, false);
     #else
-      #define LINEAR_UNIT(N) (N)
-      #define VOLUMETRIC_UNIT(N) (N)
       SERIAL_ECHOPGM_P(port, "  G21    ; Units in mm");
       SAY_UNITS_P(port, false);
     #endif
@@ -2118,13 +2122,11 @@ void MarlinSettings::reset(PORTARG_SOLO) {
 
       CONFIG_ECHO_START;
       #if ENABLED(TEMPERATURE_UNITS_SUPPORT)
-        #define TEMP_UNIT(N) parser.to_temp_units(N)
         SERIAL_ECHOPGM_P(port, "  M149 ");
         SERIAL_CHAR_P(port, parser.temp_units_code());
         SERIAL_ECHOPGM_P(port, " ; Units in ");
         serialprintPGM_P(port, parser.temp_units_name());
       #else
-        #define TEMP_UNIT(N) (N)
         SERIAL_ECHOLNPGM_P(port, "  M149 C ; Units in Celsius");
       #endif
 
@@ -2553,7 +2555,7 @@ void MarlinSettings::reset(PORTARG_SOLO) {
       SERIAL_ECHOPAIR_P(port, "  M207 S", LINEAR_UNIT(fwretract.settings.retract_length));
       SERIAL_ECHOPAIR_P(port, " W", LINEAR_UNIT(fwretract.settings.swap_retract_length));
       SERIAL_ECHOPAIR_P(port, " F", MMS_TO_MMM(LINEAR_UNIT(fwretract.settings.retract_feedrate_mm_s)));
-      SERIAL_ECHOLNPAIR_P(port, " Z", LINEAR_UNIT(fwretract.settings.retract_zlift));
+      SERIAL_ECHOLNPAIR_P(port, " Z", LINEAR_UNIT(fwretract.settings.retract_zraise));
 
       if (!forReplay) {
         CONFIG_ECHO_START;
