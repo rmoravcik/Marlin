@@ -154,21 +154,6 @@
 #ifndef MSG_PREHEAT_2_SETTINGS
   #define MSG_PREHEAT_2_SETTINGS              MSG_PREHEAT_2 _UxGT(" conf")
 #endif
-#ifndef MSG_PREHEAT_3
-  #define MSG_PREHEAT_3                       _UxGT("Preheat PETG")
-#endif
-#ifndef MSG_PREHEAT_3_N
-  #define MSG_PREHEAT_3_N                     MSG_PREHEAT_3 _UxGT(" ")
-#endif
-#ifndef MSG_PREHEAT_3_ALL
-  #define MSG_PREHEAT_3_ALL                   MSG_PREHEAT_3 _UxGT(" All")
-#endif
-#ifndef MSG_PREHEAT_3_END
-  #define MSG_PREHEAT_3_END                   MSG_PREHEAT_3 _UxGT(" End")
-#endif
-#ifndef MSG_PREHEAT_3_BEDONLY
-  #define MSG_PREHEAT_3_BEDONLY               MSG_PREHEAT_3 _UxGT(" Bed")
-#endif
 #ifndef MSG_PREHEAT_CUSTOM
   #define MSG_PREHEAT_CUSTOM                  _UxGT("Preheat Custom")
 #endif
