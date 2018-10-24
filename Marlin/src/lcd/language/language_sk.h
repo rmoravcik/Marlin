@@ -192,7 +192,7 @@
 #define MSG_MOVE_Y                          _UxGT("Posunúť Y")
 #define MSG_MOVE_Z                          _UxGT("Posunúť Z")
 #define MSG_MOVE_E                          _UxGT("Extrudér")
-#define MSG_HOTEND_TOO_COLD                 _UxGT("Studený hotend")
+#define MSG_HOTEND_TOO_COLD                 _UxGT("Hotend je studený")
 #define MSG_MOVE_01MM                       _UxGT("Posunúť o 0,1mm")
 #define MSG_MOVE_1MM                        _UxGT("Posunúť o 1mm")
 #define MSG_MOVE_10MM                       _UxGT("Posunúť o 10mm")
