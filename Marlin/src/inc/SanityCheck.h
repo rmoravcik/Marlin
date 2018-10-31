@@ -866,7 +866,7 @@ static_assert(X_MAX_LENGTH >= X_BED_SIZE && Y_MAX_LENGTH >= Y_BED_SIZE,
     #error "You probably want to use Max Endstops for DELTA!"
   #elif ENABLED(ENABLE_LEVELING_FADE_HEIGHT) && DISABLED(AUTO_BED_LEVELING_BILINEAR) && !UBL_SEGMENTED
     #error "ENABLE_LEVELING_FADE_HEIGHT on DELTA requires AUTO_BED_LEVELING_BILINEAR or AUTO_BED_LEVELING_UBL."
-  #elif ENABLED(DELTA_AUTO_CALIBRATION) && !(HAS_BED_PROBE || ENABLED(ULTIPANEL))
+  #elif ENABLED(DELTA_AUTO_CALIBRATION) && !(HAS_BED_PROBE || HAS_LCD_MENU)
     #error "DELTA_AUTO_CALIBRATION requires a probe or LCD Controller."
   #elif ABL_GRID
     #if (GRID_MAX_POINTS_X & 1) == 0 || (GRID_MAX_POINTS_Y & 1) == 0
@@ -1878,6 +1878,19 @@ static_assert(COUNT(sanity_arr_3) <= XYZE_N, "DEFAULT_MAX_ACCELERATION has too m
 
 #if ENABLED(FAST_PWM_FAN) && !(defined(ARDUINO) && !defined(ARDUINO_ARCH_SAM))
   #error "FAST_PWM_FAN only supported by 8 bit CPUs."
+#endif
+
+#if ENABLED(Z_STEPPER_AUTO_ALIGN)
+  #if !Z_MULTI_STEPPER_DRIVERS
+    #error "Z_STEPPER_AUTO_ALIGN requires Z_DUAL_STEPPER_DRIVERS or Z_TRIPLE_STEPPER_DRIVERS."
+  #elif !HAS_BED_PROBE
+    #error "Z_STEPPER_AUTO_ALIGN requires a Z-bed probe."
+  #endif
+  constexpr float sanity_arr_z_align_x[] = Z_STEPPER_ALIGN_X, sanity_arr_z_align_y[] = Z_STEPPER_ALIGN_Y;
+  static_assert(
+    COUNT(sanity_arr_z_align_x) == Z_STEPPER_COUNT && COUNT(sanity_arr_z_align_y) == Z_STEPPER_COUNT,
+    "Z_STEPPER_ALIGN_[XY]POS settings require one element per Z stepper."
+  );
 #endif
 
 #if ENABLED(PRINTCOUNTER) && DISABLED(EEPROM_SETTINGS)
