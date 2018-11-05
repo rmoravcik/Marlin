@@ -370,7 +370,8 @@ FORCE_INLINE void probe_specific_action(const bool deploy) {
     BUZZ(100, 698);
 
     PGM_P const ds_str = deploy ? PSTR(MSG_MANUAL_DEPLOY) : PSTR(MSG_MANUAL_STOW);
-    lcd_setstatusPGM(ds_str);
+    lcd_return_to_status();       // To display the new status message
+    lcd_setstatusPGM(ds_str, 99);
     serialprintPGM(ds_str);
     SERIAL_EOL();
 
@@ -548,10 +549,10 @@ static bool do_probe_move(const float z, const float fr_mm_s) {
     probing_pause(true);
   #endif
 
+  // Move down until the probe is triggered
   endstops.enable(true);
-
-  // Move down until probe triggered
   do_blocking_move_to_z(z, fr_mm_s);
+  endstops.not_homing();
 
   // Check to see if the probe was triggered
   const bool probe_triggered =
