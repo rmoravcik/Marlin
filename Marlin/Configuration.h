@@ -1584,11 +1584,6 @@
 #define INDIVIDUAL_AXIS_HOMING_MENU
 
 //
-// Endstops Info Menu
-//
-#define ENDSTOPS_INFO_MENU
-
-//
 // SPEAKER/BUZZER
 //
 // If you have a speaker that can produce tones, enable it here.
