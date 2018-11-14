@@ -20,32 +20,26 @@
  *
  */
 
+#include "../../../inc/MarlinConfig.h"
+
+#if ENABLED(FILAMENT_RUNOUT_SENSOR)
+
+#include "../../gcode.h"
+#include "../../../feature/runout.h"
+
 /**
- * RAMPS-FD v2
- *
- * EEPROM supported
- * Use 1k thermistor tables
+ * M412: Enable / Disable filament runout detection
  */
+void GcodeSuite::M412() {
+  if (parser.seen('S')) {
+    runout.reset();
+    runout.enabled = parser.value_bool();
+  }
+  else {
+    SERIAL_ECHO_START();
+    SERIAL_ECHOPGM("Filament runout ");
+    serialprintln_onoff(runout.enabled);
+  }
+}
 
-#define BOARD_NAME "RAMPS-FD v2"
-
-#ifndef E0_CS_PIN
-  #define E0_CS_PIN        69 // moved from A13 to A15 on v2.2, if not earlier
-#endif
-
-#include "pins_RAMPS_FD_V1.h"
-
-#undef INVERTED_HEATER_PINS
-#undef INVERTED_BED_PINS
-#undef INVERTED_FAN_PINS
-
-#define I2C_EEPROM
-#define E2END 0xFFFF // 64K in a 24C512
-
-#ifndef PS_ON_PIN
-  #define PS_ON_PIN        12
-#endif
-
-#ifndef FILWIDTH_PIN
-  #define FILWIDTH_PIN      5   // Analog Input on AUX2
-#endif
+#endif // FILAMENT_RUNOUT_SENSOR
