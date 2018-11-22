@@ -42,6 +42,8 @@
 #define DISPLAY_CHARSET_ISO10646_SK
 #define CHARSIZE 2
 
+#define THIS_LANGUAGES_SPECIAL_SYMBOLS      _UxGT("³")
+
 #define WELCOME_MSG                         MACHINE_NAME _UxGT(" pripravený.")
 #define MSG_BACK                            _UxGT("Naspäť")
 #define MSG_SD_INSERTED                     _UxGT("Karta vložená")
@@ -259,7 +261,7 @@
 #define MSG_TEMPERATURE                     _UxGT("Teplota")
 #define MSG_MOTION                          _UxGT("Pohyb")
 #define MSG_FILAMENT                        _UxGT("Filament")
-#define MSG_VOLUMETRIC_ENABLED              _UxGT("E na mm3")
+#define MSG_VOLUMETRIC_ENABLED              _UxGT("E na mm³")
 #define MSG_FILAMENT_DIAM                   _UxGT("Priem. fil.")
 #define MSG_FILAMENT_UNLOAD                 _UxGT("Vysunúť mm")
 #define MSG_FILAMENT_LOAD                   _UxGT("Zaviesť mm")
