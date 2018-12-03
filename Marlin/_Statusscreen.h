@@ -1,13 +1,7 @@
-#define FAN_ANIM_FRAMES 3
-
-#define STATUS_HOTEND_INVERTED
-#define STATUS_HOTEND_ANIM
-
 //
 // Status Screen Bed Images
 //
-#define STATUS_BED_ANIM
-#define STATUS_BED_WIDTH  24
+#define STATUS_BED_WIDTH 24
 #define STATUS_BED_X 72
 #define STATUS_BED_TEXT_X STATUS_BED_X + 13
 
