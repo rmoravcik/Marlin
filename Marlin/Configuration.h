@@ -640,14 +640,14 @@
  * Override with M92
  *                                      X, Y, Z, E0 [, E1[, E2[, E3[, E4[, E5]]]]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80.318, 80.604, 8000, 760.146 }
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80.583, 80.604, 800, 760.146 }
 
 /**
  * Default Max Feed Rate (mm/s)
  * Override with M203
  *                                      X, Y, Z, E0 [, E1[, E2[, E3[, E4[, E5]]]]]
  */
-#define DEFAULT_MAX_FEEDRATE          { 100, 100, 2, 25 }
+#define DEFAULT_MAX_FEEDRATE          { 100, 100, 12, 25 }
 
 /**
  * Default Max Acceleration (change/s) change = mm/s
@@ -655,7 +655,7 @@
  * Override with M201
  *                                      X, Y, Z, E0 [, E1[, E2[, E3[, E4[, E5]]]]]
  */
-#define DEFAULT_MAX_ACCELERATION      { 1000, 1000, 10, 3000 }
+#define DEFAULT_MAX_ACCELERATION      { 1000, 1000, 100, 3000 }
 
 /**
  * Default Acceleration (change/s) change = mm/s
@@ -924,7 +924,7 @@
 // @section machine
 
 // The size of the print bed
-#define X_BED_SIZE 195
+#define X_BED_SIZE 190
 #define Y_BED_SIZE 195
 
 // Travel limits (mm) after homing, corresponding to endstop positions.
@@ -1209,7 +1209,7 @@
 
 // Homing speeds (mm/m)
 #define HOMING_FEEDRATE_XY (50*60)
-#define HOMING_FEEDRATE_Z  (2*60)
+#define HOMING_FEEDRATE_Z  (12*60)
 
 // Validate that endstops are triggered on homing moves
 #define VALIDATE_HOMING_ENDSTOPS
