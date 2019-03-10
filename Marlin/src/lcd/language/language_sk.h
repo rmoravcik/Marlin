@@ -204,6 +204,7 @@
 #define MSG_BED_Z                           _UxGT("Výška podl.")
 #define MSG_NOZZLE                          _UxGT("Tryska")
 #define MSG_BED                             _UxGT("Podložka")
+#define MSG_CHAMBER                         _UxGT("Komora")
 #define MSG_FAN_SPEED                       _UxGT("Rýchlosť vent.")
 #define MSG_EXTRA_FAN_SPEED                 _UxGT("Rýchlosť ex. vent.")
 #define MSG_FLOW                            _UxGT("Prietok")
@@ -337,6 +338,8 @@
 #define MSG_ERR_MINTEMP                     _UxGT("Chyba: MINTEMP")
 #define MSG_ERR_MAXTEMP_BED                 _UxGT("Chyba: MAXTEMP PODL.")
 #define MSG_ERR_MINTEMP_BED                 _UxGT("Chyba: MINTEMP PODL.")
+#define MSG_ERR_MAXTEMP_CHAMBER             _UxGT("Chyba: MAXTEMP KOMO.")
+#define MSG_ERR_MINTEMP_CHAMBER             _UxGT("Chyba: MINTEMP KOMO.")
 #define MSG_ERR_Z_HOMING                    MSG_HOME _UxGT(" ") MSG_X MSG_Y _UxGT(" ") MSG_FIRST
 #define MSG_HALTED                          _UxGT("TLAČIAREŇ ZASTAVENÁ")
 #define MSG_PLEASE_RESET                    _UxGT("Spravte reset")
