@@ -39,7 +39,7 @@
 // Characters that can be displayed with M117
 #define THIS_LANGUAGES_SPECIAL_SYMBOLS      _UxGT("äÄáÁčČďĎéÉíÍĺĹľĽňŇóÓôÔŕŔšŠťŤúÚýÝžŽ³")
 
-#define WELCOME_MSG                         MACHINE_NAME _UxGT(" pripravený.")
+#define WELCOME_MSG                         MACHINE_NAME _UxGT(" pripravená.")
 #define MSG_YES                             _UxGT("ÁNO")
 #define MSG_NO                              _UxGT("NIE")
 #define MSG_BACK                            _UxGT("Naspäť")
@@ -468,7 +468,7 @@
 #define MSG_VTOOLS_RESET                    _UxGT("V-tools resetované")
 #define MSG_START_Z                         _UxGT("Počiat.Z")
 #define MSG_END_Z                           _UxGT("Konečn.Z")
-#define MSG_BRICKOUT                        _UxGT("Breakout")
+#define MSG_BRICKOUT                        _UxGT("Brickout")
 #define MSG_INVADERS                        _UxGT("Nájazdníci")
 #define MSG_SNAKE                           _UxGT("Had")
 #define MSG_MAZE                            _UxGT("Bludisko")
