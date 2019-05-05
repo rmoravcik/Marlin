@@ -45,6 +45,7 @@
 #define MSG_BACK                            _UxGT("Naspäť")
 #define MSG_SD_INSERTED                     _UxGT("Karta vložená")
 #define MSG_SD_REMOVED                      _UxGT("Karta vybraná")
+#define MSG_SD_RELEASED                     _UxGT("Karta odpojená")
 #define MSG_LCD_ENDSTOPS                    _UxGT("Endstopy") // max 8 znakov
 #define MSG_LCD_SOFT_ENDSTOPS               _UxGT("Soft. endstopy")
 #define MSG_MAIN                            _UxGT("Hlavná ponuka")
@@ -323,6 +324,7 @@
 
 #define MSG_INIT_SDCARD                     _UxGT("Načítať SD kartu")
 #define MSG_CHANGE_SDCARD                   _UxGT("Vymeniť SD kartu")
+#define MSG_RELEASE_SDCARD                  _UxGT("Odpojiť SD kartu")
 #define MSG_ZPROBE_OUT                      _UxGT("Sonda Z mimo podl.")
 #define MSG_SKEW_FACTOR                     _UxGT("Faktor skosenia")
 #define MSG_BLTOUCH                         _UxGT("BLTouch")
@@ -366,6 +368,8 @@
 #define MSG_COOLING                         _UxGT("Ochladzovanie...")
 #define MSG_BED_HEATING                     _UxGT("Ohrev podložky...")
 #define MSG_BED_COOLING                     _UxGT("Ochladz. podložky...")
+#define MSG_CHAMBER_HEATING                 _UxGT("Ohrev komory...")
+#define MSG_CHAMBER_COOLING                 _UxGT("Ochladz. komory...")
 #define MSG_DELTA_CALIBRATE                 _UxGT("Delta kalibrácia")
 #define MSG_DELTA_CALIBRATE_X               _UxGT("Kalibrovať X")
 #define MSG_DELTA_CALIBRATE_Y               _UxGT("Kalibrovať Y")
