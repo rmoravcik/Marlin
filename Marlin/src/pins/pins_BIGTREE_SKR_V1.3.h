@@ -84,6 +84,13 @@
   #define Z_CS_PIN         P1_10
 #endif
 
+#define Z2_STEP_PIN        P0_01
+#define Z2_DIR_PIN         P0_00
+#define Z2_ENABLE_PIN      P0_10
+#ifndef Z2_CS_PIN
+  #define Z2_CS_PIN        P1_01
+#endif
+
 #define E0_STEP_PIN        P2_13
 #define E0_DIR_PIN         P0_11
 #define E0_ENABLE_PIN      P2_12
@@ -153,20 +160,20 @@
 // Temperature Sensors
 //  3.3V max when defined as an analog input
 //
-#define TEMP_BED_PIN       0   // A0 (T0) - (67) - TEMP_BED_PIN
+#define TEMP_BED_PIN       2   // A2 (T2) - (69) - TEMP_1_PIN
 #define TEMP_0_PIN         1   // A1 (T1) - (68) - TEMP_0_PIN
-#define TEMP_1_PIN         2   // A2 (T2) - (69) - TEMP_1_PIN
+#define TEMP_1_PIN         0   // A0 (T0) - (67) - TEMP_BED_PIN
 
 //
 // Heaters / Fans
 //
 #define HEATER_0_PIN       P2_07
 #if HOTENDS == 1
-  #define FAN1_PIN         P2_04
+  #define FAN1_PIN         P2_03
 #else
-  #define HEATER_1_PIN     P2_04
+  #define HEATER_1_PIN     P2_03
 #endif
-#define FAN_PIN            P2_03
+#define FAN_PIN            P2_04
 #define HEATER_BED_PIN     P2_05
 
 /*
