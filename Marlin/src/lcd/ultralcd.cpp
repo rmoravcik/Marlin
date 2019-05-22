@@ -211,7 +211,7 @@ millis_t next_button_update_ms;
     }
   }
 
-  void MarlinUI::draw_select_screen_prompt(PGM_P const pref, const char * const string/*=NULL*/, PGM_P const suff/*=NULL*/) {
+  void MarlinUI::draw_select_screen_prompt(PGM_P const pref, const char * const string/*=nullptr*/, PGM_P const suff/*=nullptr*/) {
     const uint8_t plen = utf8_strlen_P(pref), slen = suff ? utf8_strlen_P(suff) : 0;
     uint8_t x = 0, y = 0;
     if (!string && plen + slen <= LCD_WIDTH) {
@@ -292,10 +292,6 @@ void MarlinUI::init() {
 
   #if HAS_ENCODER_ACTION
     encoderDiff = 0;
-  #endif
-
-  #if HAS_TRINAMIC && HAS_LCD_MENU
-    init_tmc_section();
   #endif
 }
 
@@ -1000,8 +996,8 @@ void MarlinUI::update() {
 
   uint8_t get_ADC_keyValue(void) {
     if (thermalManager.ADCKey_count >= 16) {
-      const uint16_t currentkpADCValue = thermalManager.current_ADCKey_raw >> 2;
-      thermalManager.current_ADCKey_raw = 0;
+      const uint16_t currentkpADCValue = thermalManager.current_ADCKey_raw << 2;
+      thermalManager.current_ADCKey_raw = 1024;
       thermalManager.ADCKey_count = 0;
       if (currentkpADCValue < 4000)
         for (uint8_t i = 0; i < ADC_KEY_NUM; i++) {

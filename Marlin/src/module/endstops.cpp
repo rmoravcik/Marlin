@@ -377,7 +377,7 @@ void Endstops::event_handler() {
   prev_hit_state = hit_state;
 }
 
-static void print_es_state(const bool is_hit, PGM_P const label=NULL) {
+static void print_es_state(const bool is_hit, PGM_P const label=nullptr) {
   if (label) serialprintPGM(label);
   SERIAL_ECHOPGM(": ");
   serialprintPGM(is_hit ? PSTR(MSG_ENDSTOP_HIT) : PSTR(MSG_ENDSTOP_OPEN));
@@ -465,8 +465,7 @@ void _O2 Endstops::M119() {
     #endif
   #endif
   #if ENABLED(BLTOUCH)
-    bltouch._reset();
-    if (enabled_globally) bltouch._stow();
+    bltouch._reset_SW_mode();
   #endif
 } // Endstops::M119
 

@@ -1177,17 +1177,20 @@ void MarlinSettings::postprocess() {
     // Backlash Compensation
     //
     {
-      #if ENABLED(BACKLASH_COMPENSATION)
-        const float   (&backlash_distance_mm)[XYZ] = backlash.distance_mm;
-        const uint8_t &backlash_correction         = backlash.correction;
+      #ifdef BACKLASH_DISTANCE_MM
+        const float (&backlash_distance_mm)[XYZ] = backlash.distance_mm;
       #else
-        const float    backlash_distance_mm[XYZ]   = { 0 };
-        const uint8_t  backlash_correction         = 0;
+        const float backlash_distance_mm[XYZ] = { 0 };
+      #endif
+      #if ENABLED(BACKLASH_COMPENSATION)
+        const uint8_t &backlash_correction = backlash.correction;
+      #else
+        const uint8_t backlash_correction = 0;
       #endif
       #ifdef BACKLASH_SMOOTHING_MM
-        const float   &backlash_smoothing_mm       = backlash.smoothing_mm;
+        const float &backlash_smoothing_mm = backlash.smoothing_mm;
       #else
-        const float    backlash_smoothing_mm       = 3;
+        const float backlash_smoothing_mm = 3;
       #endif
       _FIELD_TEST(backlash_distance_mm);
       EEPROM_WRITE(backlash_distance_mm[X_AXIS]);
@@ -1962,17 +1965,20 @@ void MarlinSettings::postprocess() {
       // Backlash Compensation
       //
       {
-        #if ENABLED(BACKLASH_COMPENSATION)
-          float   (&backlash_distance_mm)[XYZ] = backlash.distance_mm;
-          uint8_t &backlash_correction         = backlash.correction;
+        #ifdef BACKLASH_DISTANCE_MM
+          float (&backlash_distance_mm)[XYZ] = backlash.distance_mm;
         #else
-          float   backlash_distance_mm[XYZ];
+          float backlash_distance_mm[XYZ];
+        #endif
+        #if ENABLED(BACKLASH_COMPENSATION)
+          uint8_t &backlash_correction = backlash.correction;
+        #else
           uint8_t backlash_correction;
         #endif
         #ifdef BACKLASH_SMOOTHING_MM
           float &backlash_smoothing_mm = backlash.smoothing_mm;
         #else
-          float  backlash_smoothing_mm;
+          float backlash_smoothing_mm;
         #endif
         _FIELD_TEST(backlash_distance_mm);
         EEPROM_READ(backlash_distance_mm[X_AXIS]);
@@ -2071,6 +2077,10 @@ void MarlinSettings::postprocess() {
       return success;
     }
     reset();
+    #if ENABLED(EEPROM_AUTO_INIT)
+      (void)save();
+      SERIAL_ECHO_MSG("EEPROM Initialized");
+    #endif
     return true;
   }
 
@@ -2132,7 +2142,7 @@ void MarlinSettings::postprocess() {
       #endif
     }
 
-    void MarlinSettings::load_mesh(const int8_t slot, void * const into/*=NULL*/) {
+    void MarlinSettings::load_mesh(const int8_t slot, void * const into/*=nullptr*/) {
 
       #if ENABLED(AUTO_BED_LEVELING_UBL)
 
@@ -2545,7 +2555,7 @@ void MarlinSettings::reset() {
   #if HAS_TRINAMIC
     inline void say_M906(const bool forReplay) { CONFIG_ECHO_START(); SERIAL_ECHOPGM("  M906"); }
     #if HAS_STEALTHCHOP
-      void say_M569(const char * const etc=NULL) {
+      void say_M569(const char * const etc=nullptr) {
         SERIAL_ECHOPGM("  M569 S1");
         if (etc) {
           SERIAL_CHAR(' ');
