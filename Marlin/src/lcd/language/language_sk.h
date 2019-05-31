@@ -39,7 +39,7 @@
 // Characters that can be displayed with M117
 #define THIS_LANGUAGES_SPECIAL_SYMBOLS      _UxGT("äÄáÁčČďĎéÉíÍĺĹľĽňŇóÓôÔŕŔšŠťŤúÚýÝžŽ³")
 
-#define WELCOME_MSG                         MACHINE_NAME _UxGT(" pripravená.")
+#define WELCOME_MSG                         MACHINE_NAME _UxGT(" pripravený.")
 #define MSG_YES                             _UxGT("ÁNO")
 #define MSG_NO                              _UxGT("NIE")
 #define MSG_BACK                            _UxGT("Naspäť")
