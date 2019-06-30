@@ -1,9 +1,9 @@
 /**
  * Marlin 3D Printer Firmware
- * Copyright (C) 2019 MarlinFirmware [https://github.com/MarlinFirmware/Marlin]
+ * Copyright (c) 2019 MarlinFirmware [https://github.com/MarlinFirmware/Marlin]
  *
  * Based on Sprinter and grbl.
- * Copyright (C) 2011 Camiel Gubbels / Erik van der Zalm
+ * Copyright (c) 2011 Camiel Gubbels / Erik van der Zalm
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -86,7 +86,11 @@
 #define MSG_LASER_OFF                       _UxGT("Vypnúť laser")
 #define MSG_LASER_ON                        _UxGT("Zapnúť laser")
 #define MSG_LASER_POWER                     _UxGT("Výkon lasera")
-#define MSG_SPINDLE_REVERSE                 _UxGT("Spät. chod vretena")
+#define MSG_SPINDLE_MENU                    _UxGT("Nastavenie vretena")
+#define MSG_SPINDLE_OFF                     _UxGT("Vypnúť vreteno")
+#define MSG_SPINDLE_ON                      _UxGT("Zapnúť vreteno")
+#define MSG_SPINDLE_POWER                   _UxGT("Výkon vretena")
+#define MSG_SPINDLE_REVERSE                 _UxGT("Spätný chod")
 #define MSG_SWITCH_PS_ON                    _UxGT("Zapnúť napájanie")
 #define MSG_SWITCH_PS_OFF                   _UxGT("Vypnúť napájanie")
 #define MSG_EXTRUDE                         _UxGT("Vytlačiť (extr.)")
