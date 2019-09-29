@@ -427,6 +427,8 @@
 #define MSG_INFO_EXTRUDERS                  _UxGT("Extrudéry")
 #define MSG_INFO_BAUDRATE                   _UxGT("Rýchlosť")
 #define MSG_INFO_PROTOCOL                   _UxGT("Protokol")
+#define MSG_INFO_RUNAWAY_OFF                _UxGT("Tepl. ochrana: VYP")
+#define MSG_INFO_RUNAWAY_ON                 _UxGT("Tepl. ochrana: ZAP")
 #define MSG_CASE_LIGHT                      _UxGT("Osvetlenie")
 #define MSG_CASE_LIGHT_BRIGHTNESS           _UxGT("Jas svetla")
 
