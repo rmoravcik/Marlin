@@ -76,6 +76,7 @@
 
 // Author info of this build printed to the host during boot and M115
 #define STRING_CONFIG_H_AUTHOR "Formbot-3D" // Who made the changes.
+//#define CUSTOM_VERSION_FILE Version.h // Path from the root directory (no quotes)
 
 /**
  * *** VENDORS PLEASE READ ***
@@ -762,10 +763,6 @@
  *   M204 T    Travel Acceleration
  */
 
-//#define DEFAULT_ACCELERATION          3000    // X, Y, Z and E acceleration for printing moves
-//#define DEFAULT_RETRACT_ACCELERATION  3000    // E acceleration for retracts
-//#define DEFAULT_TRAVEL_ACCELERATION   3000    // X, Y, Z acceleration for travel (non printing) moves
-
 #define DEFAULT_ACCELERATION          1500    // X, Y, Z and E acceleration for printing moves
 #define DEFAULT_RETRACT_ACCELERATION  1500    // E acceleration for retracts
 #define DEFAULT_TRAVEL_ACCELERATION   1500    // X, Y, Z acceleration for travel (non printing) moves
@@ -800,7 +797,7 @@
  *   http://blog.kyneticcnc.com/2018/10/computing-junction-deviation-for-marlin.html
  */
 #if DISABLED(CLASSIC_JERK)
-  #define JUNCTION_DEVIATION_MM 0.009 // (mm) Distance from real junction edge
+  #define JUNCTION_DEVIATION_MM 0.017 // (mm) Distance from real junction edge
 #endif
 
 /**
