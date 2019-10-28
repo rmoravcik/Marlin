@@ -145,6 +145,10 @@
   #include "feature/power_loss_recovery.h"
 #endif
 
+#if ENABLED(CANCEL_OBJECTS)
+  #include "feature/cancel_object.h"
+#endif
+
 #if HAS_FILAMENT_SENSOR
   #include "feature/runout.h"
 #endif
@@ -363,9 +367,14 @@ bool printingIsPaused() {
 }
 
 void startOrResumeJob() {
-  #if ENABLED(CANCEL_OBJECTS)
-    if (!printingIsPaused()) cancelable.reset();
-  #endif
+  if (!printingIsPaused()) {
+    #if ENABLED(CANCEL_OBJECTS)
+      cancelable.reset();
+    #endif
+    #if ENABLED(LCD_SHOW_E_TOTAL)
+      e_move_accumulator = 0;
+    #endif
+  }
   print_job_timer.start();
 }
 
@@ -914,8 +923,6 @@ void setup() {
   #endif
 
   ui.init();
-  ui.reset_status();
-
   #if HAS_SPI_LCD && ENABLED(SHOW_BOOTSCREEN)
     ui.show_bootscreen();
   #endif
@@ -943,6 +950,8 @@ void setup() {
   thermalManager.init();    // Initialize temperature loop
 
   print_job_timer.init();   // Initial setup of print job timer
+
+  ui.reset_status();        // Print startup message after print statistics are loaded
 
   endstops.init();          // Init endstops and pullups
 
