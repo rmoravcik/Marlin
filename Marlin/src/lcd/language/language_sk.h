@@ -422,6 +422,8 @@ namespace Language_sk {
   PROGMEM Language_Str MSG_PAUSE_PRINT                     = _UxGT("Pozastaviť tlač");
   PROGMEM Language_Str MSG_RESUME_PRINT                    = _UxGT("Obnoviť tlač");
   PROGMEM Language_Str MSG_STOP_PRINT                      = _UxGT("Zastaviť tlač");
+  PROGMEM Language_Str MSG_PRINTING_OBJECT                 = _UxGT("Tlačím objekt");
+  PROGMEM Language_Str MSG_CANCEL_OBJECT                   = _UxGT("Zrušiť objekt");
   PROGMEM Language_Str MSG_OUTAGE_RECOVERY                 = _UxGT("Obnova po výp. nap.");
   PROGMEM Language_Str MSG_MEDIA_MENU                      = _UxGT("Tlačiť z SD");
   PROGMEM Language_Str MSG_NO_MEDIA                        = _UxGT("Žiadna SD karta");
