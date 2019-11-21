@@ -2213,3 +2213,10 @@
 #define HEATER_BED_PIN     P2_05
 #define FAN_PIN            P2_04
 #define FAN1_PIN           P2_03
+
+#define Z2_STEP_PIN        P0_01
+#define Z2_DIR_PIN         P0_00
+#define Z2_ENABLE_PIN      P0_10
+#ifndef Z2_CS_PIN
+  #define Z2_CS_PIN        P1_01
+#endif
