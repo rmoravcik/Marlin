@@ -1769,7 +1769,7 @@
 
 //
 // Makeboard 3D Printer Parts 3D Printer Mini Display 1602 Mini Controller
-// https://www.aliexpress.com/item/Micromake-Makeboard-3D-Printer-Parts-3D-Printer-Mini-Display-1602-Mini-Controller-Compatible-with-Ramps-1/32765887917.html
+// https://www.aliexpress.com/item/32765887917.html
 //
 //#define MAKEBOARD_MINI_2_LINE_DISPLAY_1602
 
@@ -1943,7 +1943,7 @@
 
 //
 // Factory display for Creality CR-10
-// https://www.aliexpress.com/item/Universal-LCD-12864-3D-Printer-Display-Screen-With-Encoder-For-CR-10-CR-7-Model/32833148327.html
+// https://www.aliexpress.com/item/32833148327.html
 //
 // This is RAMPS-compatible using a single 10-pin connector.
 // (For CR-10 owners who want to replace the Melzi Creality board but retain the display)
@@ -2211,6 +2211,10 @@
 //#define EDITABLE_SERVO_ANGLES
 
 // Pins overrides for SKR V1.3
+#define TEMP_0_PIN         P0_24_A1
+#define TEMP_1_PIN         P0_23_A0
+#define TEMP_BED_PIN       P0_25_A2
+
 #define HEATER_0_PIN       P2_07
 #define HEATER_BED_PIN     P2_05
 #define FAN_PIN            P2_04
