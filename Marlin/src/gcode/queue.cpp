@@ -253,8 +253,8 @@ void GCodeQueue::ok_to_send() {
       while (NUMERIC_SIGNED(*p))
         SERIAL_ECHO(*p++);
     }
-    SERIAL_ECHOPAIR_P(SP_P_STR, int(BLOCK_BUFFER_SIZE - planner.movesplanned() - 1));
-    SERIAL_ECHOPAIR(" B", BUFSIZE - length);
+    SERIAL_ECHOPAIR_P(SP_P_STR, int(planner.moves_free()));
+    SERIAL_ECHOPAIR(" B", int(BUFSIZE - length));
   #endif
   SERIAL_EOL();
 }
@@ -364,9 +364,9 @@ inline void process_stream_char(const char c, uint8_t &sis, char (&buff)[MAX_CMD
 inline bool process_line_done(uint8_t &sis, char (&buff)[MAX_CMD_SIZE], int &ind) {
   sis = PS_NORMAL;
   buff[ind] = 0;
-  if (!ind) { thermalManager.manage_heater(); return true; }
-  ind = 0;
-  return false;
+  if (ind) { ind = 0; return false; }
+  thermalManager.manage_heater();
+  return true;
 }
 
 /**
@@ -415,11 +415,13 @@ void GCodeQueue::get_serial_commands() {
 
       if (serial_char == '\n' || serial_char == '\r') {
 
-        if (process_line_done(serial_input_state[i], serial_line_buffer[i], serial_count[i])) continue;
+        // Reset our state, continue if the line was empty
+        if (process_line_done(serial_input_state[i], serial_line_buffer[i], serial_count[i]))
+          continue;
 
         char* command = serial_line_buffer[i];
 
-        while (*command == ' ') command++;                // Skip leading spaces
+        while (*command == ' ') command++;                   // Skip leading spaces
         char *npos = (*command == 'N') ? command : nullptr;  // Require the N parameter to start the line
 
         if (npos) {
@@ -469,6 +471,7 @@ void GCodeQueue::get_serial_commands() {
               #if ENABLED(BEZIER_CURVE_SUPPORT)
                 case 5:
               #endif
+                PORT_REDIRECT(i);                      // Reply to the serial port that sent the command
                 SERIAL_ECHOLNPGM(MSG_ERR_STOPPED);
                 LCD_MESSAGEPGM(MSG_STOPPED);
                 break;
@@ -509,9 +512,10 @@ void GCodeQueue::get_serial_commands() {
 #if ENABLED(SDSUPPORT)
 
   /**
-   * Get commands from the SD Card until the command buffer is full
-   * or until the end of the file is reached. The special character '#'
-   * can also interrupt buffering.
+   * Get lines from the SD Card until the command buffer is full
+   * or until the end of the file is reached. Because this method
+   * always receives complete command-lines, they can go directly
+   * into the main command queue.
    */
   inline void GCodeQueue::get_sdcard_commands() {
     static uint8_t sd_input_state = PS_NORMAL;
@@ -523,40 +527,22 @@ void GCodeQueue::get_serial_commands() {
     while (length < BUFSIZE && !card_eof) {
       const int16_t n = card.get();
       card_eof = card.eof();
+      if (n < 0 && !card_eof) { SERIAL_ERROR_MSG(MSG_SD_ERR_READ); continue; }
+
       const char sd_char = (char)n;
-      if (card_eof || n < 0 || sd_char == '\n' || sd_char == '\r') {
-        if (card_eof) {
+      const bool is_eol = sd_char == '\n' || sd_char == '\r';
+      if (is_eol || card_eof) {
 
-          card.printingHasFinished();
-
-          if (IS_SD_PRINTING())
-            sd_count = 0; // If a sub-file was printing, continue from call point
-          else {
-            SERIAL_ECHOLNPGM(MSG_FILE_PRINTED);
-            #if ENABLED(PRINTER_EVENT_LEDS)
-              printerEventLEDs.onPrintCompleted();
-              #if HAS_RESUME_CONTINUE
-                enqueue_now_P(PSTR("M0 Q S"
-                  #if HAS_LCD_MENU
-                    "1800"
-                  #else
-                    "60"
-                  #endif
-                ));
-              #endif
-            #endif
-          }
+        // Reset stream state, terminate the buffer, and commit a non-empty command
+        if (!is_eol && sd_count) ++sd_count;          // End of file with no newline
+        if (!process_line_done(sd_input_state, command_buffer[index_w], sd_count)) {
+          _commit_command(false);
+          #if ENABLED(POWER_LOSS_RECOVERY)
+            recovery.cmd_sdpos = card.getIndex();     // Prime for the NEXT _commit_command
+          #endif
         }
-        else if (n < 0)
-          SERIAL_ERROR_MSG(MSG_SD_ERR_READ);
 
-        if (process_line_done(sd_input_state, command_buffer[index_w], sd_count)) continue;
-
-        _commit_command(false);
-
-        #if ENABLED(POWER_LOSS_RECOVERY)
-          recovery.cmd_sdpos = card.getIndex(); // Prime for the next _commit_command
-        #endif
+        if (card_eof) card.fileHasFinished();         // Handle end of file reached
       }
       else
         process_stream_char(sd_char, sd_input_state, command_buffer[index_w], sd_count);
@@ -632,9 +618,7 @@ void GCodeQueue::advance() {
   #endif // SDSUPPORT
 
   // The queue may be reset by a command handler or by code invoked by idle() within a handler
-  if (length) {
-    --length;
-    if (++index_r >= BUFSIZE) index_r = 0;
-  }
+  --length;
+  if (++index_r >= BUFSIZE) index_r = 0;
 
 }

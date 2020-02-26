@@ -361,6 +361,15 @@
 #define HAS_ADC_BUTTONS      ENABLED(ADC_KEYPAD)
 #define HAS_DGUS_LCD         ANY(DGUS_LCD_UI_ORIGIN, DGUS_LCD_UI_FYSETC, DGUS_LCD_UI_HIPRECY)
 
+#if HAS_GRAPHICAL_LCD
+  #ifndef LCD_PIXEL_WIDTH
+    #define LCD_PIXEL_WIDTH 128
+  #endif
+  #ifndef LCD_PIXEL_HEIGHT
+    #define LCD_PIXEL_HEIGHT 64
+  #endif
+#endif
+
 /**
  * Extruders have some combination of stepper motors and hotends
  * so we separate these concepts into the defines:
@@ -561,8 +570,6 @@
 #endif
 
 #define IS_RE_ARM_BOARD MB(RAMPS_14_RE_ARM_EFB, RAMPS_14_RE_ARM_EEB, RAMPS_14_RE_ARM_EFF, RAMPS_14_RE_ARM_EEF, RAMPS_14_RE_ARM_SF)
-
-#define HAS_SDCARD_CONNECTION EITHER(TARGET_LPC1768, ADAFRUIT_GRAND_CENTRAL_M4)
 
 #define HAS_LINEAR_E_JERK (DISABLED(CLASSIC_JERK) && ENABLED(LIN_ADVANCE))
 
