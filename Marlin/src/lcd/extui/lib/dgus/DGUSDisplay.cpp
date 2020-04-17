@@ -30,10 +30,6 @@
   #error "More than 2 hotends not implemented on the Display UI design."
 #endif
 
-#include "DGUSDisplay.h"
-#include "DGUSVPVariable.h"
-#include "DGUSDisplayDef.h"
-
 #include "../../ui_api.h"
 
 #include "../../../../MarlinCore.h"
@@ -47,6 +43,10 @@
 #if ENABLED(POWER_LOSS_RECOVERY)
   #include "../../../../feature/powerloss.h"
 #endif
+
+#include "DGUSDisplay.h"
+#include "DGUSVPVariable.h"
+#include "DGUSDisplayDef.h"
 
 // Preamble... 2 Bytes, usually 0x5A 0xA5, but configurable
 constexpr uint8_t DGUS_HEADER1 = 0x5A;
@@ -441,9 +441,9 @@ void DGUSScreenVariableHandler::DGUSLCD_SendHeaterStatusToDisplay(DGUS_VP_Variab
     DGUSLCD_SendStringToDisplay(var);
   }
 
-
   void DGUSScreenVariableHandler::SDCardInserted() {
     top_file = 0;
+    filelist.refresh();
     auto cs = ScreenHandler.getCurrentScreen();
     if (cs == DGUSLCD_SCREEN_MAIN || cs == DGUSLCD_SCREEN_STATUS)
       ScreenHandler.GotoScreen(DGUSLCD_SCREEN_SDFILELIST);
@@ -615,8 +615,10 @@ void DGUSScreenVariableHandler::HandleManualMove(DGUS_VP_Variable &var, void *va
 
   int16_t movevalue = swap16(*(uint16_t*)val_ptr);
   #if ENABLED(DGUS_UI_MOVE_DIS_OPTION)
-    const uint16_t choice = *(uint16_t*)var.memadr;
-    movevalue = movevalue > 0 ? choice : -choice;
+    if (movevalue) {
+      const uint16_t choice = *(uint16_t*)var.memadr;
+      movevalue = movevalue < 0 ? -choice : choice;
+    }
   #endif
   char axiscode;
   unsigned int speed = 1500;  //FIXME: get default feedrate for manual moves, dont hardcode.
@@ -855,7 +857,7 @@ void DGUSScreenVariableHandler::HandleStepPerMMExtruderChanged(DGUS_VP_Variable 
 void DGUSScreenVariableHandler::HandleProbeOffsetZChanged(DGUS_VP_Variable &var, void *val_ptr) {
   DEBUG_ECHOLNPGM("HandleProbeOffsetZChanged");
 
-  const float offset = float(swap16(*(uint16_t*)val_ptr)) / 100.0f;
+  const float offset = float(int16_t(swap16(*(uint16_t*)val_ptr))) / 100.0f;
   ExtUI::setZOffset_mm(offset);
   ScreenHandler.skipVP = var.VP; // don't overwrite value the next update time as the display might autoincrement in parallel
   return;
