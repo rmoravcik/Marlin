@@ -1,10 +1,6 @@
 /**
  * Marlin 3D Printer Firmware
- *
  * Copyright (c) 2020 MarlinFirmware [https://github.com/MarlinFirmware/Marlin]
- * Copyright (c) 2016 Bob Cousins bobcousins42@googlemail.com
- * Copyright (c) 2015-2016 Nico Tonnhofer wurstnase.reprap@gmail.com
- * Copyright (c) 2016 Victor Perez victor_pv@hotmail.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,11 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-#if defined(STM32GENERIC) && (defined(STM32F4) || defined(STM32F7))
+#ifdef __MK20DX256__
 
-#include "../../inc/MarlinConfigPre.h"
+#include "../../inc/MarlinConfig.h"
 
-#if ENABLED(EEPROM_SETTINGS)
+#if USE_WIRED_EEPROM
 
 #include "../shared/eeprom_api.h"
 
@@ -62,7 +58,5 @@ bool PersistentStore::read_data(int &pos, uint8_t* value, size_t size, uint16_t 
   return false;
 }
 
-size_t PersistentStore::capacity() { return E2END + 1; }
-
-#endif // EEPROM_SETTINGS
-#endif // STM32GENERIC && (STM32F4 || STM32F7)
+#endif // USE_WIRED_EEPROM
+#endif // __MK20DX256__

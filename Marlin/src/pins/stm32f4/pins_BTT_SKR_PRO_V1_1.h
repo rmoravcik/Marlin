@@ -51,7 +51,7 @@
 //
 // Limit Switches
 //
-#if X_STALL_SENSITIVITY
+#ifdef X_STALL_SENSITIVITY
   #define X_STOP_PIN                  X_DIAG_PIN
   #if X_HOME_DIR < 0
     #define X_MAX_PIN                       PE15  // E0
@@ -63,7 +63,7 @@
   #define X_MAX_PIN                         PE15  // E0
 #endif
 
-#if Y_STALL_SENSITIVITY
+#ifdef Y_STALL_SENSITIVITY
   #define Y_STOP_PIN                  Y_DIAG_PIN
   #if Y_HOME_DIR < 0
     #define Y_MAX_PIN                       PE10  // E1
@@ -75,7 +75,7 @@
   #define Y_MAX_PIN                         PE10  // E1
 #endif
 
-#if Z_STALL_SENSITIVITY
+#ifdef Z_STALL_SENSITIVITY
   #define Z_STOP_PIN                  Z_DIAG_PIN
   #if Z_HOME_DIR < 0
     #define Z_MAX_PIN                       PG5   // E2
@@ -218,7 +218,7 @@
 #define FAN2_PIN                            PE6
 
 #ifndef E0_AUTO_FAN_PIN
-  #define E0_AUTO_FAN_PIN                   PC9
+  #define E0_AUTO_FAN_PIN               FAN1_PIN
 #endif
 
 //
@@ -344,7 +344,7 @@
  *           ￣￣
  *            W1
  */
-#define ESP_WIFI_MODULE_COM 6                     // must also set SERIAL_PORT or SERIAL_PORT_2 to this
-#define ESP_WIFI_MODULE_BAUDRATE        BAUDRATE  //115200   // use BAUDRATE ?  would guarantee same baud rate as SERIAL_PORT & SERIAL_PORT_2
+#define ESP_WIFI_MODULE_COM 6                     // Must also set SERIAL_PORT or SERIAL_PORT_2 to this
+#define ESP_WIFI_MODULE_BAUDRATE        BAUDRATE  // Must use same BAUDRATE as SERIAL_PORT & SERIAL_PORT_2
 #define ESP_WIFI_MODULE_RESET_PIN           -1
 #define ESP_WIFI_MODULE_ENABLE_PIN          PG1
