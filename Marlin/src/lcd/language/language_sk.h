@@ -373,8 +373,8 @@ namespace Language_sk {
   PROGMEM Language_Str MSG_SINGLENOZZLE_UNRETRACT_SPEED    = _UxGT("Rýchl. obnovenia");
   PROGMEM Language_Str MSG_SINGLENOZZLE_FAN_SPEED          = _UxGT("Rýchlosť vent.");
   PROGMEM Language_Str MSG_SINGLENOZZLE_FAN_TIME           = _UxGT("Doba fúkania");
-  PROGMEM Language_Str MSG_TOOL_MIGRATION_ON               = _UxGT("Auto ZAP");
-  PROGMEM Language_Str MSG_TOOL_MIGRATION_OFF              = _UxGT("Auto VYP");
+  PROGMEM Language_Str MSG_TOOL_MIGRATION_ON               = _UxGT("Auto-Zap");
+  PROGMEM Language_Str MSG_TOOL_MIGRATION_OFF              = _UxGT("Auto-Vyp");
   PROGMEM Language_Str MSG_TOOL_MIGRATION                  = _UxGT("Výmena nástroja");
   PROGMEM Language_Str MSG_TOOL_MIGRATION_AUTO             = _UxGT("Auto-výmena");
   PROGMEM Language_Str MSG_TOOL_MIGRATION_END              = _UxGT("Posl. extruder");
