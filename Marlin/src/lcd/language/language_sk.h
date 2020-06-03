@@ -266,6 +266,10 @@ namespace Language_sk {
   PROGMEM Language_Str MSG_LCD_OFF                         = _UxGT("Vyp");
   PROGMEM Language_Str MSG_PID_AUTOTUNE                    = _UxGT("PID kalibrácia");
   PROGMEM Language_Str MSG_PID_AUTOTUNE_E                  = _UxGT("PID kalibrácia *");
+  PROGMEM Language_Str MSG_PID_AUTOTUNE_DONE               = _UxGT("PID kal. dokončená");
+  PROGMEM Language_Str MSG_PID_BAD_EXTRUDER_NUM            = _UxGT("Auto-kal. zlyhala. Zlý extrúder.");
+  PROGMEM Language_Str MSG_PID_TEMP_TOO_HIGH               = _UxGT("Auto-kal. zlyhala. Príliš vysoká tepl.");
+  PROGMEM Language_Str MSG_PID_TIMEOUT                     = _UxGT("Auto-kal. zlyhala! Čas vypršal.");
   PROGMEM Language_Str MSG_SELECT                          = _UxGT("Vybrať");
   PROGMEM Language_Str MSG_SELECT_E                        = _UxGT("Vybrať *");
   PROGMEM Language_Str MSG_ACC                             = _UxGT("Zrýchlenie");
@@ -317,7 +321,7 @@ namespace Language_sk {
   PROGMEM Language_Str MSG_ERR_EEPROM_CRC                  = _UxGT("Chyba: EEPROM CRC");
   PROGMEM Language_Str MSG_ERR_EEPROM_INDEX                = _UxGT("Chyba: EEPROM Index");
   PROGMEM Language_Str MSG_ERR_EEPROM_VERSION              = _UxGT("Chyba: Verzia EEPROM");
-  PROGMEM Language_Str MSG_SETTINGS_STORED                 = _UxGT("Nastav. uložené");
+  PROGMEM Language_Str MSG_SETTINGS_STORED                 = _UxGT("Nastavenie uložené");
   PROGMEM Language_Str MSG_MEDIA_UPDATE                    = _UxGT("Aktualizovať z SD");
   PROGMEM Language_Str MSG_RESET_PRINTER                   = _UxGT("Reštart. tlačiar.");
   PROGMEM Language_Str MSG_REFRESH                         = LCD_STR_REFRESH  _UxGT("Obnoviť");
@@ -330,6 +334,7 @@ namespace Language_sk {
   PROGMEM Language_Str MSG_BUTTON_STOP                     = _UxGT("Zastaviť");
   PROGMEM Language_Str MSG_BUTTON_PRINT                    = _UxGT("Tlačiť");
   PROGMEM Language_Str MSG_BUTTON_RESET                    = _UxGT("Vynulovať");
+  PROGMEM Language_Str MSG_BUTTON_IGNORE                   = _UxGT("Ignorovať");
   PROGMEM Language_Str MSG_BUTTON_CANCEL                   = _UxGT("Zrušiť");
   PROGMEM Language_Str MSG_BUTTON_DONE                     = _UxGT("Hotovo");
   PROGMEM Language_Str MSG_BUTTON_BACK                     = _UxGT("Naspäť");
@@ -561,6 +566,9 @@ namespace Language_sk {
   PROGMEM Language_Str MSG_INVADERS                        = _UxGT("Nájazdníci");
   PROGMEM Language_Str MSG_SNAKE                           = _UxGT("Had");
   PROGMEM Language_Str MSG_MAZE                            = _UxGT("Bludisko");
+
+  PROGMEM Language_Str MSG_BAD_PAGE                        = _UxGT("Chyb. index stránky");
+  PROGMEM Language_Str MSG_BAD_PAGE_SPEED                  = _UxGT("Chyb. rých. stránky");
 
   //
   // Filament Change screens show up to 3 lines on a 4-line display
