@@ -478,6 +478,7 @@ namespace Language_sk {
   PROGMEM Language_Str MSG_INFO_PROTOCOL                   = _UxGT("Protokol");
   PROGMEM Language_Str MSG_INFO_RUNAWAY_OFF                = _UxGT("Tepl. ochrana: VYP");
   PROGMEM Language_Str MSG_INFO_RUNAWAY_ON                 = _UxGT("Tepl. ochrana: ZAP");
+  PROGMEM Language_Str MSG_HOTEND_IDLE_TIMEOUT             = _UxGT("Vypr.čas nečinnosti");
 
   PROGMEM Language_Str MSG_CASE_LIGHT                      = _UxGT("Osvetlenie");
   PROGMEM Language_Str MSG_CASE_LIGHT_BRIGHTNESS           = _UxGT("Jas svetla");
