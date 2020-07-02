@@ -306,7 +306,7 @@ namespace Language_sk {
   PROGMEM Language_Str MSG_TEMPERATURE                     = _UxGT("Teplota");
   PROGMEM Language_Str MSG_MOTION                          = _UxGT("Pohyb");
   PROGMEM Language_Str MSG_FILAMENT                        = _UxGT("Filament");
-  PROGMEM Language_Str MSG_VOLUMETRIC_ENABLED              = _UxGT("E na mm³");
+  PROGMEM Language_Str MSG_VOLUMETRIC_ENABLED              = _UxGT("E v mm³");
   PROGMEM Language_Str MSG_VOLUMETRIC_LIMIT                = _UxGT("E Limit v mm³");
   PROGMEM Language_Str MSG_VOLUMETRIC_LIMIT_E              = _UxGT("E Limit *");
   PROGMEM Language_Str MSG_FILAMENT_DIAM                   = _UxGT("Priem. fil.");
@@ -330,7 +330,7 @@ namespace Language_sk {
   PROGMEM Language_Str MSG_INFO_SCREEN                     = _UxGT("Info. obrazovka");
   PROGMEM Language_Str MSG_PREPARE                         = _UxGT("Príprava tlače");
   PROGMEM Language_Str MSG_TUNE                            = _UxGT("Doladenie tlače");
-  PROGMEM Language_Str MSG_POWER_MONITOR                   = _UxGT("Elektromer");
+  PROGMEM Language_Str MSG_POWER_MONITOR                   = _UxGT("Monitor napájania");
   PROGMEM Language_Str MSG_CURRENT                         = _UxGT("Prúd");
   PROGMEM Language_Str MSG_VOLTAGE                         = _UxGT("Napätie");
   PROGMEM Language_Str MSG_POWER                           = _UxGT("Výkon");
