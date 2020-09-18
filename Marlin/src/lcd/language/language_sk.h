@@ -66,6 +66,7 @@ namespace Language_sk {
   PROGMEM Language_Str MSG_AUTO_HOME_Y                     = _UxGT("Domov os Y");
   PROGMEM Language_Str MSG_AUTO_HOME_Z                     = _UxGT("Domov os Z");
   PROGMEM Language_Str MSG_AUTO_Z_ALIGN                    = _UxGT("Auto-zarovn. Z");
+  PROGMEM Language_Str MSG_ASSISTED_TRAMMING               = _UxGT("Asist. vyrovnanie");
   PROGMEM Language_Str MSG_LEVEL_BED_HOMING                = _UxGT("Parkovanie XYZ");
   PROGMEM Language_Str MSG_LEVEL_BED_WAITING               = _UxGT("Kliknutím začnete");
   PROGMEM Language_Str MSG_LEVEL_BED_NEXT_POINT            = _UxGT("Ďalší bod");
@@ -434,18 +435,12 @@ namespace Language_sk {
   PROGMEM Language_Str MSG_BABYSTEP_TOTAL                  = _UxGT("Celkom");
   PROGMEM Language_Str MSG_ENDSTOP_ABORT                   = _UxGT("Zastavenie Endstop");
   PROGMEM Language_Str MSG_HEATING_FAILED_LCD              = _UxGT("Chyba ohrevu");
-  PROGMEM Language_Str MSG_HEATING_FAILED_LCD_BED          = _UxGT("Chyba ohrevu podl.");
-  PROGMEM Language_Str MSG_HEATING_FAILED_LCD_CHAMBER      = _UxGT("Chyba ohrevu komory");
   PROGMEM Language_Str MSG_ERR_REDUNDANT_TEMP              = _UxGT("Chyba: REDUND. TEP.");
   PROGMEM Language_Str MSG_THERMAL_RUNAWAY                 = _UxGT("TEPLOTNÝ SKOK");
   PROGMEM Language_Str MSG_THERMAL_RUNAWAY_BED             = _UxGT("TEPLOTNÝ SKOK PODL.");
   PROGMEM Language_Str MSG_THERMAL_RUNAWAY_CHAMBER         = _UxGT("TEPLOTNÝ SKOK KOMO.");
   PROGMEM Language_Str MSG_ERR_MAXTEMP                     = _UxGT("Chyba: MAXTEMP");
   PROGMEM Language_Str MSG_ERR_MINTEMP                     = _UxGT("Chyba: MINTEMP");
-  PROGMEM Language_Str MSG_ERR_MAXTEMP_BED                 = _UxGT("Chyba: MAXTEMP PODL.");
-  PROGMEM Language_Str MSG_ERR_MINTEMP_BED                 = _UxGT("Chyba: MINTEMP PODL.");
-  PROGMEM Language_Str MSG_ERR_MAXTEMP_CHAMBER             = _UxGT("Chyba: MAXTEMP KOMO.");
-  PROGMEM Language_Str MSG_ERR_MINTEMP_CHAMBER             = _UxGT("Chyba: MINTEMP KOMO.");
   PROGMEM Language_Str MSG_HALTED                          = _UxGT("TLAČIAREŇ ZASTAVENÁ");
   PROGMEM Language_Str MSG_PLEASE_RESET                    = _UxGT("Reštartuje ju");
   PROGMEM Language_Str MSG_SHORT_DAY                       = _UxGT("d");
@@ -526,7 +521,6 @@ namespace Language_sk {
   PROGMEM Language_Str MSG_RUNOUT_DISTANCE_MM              = _UxGT("Vzd. mm fil. senz.");
   PROGMEM Language_Str MSG_KILL_HOMING_FAILED              = _UxGT("Parkovanie zlyhalo");
   PROGMEM Language_Str MSG_LCD_PROBING_FAILED              = _UxGT("Kalibrácia zlyhala");
-  PROGMEM Language_Str MSG_M600_TOO_COLD                   = _UxGT("M600: Príliš studený");
 
   PROGMEM Language_Str MSG_MMU2_CHOOSE_FILAMENT_HEADER     = _UxGT("VYBERTE FILAMENT");
   PROGMEM Language_Str MSG_MMU2_MENU                       = _UxGT("MMU2");
@@ -550,7 +544,7 @@ namespace Language_sk {
   PROGMEM Language_Str MSG_MMU2_EJECT_RECOVER              = _UxGT("Odstráňte, kliknite");
 
   PROGMEM Language_Str MSG_MIX                             = _UxGT("Mix");
-  PROGMEM Language_Str MSG_MIX_COMPONENT_N                 = _UxGT("Zložka ~");
+  PROGMEM Language_Str MSG_MIX_COMPONENT_N                 = _UxGT("Zložka =");
   PROGMEM Language_Str MSG_MIXER                           = _UxGT("Mixér");
   PROGMEM Language_Str MSG_GRADIENT                        = _UxGT("Gradient");
   PROGMEM Language_Str MSG_FULL_GRADIENT                   = _UxGT("Plný gradient");
