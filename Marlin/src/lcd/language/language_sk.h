@@ -67,6 +67,9 @@ namespace Language_sk {
   PROGMEM Language_Str MSG_AUTO_HOME_Z                     = _UxGT("Domov os Z");
   PROGMEM Language_Str MSG_AUTO_Z_ALIGN                    = _UxGT("Auto-zarovn. Z");
   PROGMEM Language_Str MSG_ASSISTED_TRAMMING               = _UxGT("Asist. vyrovnanie");
+  PROGMEM Language_Str MSG_ITERATION                       = _UxGT("G34 Iteration: %i");
+  PROGMEM Language_Str MSG_DECREASING_ACCURACY             = _UxGT("Accuracy Decreasing!");
+  PROGMEM Language_Str MSG_ACCURACY_ACHIEVED               = _UxGT("Accuracy Achieved");
   PROGMEM Language_Str MSG_LEVEL_BED_HOMING                = _UxGT("Parkovanie XYZ");
   PROGMEM Language_Str MSG_LEVEL_BED_WAITING               = _UxGT("Kliknutím začnete");
   PROGMEM Language_Str MSG_LEVEL_BED_NEXT_POINT            = _UxGT("Ďalší bod");
@@ -376,11 +379,11 @@ namespace Language_sk {
   PROGMEM Language_Str MSG_CONTROL_RETRACT_SWAP            = _UxGT("Výmena Re.mm");
   PROGMEM Language_Str MSG_CONTROL_RETRACTF                = _UxGT("Retraktovať  V");
   PROGMEM Language_Str MSG_CONTROL_RETRACT_ZHOP            = _UxGT("Zdvih Z mm");
-  PROGMEM Language_Str MSG_CONTROL_RETRACT_RECOVER         = _UxGT("UnRet mm");
-  PROGMEM Language_Str MSG_CONTROL_RETRACT_RECOVER_SWAP    = _UxGT("S UnRet mm");
-  PROGMEM Language_Str MSG_CONTROL_RETRACT_RECOVERF        = _UxGT("UnRet  V");
+  PROGMEM Language_Str MSG_CONTROL_RETRACT_RECOVER         = _UxGT("Unretr. mm");
+  PROGMEM Language_Str MSG_CONTROL_RETRACT_RECOVER_SWAP    = _UxGT("S Unretr. mm");
+  PROGMEM Language_Str MSG_CONTROL_RETRACT_RECOVERF        = _UxGT("Unretract V");
   PROGMEM Language_Str MSG_CONTROL_RETRACT_RECOVER_SWAPF   = _UxGT("S UnRet V");
-  PROGMEM Language_Str MSG_AUTORETRACT                     = _UxGT("AutoRetr.");
+  PROGMEM Language_Str MSG_AUTORETRACT                     = _UxGT("Auto-Retract");
   PROGMEM Language_Str MSG_FILAMENT_SWAP_LENGTH            = _UxGT("Dĺžka výmeny");
   PROGMEM Language_Str MSG_FILAMENT_SWAP_EXTRA             = _UxGT("Vymeniť naviac");
   PROGMEM Language_Str MSG_FILAMENT_PURGE_LENGTH           = _UxGT("Dĺžka vytlačenia");
@@ -435,6 +438,7 @@ namespace Language_sk {
   PROGMEM Language_Str MSG_ZPROBE_XOFFSET                  = _UxGT("X ofset");
   PROGMEM Language_Str MSG_ZPROBE_YOFFSET                  = _UxGT("Y ofset");
   PROGMEM Language_Str MSG_ZPROBE_ZOFFSET                  = _UxGT("Z ofset");
+  PROGMEM Language_Str MSG_MOVE_NOZZLE_TO_BED              = _UxGT("Move Nozzle to Bed");
   PROGMEM Language_Str MSG_BABYSTEP_X                      = _UxGT("Babystep X");
   PROGMEM Language_Str MSG_BABYSTEP_Y                      = _UxGT("Babystep Y");
   PROGMEM Language_Str MSG_BABYSTEP_Z                      = _UxGT("Babystep Z");
@@ -643,4 +647,6 @@ namespace Language_sk {
   #endif
   PROGMEM Language_Str MSG_REHEAT                          = _UxGT("Zohriať");
   PROGMEM Language_Str MSG_REHEATING                       = _UxGT("Zohrievanie...");
+  PROGMEM Language_Str MSG_PROBE_WIZARD                    = _UxGT("Z Probe Wizard");
+  PROGMEM Language_Str MSG_SOUND                           = _UxGT("Sound");
 }
