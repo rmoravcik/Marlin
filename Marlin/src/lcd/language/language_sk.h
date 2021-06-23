@@ -72,6 +72,9 @@ namespace Language_sk {
   PROGMEM Language_Str MSG_AUTO_HOME_X                     = _UxGT("Domov os X");
   PROGMEM Language_Str MSG_AUTO_HOME_Y                     = _UxGT("Domov os Y");
   PROGMEM Language_Str MSG_AUTO_HOME_Z                     = _UxGT("Domov os Z");
+  PROGMEM Language_Str MSG_AUTO_HOME_I                     = _UxGT("Domov os ") LCD_STR_I;
+  PROGMEM Language_Str MSG_AUTO_HOME_J                     = _UxGT("Domov os ") LCD_STR_J;
+  PROGMEM Language_Str MSG_AUTO_HOME_K                     = _UxGT("Domov os ") LCD_STR_K;
   PROGMEM Language_Str MSG_AUTO_Z_ALIGN                    = _UxGT("Auto-zarovn. Z");
   PROGMEM Language_Str MSG_ITERATION                       = _UxGT("Iterácia G34: %i");
   PROGMEM Language_Str MSG_DECREASING_ACCURACY             = _UxGT("Klesajúca presnosť!");
@@ -85,6 +88,9 @@ namespace Language_sk {
   PROGMEM Language_Str MSG_HOME_OFFSET_X                   = _UxGT("X Ofset");
   PROGMEM Language_Str MSG_HOME_OFFSET_Y                   = _UxGT("Y Ofset");
   PROGMEM Language_Str MSG_HOME_OFFSET_Z                   = _UxGT("Z Ofset");
+  PROGMEM Language_Str MSG_HOME_OFFSET_I                   = LCD_STR_I _UxGT(" Ofset");
+  PROGMEM Language_Str MSG_HOME_OFFSET_J                   = LCD_STR_J _UxGT(" Ofset");
+  PROGMEM Language_Str MSG_HOME_OFFSET_K                   = LCD_STR_K _UxGT(" Ofset");
   PROGMEM Language_Str MSG_HOME_OFFSETS_APPLIED            = _UxGT("Ofsety nastavené");
   PROGMEM Language_Str MSG_SET_ORIGIN                      = _UxGT("Nastaviť začiatok");
   PROGMEM Language_Str MSG_ASSISTED_TRAMMING               = _UxGT("Asist. vyrovnanie");
@@ -265,6 +271,9 @@ namespace Language_sk {
   PROGMEM Language_Str MSG_MOVE_X                          = _UxGT("Posunúť X");
   PROGMEM Language_Str MSG_MOVE_Y                          = _UxGT("Posunúť Y");
   PROGMEM Language_Str MSG_MOVE_Z                          = _UxGT("Posunúť Z");
+  PROGMEM Language_Str MSG_MOVE_I                          = _UxGT("Posunúť ") LCD_STR_I;
+  PROGMEM Language_Str MSG_MOVE_J                          = _UxGT("Posunúť ") LCD_STR_J;
+  PROGMEM Language_Str MSG_MOVE_K                          = _UxGT("Posunúť ") LCD_STR_K;
   PROGMEM Language_Str MSG_MOVE_E                          = _UxGT("Extrudér");
   PROGMEM Language_Str MSG_MOVE_EN                         = _UxGT("Extrudér *");
   PROGMEM Language_Str MSG_HOTEND_TOO_COLD                 = _UxGT("Hotend je studený");
@@ -272,9 +281,11 @@ namespace Language_sk {
   PROGMEM Language_Str MSG_MOVE_01MM                       = _UxGT("Posunúť o 0,1mm");
   PROGMEM Language_Str MSG_MOVE_1MM                        = _UxGT("Posunúť o 1mm");
   PROGMEM Language_Str MSG_MOVE_10MM                       = _UxGT("Posunúť o 10mm");
+  PROGMEM Language_Str MSG_MOVE_100MM                      = _UxGT("Posunúť o 100mm");
   PROGMEM Language_Str MSG_MOVE_0001IN                     = _UxGT("Posunúť o 0,001in");
   PROGMEM Language_Str MSG_MOVE_001IN                      = _UxGT("Posunúť o 0,01in");
   PROGMEM Language_Str MSG_MOVE_01IN                       = _UxGT("Posunúť o 0,1in");
+  PROGMEM Language_Str MSG_MOVE_1IN                        = _UxGT("Posunúť o 1,0in");
   PROGMEM Language_Str MSG_SPEED                           = _UxGT("Rýchlosť");
   PROGMEM Language_Str MSG_BED_Z                           = _UxGT("Výška podl.");
   PROGMEM Language_Str MSG_NOZZLE                          = _UxGT("Tryska");
@@ -319,12 +330,18 @@ namespace Language_sk {
   PROGMEM Language_Str MSG_VA_JERK                         = _UxGT("V") LCD_STR_A _UxGT("-skok");
   PROGMEM Language_Str MSG_VB_JERK                         = _UxGT("V") LCD_STR_B _UxGT("-skok");
   PROGMEM Language_Str MSG_VC_JERK                         = _UxGT("V") LCD_STR_C _UxGT("-skok");
+  PROGMEM Language_Str MSG_VI_JERK                         = _UxGT("V") LCD_STR_I _UxGT("-skok");
+  PROGMEM Language_Str MSG_VJ_JERK                         = _UxGT("V") LCD_STR_J _UxGT("-skok");
+  PROGMEM Language_Str MSG_VK_JERK                         = _UxGT("V") LCD_STR_K _UxGT("-skok");
   PROGMEM Language_Str MSG_VE_JERK                         = _UxGT("Ve-skok");
   PROGMEM Language_Str MSG_JUNCTION_DEVIATION              = _UxGT("Junction Dev");
   PROGMEM Language_Str MSG_VELOCITY                        = _UxGT("Rýchlosť");
   PROGMEM Language_Str MSG_VMAX_A                          = _UxGT("Vmax ") LCD_STR_A;
   PROGMEM Language_Str MSG_VMAX_B                          = _UxGT("Vmax ") LCD_STR_B;
   PROGMEM Language_Str MSG_VMAX_C                          = _UxGT("Vmax ") LCD_STR_C;
+  PROGMEM Language_Str MSG_VMAX_I                          = _UxGT("Vmax ") LCD_STR_I;
+  PROGMEM Language_Str MSG_VMAX_J                          = _UxGT("Vmax ") LCD_STR_J;
+  PROGMEM Language_Str MSG_VMAX_K                          = _UxGT("Vmax ") LCD_STR_K;
   PROGMEM Language_Str MSG_VMAX_E                          = _UxGT("Vmax ") LCD_STR_E;
   PROGMEM Language_Str MSG_VMAX_EN                         = _UxGT("Vmax *");
   PROGMEM Language_Str MSG_VMIN                            = _UxGT("Vmin");
@@ -333,6 +350,9 @@ namespace Language_sk {
   PROGMEM Language_Str MSG_AMAX_A                          = _UxGT("Amax ") LCD_STR_A;
   PROGMEM Language_Str MSG_AMAX_B                          = _UxGT("Amax ") LCD_STR_B;
   PROGMEM Language_Str MSG_AMAX_C                          = _UxGT("Amax ") LCD_STR_C;
+  PROGMEM Language_Str MSG_AMAX_I                          = _UxGT("Amax ") LCD_STR_I;
+  PROGMEM Language_Str MSG_AMAX_J                          = _UxGT("Amax ") LCD_STR_J;
+  PROGMEM Language_Str MSG_AMAX_K                          = _UxGT("Amax ") LCD_STR_K;
   PROGMEM Language_Str MSG_AMAX_E                          = _UxGT("Amax ") LCD_STR_E;
   PROGMEM Language_Str MSG_AMAX_EN                         = _UxGT("Amax *");
   PROGMEM Language_Str MSG_A_RETRACT                       = _UxGT("A-retrakt");
@@ -343,6 +363,9 @@ namespace Language_sk {
   PROGMEM Language_Str MSG_A_STEPS                         = LCD_STR_A _UxGT("krokov/mm");
   PROGMEM Language_Str MSG_B_STEPS                         = LCD_STR_B _UxGT("krokov/mm");
   PROGMEM Language_Str MSG_C_STEPS                         = LCD_STR_C _UxGT("krokov/mm");
+  PROGMEM Language_Str MSG_I_STEPS                         = LCD_STR_I _UxGT("krokov/mm");
+  PROGMEM Language_Str MSG_J_STEPS                         = LCD_STR_J _UxGT("krokov/mm");
+  PROGMEM Language_Str MSG_K_STEPS                         = LCD_STR_K _UxGT("krokov/mm");
   PROGMEM Language_Str MSG_E_STEPS                         = _UxGT("Ekrokov/mm");
   PROGMEM Language_Str MSG_EN_STEPS                        = _UxGT("*krokov/mm");
   PROGMEM Language_Str MSG_TEMPERATURE                     = _UxGT("Teplota");
@@ -476,6 +499,9 @@ namespace Language_sk {
   PROGMEM Language_Str MSG_BABYSTEP_X                      = _UxGT("Babystep X");
   PROGMEM Language_Str MSG_BABYSTEP_Y                      = _UxGT("Babystep Y");
   PROGMEM Language_Str MSG_BABYSTEP_Z                      = _UxGT("Babystep Z");
+  PROGMEM Language_Str MSG_BABYSTEP_I                      = _UxGT("Babystep ") LCD_STR_I;
+  PROGMEM Language_Str MSG_BABYSTEP_J                      = _UxGT("Babystep ") LCD_STR_J;
+  PROGMEM Language_Str MSG_BABYSTEP_K                      = _UxGT("Babystep ") LCD_STR_K;
   PROGMEM Language_Str MSG_BABYSTEP_TOTAL                  = _UxGT("Celkom");
   PROGMEM Language_Str MSG_ENDSTOP_ABORT                   = _UxGT("Zastavenie Endstop");
   PROGMEM Language_Str MSG_HEATING_FAILED_LCD              = _UxGT("Chyba ohrevu");
@@ -556,6 +582,9 @@ namespace Language_sk {
   PROGMEM Language_Str MSG_DAC_PERCENT_X                   = _UxGT("X Motor %");
   PROGMEM Language_Str MSG_DAC_PERCENT_Y                   = _UxGT("Y Motor %");
   PROGMEM Language_Str MSG_DAC_PERCENT_Z                   = _UxGT("Z Motor %");
+  PROGMEM Language_Str MSG_DAC_PERCENT_I                   = AXIS4_STR _UxGT(" Motor %");
+  PROGMEM Language_Str MSG_DAC_PERCENT_J                   = AXIS5_STR _UxGT(" Motor %");
+  PROGMEM Language_Str MSG_DAC_PERCENT_K                   = AXIS6_STR _UxGT(" Motor %");
   PROGMEM Language_Str MSG_DAC_PERCENT_E                   = _UxGT("E Motor %");
   PROGMEM Language_Str MSG_ERROR_TMC                       = _UxGT("CHYBA KOMUNIKÁ. TMC");
   PROGMEM Language_Str MSG_DAC_EEPROM_WRITE                = _UxGT("Uložiť do EEPROM");
@@ -673,6 +702,9 @@ namespace Language_sk {
   PROGMEM Language_Str MSG_BACKLASH_A                      = LCD_STR_A;
   PROGMEM Language_Str MSG_BACKLASH_B                      = LCD_STR_B;
   PROGMEM Language_Str MSG_BACKLASH_C                      = LCD_STR_C;
+  PROGMEM Language_Str MSG_BACKLASH_I                      = LCD_STR_I;
+  PROGMEM Language_Str MSG_BACKLASH_J                      = LCD_STR_J;
+  PROGMEM Language_Str MSG_BACKLASH_K                      = LCD_STR_K;
   PROGMEM Language_Str MSG_BACKLASH_CORRECTION             = _UxGT("Korekcia");
   PROGMEM Language_Str MSG_BACKLASH_SMOOTHING              = _UxGT("Vyhladzovanie");
 
@@ -700,4 +732,7 @@ namespace Language_sk {
   PROGMEM Language_Str MSG_CALIBRATION_FAILED              = _UxGT("Kalibrácia zlyhala");
 
   PROGMEM Language_Str MSG_DRIVER_BACKWARD                 = _UxGT(" spätný chod ovl.");
+
+  PROGMEM Language_Str MSG_SD_CARD                         = _UxGT("SD karta");
+  PROGMEM Language_Str MSG_USB_DISK                        = _UxGT("USB disk");
 }
