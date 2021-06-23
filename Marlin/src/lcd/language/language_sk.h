@@ -81,7 +81,7 @@ namespace Language_sk {
   PROGMEM Language_Str MSG_LEVEL_BED_NEXT_POINT            = _UxGT("Ďalší bod");
   PROGMEM Language_Str MSG_LEVEL_BED_DONE                  = _UxGT("Vyrovnanie hotové!");
   PROGMEM Language_Str MSG_Z_FADE_HEIGHT                   = _UxGT("Výška rovnania");
-  PROGMEM Language_Str MSG_SET_HOME_OFFSETS                = _UxGT("Nastaviť ofsety");
+  PROGMEM Language_Str MSG_SET_HOME_OFFSETS                = _UxGT("Nastav. dom. ofsety");
   PROGMEM Language_Str MSG_HOME_OFFSET_X                   = _UxGT("X Ofset");
   PROGMEM Language_Str MSG_HOME_OFFSET_Y                   = _UxGT("Y Ofset");
   PROGMEM Language_Str MSG_HOME_OFFSET_Z                   = _UxGT("Z Ofset");
@@ -283,7 +283,7 @@ namespace Language_sk {
   PROGMEM Language_Str MSG_NOZZLE_STANDBY                  = _UxGT("Záložná tryska");
   PROGMEM Language_Str MSG_BED                             = _UxGT("Podložka");
   PROGMEM Language_Str MSG_CHAMBER                         = _UxGT("Komora");
-  PROGMEM Language_Str MSG_COOLER                          = _UxGT("Chlad. lasera");
+  PROGMEM Language_Str MSG_COOLER                          = _UxGT("Chladen. lasera");
   PROGMEM Language_Str MSG_COOLER_TOGGLE                   = _UxGT("Prepnúť chladenie");
   PROGMEM Language_Str MSG_FLOWMETER_SAFETY                = _UxGT("Bezpeč. prietok");
   PROGMEM Language_Str MSG_LASER                           = _UxGT("Laser");
