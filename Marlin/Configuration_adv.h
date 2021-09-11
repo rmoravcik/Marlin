@@ -1304,22 +1304,14 @@
   //#define LCD_SHOW_E_TOTAL
 #endif
 
-<<<<<<< HEAD
-#if EITHER(SDSUPPORT, LCD_SET_PROGRESS_MANUALLY) && ANY(HAS_MARLINUI_U8GLIB, HAS_MARLINUI_HD44780, IS_TFTGLCD_PANEL, EXTENSIBLE_UI)
-  #define SHOW_REMAINING_TIME         // Display estimated time to completion
-  #if ENABLED(SHOW_REMAINING_TIME)
-    #define USE_M73_REMAINING_TIME    // Use remaining time from M73 command instead of estimation
-    //#define ROTATE_PROGRESS_DISPLAY // Display (P)rogress, (E)lapsed, and (R)emaining time
-=======
 // LCD Print Progress options
 #if EITHER(SDSUPPORT, LCD_SET_PROGRESS_MANUALLY)
   #if ANY(HAS_MARLINUI_U8GLIB, EXTENSIBLE_UI, HAS_MARLINUI_HD44780, IS_TFTGLCD_PANEL, IS_DWIN_MARLINUI)
-    //#define SHOW_REMAINING_TIME         // Display estimated time to completion
+    #define SHOW_REMAINING_TIME         // Display estimated time to completion
     #if ENABLED(SHOW_REMAINING_TIME)
-      //#define USE_M73_REMAINING_TIME    // Use remaining time from M73 command instead of estimation
+      #define USE_M73_REMAINING_TIME    // Use remaining time from M73 command instead of estimation
       //#define ROTATE_PROGRESS_DISPLAY   // Display (P)rogress, (E)lapsed, and (R)emaining time
     #endif
->>>>>>> upstream/bugfix-2.0.x
   #endif
 
   #if EITHER(HAS_MARLINUI_U8GLIB, EXTENSIBLE_UI)
@@ -1587,12 +1579,6 @@
  * printing performance versus fast display updates.
  */
 #if HAS_MARLINUI_U8GLIB
-<<<<<<< HEAD
-  // Show SD percentage next to the progress bar
-  #define DOGM_SD_PERCENT
-
-=======
->>>>>>> upstream/bugfix-2.0.x
   // Save many cycles by drawing a hollow frame or no frame on the Info Screen
   //#define XYZ_NO_FRAME
   #define XYZ_HOLLOW_FRAME

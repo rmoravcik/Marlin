@@ -359,21 +359,12 @@ namespace Language_sk {
   PROGMEM Language_Str MSG_XY_FREQUENCY_LIMIT              = _UxGT("Max. frekvencia");
   PROGMEM Language_Str MSG_XY_FREQUENCY_FEEDRATE           = _UxGT("Min. posun");
   PROGMEM Language_Str MSG_STEPS_PER_MM                    = _UxGT("Kroky/mm");
-<<<<<<< HEAD
-  PROGMEM Language_Str MSG_A_STEPS                         = LCD_STR_A _UxGT("krokov/mm");
-  PROGMEM Language_Str MSG_B_STEPS                         = LCD_STR_B _UxGT("krokov/mm");
-  PROGMEM Language_Str MSG_C_STEPS                         = LCD_STR_C _UxGT("krokov/mm");
-  PROGMEM Language_Str MSG_I_STEPS                         = LCD_STR_I _UxGT("krokov/mm");
-  PROGMEM Language_Str MSG_J_STEPS                         = LCD_STR_J _UxGT("krokov/mm");
-  PROGMEM Language_Str MSG_K_STEPS                         = LCD_STR_K _UxGT("krokov/mm");
-=======
   PROGMEM Language_Str MSG_A_STEPS                         = LCD_STR_A _UxGT(" krokov/mm");
   PROGMEM Language_Str MSG_B_STEPS                         = LCD_STR_B _UxGT(" krokov/mm");
   PROGMEM Language_Str MSG_C_STEPS                         = LCD_STR_C _UxGT(" krokov/mm");
   PROGMEM Language_Str MSG_I_STEPS                         = LCD_STR_I _UxGT(" krokov/mm");
   PROGMEM Language_Str MSG_J_STEPS                         = LCD_STR_J _UxGT(" krokov/mm");
   PROGMEM Language_Str MSG_K_STEPS                         = LCD_STR_K _UxGT(" krokov/mm");
->>>>>>> upstream/bugfix-2.0.x
   PROGMEM Language_Str MSG_E_STEPS                         = _UxGT("Ekrokov/mm");
   PROGMEM Language_Str MSG_EN_STEPS                        = _UxGT("*krokov/mm");
   PROGMEM Language_Str MSG_TEMPERATURE                     = _UxGT("Teplota");
@@ -587,21 +578,12 @@ namespace Language_sk {
   PROGMEM Language_Str MSG_INFO_MAX_TEMP                   = _UxGT("Teplota max");
   PROGMEM Language_Str MSG_INFO_PSU                        = _UxGT("Nap. zdroj");
   PROGMEM Language_Str MSG_DRIVE_STRENGTH                  = _UxGT("Budenie motorov");
-<<<<<<< HEAD
-  PROGMEM Language_Str MSG_DAC_PERCENT_X                   = _UxGT("X Motor %");
-  PROGMEM Language_Str MSG_DAC_PERCENT_Y                   = _UxGT("Y Motor %");
-  PROGMEM Language_Str MSG_DAC_PERCENT_Z                   = _UxGT("Z Motor %");
-  PROGMEM Language_Str MSG_DAC_PERCENT_I                   = AXIS4_STR _UxGT(" Motor %");
-  PROGMEM Language_Str MSG_DAC_PERCENT_J                   = AXIS5_STR _UxGT(" Motor %");
-  PROGMEM Language_Str MSG_DAC_PERCENT_K                   = AXIS6_STR _UxGT(" Motor %");
-=======
   PROGMEM Language_Str MSG_DAC_PERCENT_A                   = LCD_STR_A _UxGT(" Motor %");
   PROGMEM Language_Str MSG_DAC_PERCENT_B                   = LCD_STR_B _UxGT(" Motor %");
   PROGMEM Language_Str MSG_DAC_PERCENT_C                   = LCD_STR_C _UxGT(" Motor %");
   PROGMEM Language_Str MSG_DAC_PERCENT_I                   = LCD_STR_I _UxGT(" Motor %");
   PROGMEM Language_Str MSG_DAC_PERCENT_J                   = LCD_STR_J _UxGT(" Motor %");
   PROGMEM Language_Str MSG_DAC_PERCENT_K                   = LCD_STR_K _UxGT(" Motor %");
->>>>>>> upstream/bugfix-2.0.x
   PROGMEM Language_Str MSG_DAC_PERCENT_E                   = _UxGT("E Motor %");
   PROGMEM Language_Str MSG_ERROR_TMC                       = _UxGT("CHYBA KOMUNIKÁ. TMC");
   PROGMEM Language_Str MSG_DAC_EEPROM_WRITE                = _UxGT("Uložiť do EEPROM");

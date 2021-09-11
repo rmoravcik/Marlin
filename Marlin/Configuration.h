@@ -2158,12 +2158,8 @@
 //
 // Add individual axis homing items (Home X, Home Y, and Home Z) to the LCD menu.
 //
-<<<<<<< HEAD
 #define INDIVIDUAL_AXIS_HOMING_MENU
-=======
-//#define INDIVIDUAL_AXIS_HOMING_MENU
 //#define INDIVIDUAL_AXIS_HOMING_SUBMENU
->>>>>>> upstream/bugfix-2.0.x
 
 //
 // SPEAKER/BUZZER
