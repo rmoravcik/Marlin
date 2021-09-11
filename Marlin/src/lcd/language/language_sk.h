@@ -93,7 +93,6 @@ namespace Language_sk {
   PROGMEM Language_Str MSG_HOME_OFFSET_K                   = LCD_STR_K _UxGT(" Ofset");
   PROGMEM Language_Str MSG_HOME_OFFSETS_APPLIED            = _UxGT("Ofsety nastavené");
   PROGMEM Language_Str MSG_SET_ORIGIN                      = _UxGT("Nastaviť začiatok");
-  PROGMEM Language_Str MSG_ASSISTED_TRAMMING               = _UxGT("Asist. vyrovnanie");
   PROGMEM Language_Str MSG_TRAMMING_WIZARD                 = _UxGT("Spriev. vyrovn.");
   PROGMEM Language_Str MSG_SELECT_ORIGIN                   = _UxGT("Vyberte začiatok");
   PROGMEM Language_Str MSG_LAST_VALUE_SP                   = _UxGT("Posl. hodnota ");
@@ -139,16 +138,16 @@ namespace Language_sk {
   PROGMEM Language_Str MSG_MOVE_AXIS                       = _UxGT("Posunúť osy");
   PROGMEM Language_Str MSG_BED_LEVELING                    = _UxGT("Vyrovnanie podložky");
   PROGMEM Language_Str MSG_LEVEL_BED                       = _UxGT("Vyrovnať podložku");
-  PROGMEM Language_Str MSG_LEVEL_CORNERS                   = _UxGT("Vyrovnať rohy");
-  PROGMEM Language_Str MSG_LEVEL_CORNERS_RAISE             = _UxGT("Zdvyhnite podl., kým sa nezopne sonda");
-  PROGMEM Language_Str MSG_LEVEL_CORNERS_IN_RANGE          = _UxGT("Rohy sú vrámci odchyl. Vyrovnajte podl.");
-  PROGMEM Language_Str MSG_LEVEL_CORNERS_GOOD_POINTS       = _UxGT("Dobré body: ");
-  PROGMEM Language_Str MSG_LEVEL_CORNERS_LAST_Z            = _UxGT("Posl. Z: ");
+  PROGMEM Language_Str MSG_BED_TRAMMING                    = _UxGT("Vyrovnať rohy");
+  PROGMEM Language_Str MSG_BED_TRAMMING_RAISE              = _UxGT("Zdvyhnite podl., kým sa nezopne sonda");
+  PROGMEM Language_Str MSG_BED_TRAMMING_IN_RANGE           = _UxGT("Rohy sú vrámci odchyl. Vyrovnajte podl.");
+  PROGMEM Language_Str MSG_BED_TRAMMING_GOOD_POINTS        = _UxGT("Dobré body: ");
+  PROGMEM Language_Str MSG_BED_TRAMMING_LAST_Z             = _UxGT("Posl. Z: ");
   PROGMEM Language_Str MSG_NEXT_CORNER                     = _UxGT("Ďalší roh");
   PROGMEM Language_Str MSG_MESH_EDITOR                     = _UxGT("Editor sieťe bodov");
   PROGMEM Language_Str MSG_EDIT_MESH                       = _UxGT("Upraviť sieť bodov");
   PROGMEM Language_Str MSG_EDITING_STOPPED                 = _UxGT("Koniec úprav siete");
-  PROGMEM Language_Str MSG_PROBING_MESH                    = _UxGT("Skúšam bod");
+  PROGMEM Language_Str MSG_PROBING_POINT                   = _UxGT("Skúšam bod");
   PROGMEM Language_Str MSG_MESH_X                          = _UxGT("Index X");
   PROGMEM Language_Str MSG_MESH_Y                          = _UxGT("Index Y");
   PROGMEM Language_Str MSG_MESH_EDIT_Z                     = _UxGT("Hodnota Z");
@@ -360,12 +359,21 @@ namespace Language_sk {
   PROGMEM Language_Str MSG_XY_FREQUENCY_LIMIT              = _UxGT("Max. frekvencia");
   PROGMEM Language_Str MSG_XY_FREQUENCY_FEEDRATE           = _UxGT("Min. posun");
   PROGMEM Language_Str MSG_STEPS_PER_MM                    = _UxGT("Kroky/mm");
+<<<<<<< HEAD
   PROGMEM Language_Str MSG_A_STEPS                         = LCD_STR_A _UxGT("krokov/mm");
   PROGMEM Language_Str MSG_B_STEPS                         = LCD_STR_B _UxGT("krokov/mm");
   PROGMEM Language_Str MSG_C_STEPS                         = LCD_STR_C _UxGT("krokov/mm");
   PROGMEM Language_Str MSG_I_STEPS                         = LCD_STR_I _UxGT("krokov/mm");
   PROGMEM Language_Str MSG_J_STEPS                         = LCD_STR_J _UxGT("krokov/mm");
   PROGMEM Language_Str MSG_K_STEPS                         = LCD_STR_K _UxGT("krokov/mm");
+=======
+  PROGMEM Language_Str MSG_A_STEPS                         = LCD_STR_A _UxGT(" krokov/mm");
+  PROGMEM Language_Str MSG_B_STEPS                         = LCD_STR_B _UxGT(" krokov/mm");
+  PROGMEM Language_Str MSG_C_STEPS                         = LCD_STR_C _UxGT(" krokov/mm");
+  PROGMEM Language_Str MSG_I_STEPS                         = LCD_STR_I _UxGT(" krokov/mm");
+  PROGMEM Language_Str MSG_J_STEPS                         = LCD_STR_J _UxGT(" krokov/mm");
+  PROGMEM Language_Str MSG_K_STEPS                         = LCD_STR_K _UxGT(" krokov/mm");
+>>>>>>> upstream/bugfix-2.0.x
   PROGMEM Language_Str MSG_E_STEPS                         = _UxGT("Ekrokov/mm");
   PROGMEM Language_Str MSG_EN_STEPS                        = _UxGT("*krokov/mm");
   PROGMEM Language_Str MSG_TEMPERATURE                     = _UxGT("Teplota");
@@ -579,12 +587,21 @@ namespace Language_sk {
   PROGMEM Language_Str MSG_INFO_MAX_TEMP                   = _UxGT("Teplota max");
   PROGMEM Language_Str MSG_INFO_PSU                        = _UxGT("Nap. zdroj");
   PROGMEM Language_Str MSG_DRIVE_STRENGTH                  = _UxGT("Budenie motorov");
+<<<<<<< HEAD
   PROGMEM Language_Str MSG_DAC_PERCENT_X                   = _UxGT("X Motor %");
   PROGMEM Language_Str MSG_DAC_PERCENT_Y                   = _UxGT("Y Motor %");
   PROGMEM Language_Str MSG_DAC_PERCENT_Z                   = _UxGT("Z Motor %");
   PROGMEM Language_Str MSG_DAC_PERCENT_I                   = AXIS4_STR _UxGT(" Motor %");
   PROGMEM Language_Str MSG_DAC_PERCENT_J                   = AXIS5_STR _UxGT(" Motor %");
   PROGMEM Language_Str MSG_DAC_PERCENT_K                   = AXIS6_STR _UxGT(" Motor %");
+=======
+  PROGMEM Language_Str MSG_DAC_PERCENT_A                   = LCD_STR_A _UxGT(" Motor %");
+  PROGMEM Language_Str MSG_DAC_PERCENT_B                   = LCD_STR_B _UxGT(" Motor %");
+  PROGMEM Language_Str MSG_DAC_PERCENT_C                   = LCD_STR_C _UxGT(" Motor %");
+  PROGMEM Language_Str MSG_DAC_PERCENT_I                   = LCD_STR_I _UxGT(" Motor %");
+  PROGMEM Language_Str MSG_DAC_PERCENT_J                   = LCD_STR_J _UxGT(" Motor %");
+  PROGMEM Language_Str MSG_DAC_PERCENT_K                   = LCD_STR_K _UxGT(" Motor %");
+>>>>>>> upstream/bugfix-2.0.x
   PROGMEM Language_Str MSG_DAC_PERCENT_E                   = _UxGT("E Motor %");
   PROGMEM Language_Str MSG_ERROR_TMC                       = _UxGT("CHYBA KOMUNIKÁ. TMC");
   PROGMEM Language_Str MSG_DAC_EEPROM_WRITE                = _UxGT("Uložiť do EEPROM");
