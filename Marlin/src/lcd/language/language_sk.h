@@ -155,6 +155,7 @@ namespace Language_sk {
   LSTR MSG_NEXT_CORNER                    = _UxGT("Ďalší roh");
   LSTR MSG_MESH_EDITOR                    = _UxGT("Editor sieťe bodov");
   LSTR MSG_EDIT_MESH                      = _UxGT("Upraviť sieť bodov");
+  LSTR MSG_MESH_VIEW                      = _UxGT("Zobraz. sieť bodov");
   LSTR MSG_EDITING_STOPPED                = _UxGT("Koniec úprav siete");
   LSTR MSG_PROBING_POINT                  = _UxGT("Skúšam bod");
   LSTR MSG_MESH_X                         = _UxGT("Index X");
@@ -395,6 +396,7 @@ namespace Language_sk {
   LSTR MSG_ADVANCE_K                      = _UxGT("K pre posun");
   LSTR MSG_ADVANCE_K_E                    = _UxGT("K pre posun *");
   LSTR MSG_CONTRAST                       = _UxGT("Kontrast LCD");
+  LSTR MSG_BRIGHTNESS                     = _UxGT("Jas LCD");
   LSTR MSG_STORE_EEPROM                   = _UxGT("Uložiť nastavenie");
   LSTR MSG_LOAD_EEPROM                    = _UxGT("Načítať nastavenie");
   LSTR MSG_RESTORE_DEFAULTS               = _UxGT("Obnoviť nastavenie");
