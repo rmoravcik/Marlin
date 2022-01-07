@@ -34,9 +34,11 @@
  * Substitutions are applied for the following characters when used
  * in menu items that call lcd_put_u8str_ind_P with an index:
  *
+ *   $ displays an inserted C-string
  *   = displays  '0'....'10' for indexes 0 - 10
  *   ~ displays  '1'....'11' for indexes 0 - 10
  *   * displays 'E1'...'E11' for indexes 0 - 10 (By default. Uses LCD_FIRST_TOOL)
+ *   @ displays an axis name such as XYZUVW, or E for an extruder
  */
 #define DISPLAY_CHARSET_ISO10646_SK
 
@@ -54,7 +56,7 @@ namespace Language_sk {
   LSTR MSG_MEDIA_INSERTED                 = _UxGT("Karta vložená");
   LSTR MSG_MEDIA_REMOVED                  = _UxGT("Karta vybraná");
   LSTR MSG_MEDIA_WAITING                  = _UxGT("Čakám na kartu");
-  LSTR MSG_SD_INIT_FAIL                   = _UxGT("Inicial. SD zlyhala");
+  LSTR MSG_MEDIA_INIT_FAIL                = _UxGT("Inicial. SD zlyhala");
   LSTR MSG_MEDIA_READ_ERROR               = _UxGT("Chyba čítania karty");
   LSTR MSG_MEDIA_USB_REMOVED              = _UxGT("USB zaria. odstrán.");
   LSTR MSG_MEDIA_USB_FAILED               = _UxGT("Chyba spúšťania USB");
@@ -70,12 +72,7 @@ namespace Language_sk {
   LSTR MSG_PROGRESS_BAR_TEST              = _UxGT("Test uk. priebehu");
   LSTR MSG_HOMING                         = _UxGT("Parkovanie");
   LSTR MSG_AUTO_HOME                      = _UxGT("Domovská pozícia");
-  LSTR MSG_AUTO_HOME_X                    = _UxGT("Domov os X");
-  LSTR MSG_AUTO_HOME_Y                    = _UxGT("Domov os Y");
-  LSTR MSG_AUTO_HOME_Z                    = _UxGT("Domov os Z");
-  LSTR MSG_AUTO_HOME_I                    = _UxGT("Domov os ") LCD_STR_I;
-  LSTR MSG_AUTO_HOME_J                    = _UxGT("Domov os ") LCD_STR_J;
-  LSTR MSG_AUTO_HOME_K                    = _UxGT("Domov os ") LCD_STR_K;
+  LSTR MSG_AUTO_HOME_A                    = _UxGT("Domov os @");
   LSTR MSG_FILAMENT_SET                   = _UxGT("Nastav. filamentu");
   LSTR MSG_FILAMENT_MAN                   = _UxGT("Správa filamentu");
   LSTR MSG_LEVBED_FL                      = _UxGT("Ľavý predný");
@@ -105,7 +102,7 @@ namespace Language_sk {
   LSTR MSG_TRAMMING_WIZARD                = _UxGT("Spriev. vyrovn.");
   LSTR MSG_SELECT_ORIGIN                  = _UxGT("Vyberte začiatok");
   LSTR MSG_LAST_VALUE_SP                  = _UxGT("Posl. hodnota ");
-  #if PREHEAT_COUNT
+  #if HAS_PREHEAT
     LSTR MSG_PREHEAT_1                    = _UxGT("Zahriať ") PREHEAT_1_LABEL;
     LSTR MSG_PREHEAT_1_H                  = _UxGT("Zahriať ") PREHEAT_1_LABEL " ~";
     LSTR MSG_PREHEAT_1_END                = _UxGT("Zahriať ") PREHEAT_1_LABEL _UxGT(" hotend");
@@ -173,9 +170,8 @@ namespace Language_sk {
   LSTR MSG_IDEX_MODE_MIRRORED_COPY        = _UxGT("Zrkadlená kópia");
   LSTR MSG_IDEX_MODE_FULL_CTRL            = _UxGT("Plná kontrola");
   LSTR MSG_IDEX_DUPE_GAP                  = _UxGT("Duplik. medz.-X");
-  LSTR MSG_HOTEND_OFFSET_X                = _UxGT("2. tryska X");
-  LSTR MSG_HOTEND_OFFSET_Y                = _UxGT("2. tryska Y");
   LSTR MSG_HOTEND_OFFSET_Z                = _UxGT("2. tryska Z");
+  LSTR MSG_HOTEND_OFFSET_A                = _UxGT("2. tryska @");
   LSTR MSG_UBL_DOING_G29                  = _UxGT("Vykonávam G29");
   LSTR MSG_UBL_TOOLS                      = _UxGT("Nástroje UBL");
   LSTR MSG_UBL_LEVEL_BED                  = _UxGT("UBL rovnanie");
@@ -301,6 +297,7 @@ namespace Language_sk {
   LSTR MSG_MAXSPEED_Y                     = _UxGT("Max rýchl. ") LCD_STR_B;
   LSTR MSG_MAXSPEED_Z                     = _UxGT("Max rýchl. ") LCD_STR_C;
   LSTR MSG_MAXSPEED_E                     = _UxGT("Max rýchl. ") LCD_STR_E;
+  LSTR MSG_MAXSPEED_A                     = _UxGT("Max rýchl. @");
   LSTR MSG_BED_Z                          = _UxGT("Výška podl.");
   LSTR MSG_NOZZLE                         = _UxGT("Tryska");
   LSTR MSG_NOZZLE_N                       = _UxGT("Tryska ~");
@@ -492,6 +489,7 @@ namespace Language_sk {
   LSTR MSG_BLTOUCH_STOW                   = _UxGT("Zasunúť");
   LSTR MSG_BLTOUCH_DEPLOY                 = _UxGT("Vysunúť");
   LSTR MSG_BLTOUCH_SW_MODE                = _UxGT("Režim SW");
+  LSTR MSG_BLTOUCH_SPEED_MODE             = _UxGT("Vysoká rýchl.");
   LSTR MSG_BLTOUCH_5V_MODE                = _UxGT("Režim 5V");
   LSTR MSG_BLTOUCH_OD_MODE                = _UxGT("Režim OD");
   LSTR MSG_BLTOUCH_MODE_STORE             = _UxGT("Ulož. režim");
@@ -532,6 +530,7 @@ namespace Language_sk {
   LSTR MSG_ERR_MINTEMP                    = _UxGT("Chyba: MINTEMP");
   LSTR MSG_HALTED                         = _UxGT("TLAČIAREŇ ZASTAVENÁ");
   LSTR MSG_PLEASE_RESET                   = _UxGT("Reštartuje ju");
+  LSTR MSG_PREHEATING                     = _UxGT("Zahrievanie...");
   LSTR MSG_HEATING                        = _UxGT("Ohrev...");
   LSTR MSG_COOLING                        = _UxGT("Ochladzovanie...");
   LSTR MSG_BED_HEATING                    = _UxGT("Ohrev podložky...");
@@ -570,6 +569,7 @@ namespace Language_sk {
   LSTR MSG_INFO_RUNAWAY_OFF               = _UxGT("Tepl. ochrana: VYP");
   LSTR MSG_INFO_RUNAWAY_ON                = _UxGT("Tepl. ochrana: ZAP");
   LSTR MSG_HOTEND_IDLE_TIMEOUT            = _UxGT("Vypr.čas nečinnosti");
+  LSTR MSG_FAN_SPEED_FAULT                = _UxGT("Chyba rýchl. vent.");
 
   LSTR MSG_CASE_LIGHT                     = _UxGT("Osvetlenie");
   LSTR MSG_CASE_LIGHT_BRIGHTNESS          = _UxGT("Jas svetla");
@@ -613,6 +613,7 @@ namespace Language_sk {
   LSTR MSG_RUNOUT_SENSOR                  = _UxGT("Senzor filamentu");
   LSTR MSG_RUNOUT_DISTANCE_MM             = _UxGT("Vzd. mm fil. senz.");
   LSTR MSG_RUNOUT_ENABLE                  = _UxGT("Zapnúť senzor");
+  LSTR MSG_FANCHECK                       = _UxGT("Kontrola rýchl.");
   LSTR MSG_KILL_HOMING_FAILED             = _UxGT("Parkovanie zlyhalo");
   LSTR MSG_LCD_PROBING_FAILED             = _UxGT("Kalibrácia zlyhala");
 
@@ -732,6 +733,10 @@ namespace Language_sk {
   LSTR MSG_PROBE_WIZARD_PROBING           = _UxGT("Referencia Z");
   LSTR MSG_PROBE_WIZARD_MOVING            = _UxGT("Presúvam na pozíciu");
 
+  LSTR MSG_XATC                           = _UxGT("Sprievodca X-Twist");
+  LSTR MSG_XATC_DONE                      = _UxGT("Spriev. X-Twist dokonč.!");
+  LSTR MSG_XATC_UPDATE_Z_OFFSET           = _UxGT("Aktual. ofset sondy Z na ");
+
   LSTR MSG_SOUND                          = _UxGT("Zvuk");
 
   LSTR MSG_TOP_LEFT                       = _UxGT("Ľavý horný");
@@ -745,4 +750,6 @@ namespace Language_sk {
 
   LSTR MSG_SD_CARD                        = _UxGT("SD karta");
   LSTR MSG_USB_DISK                       = _UxGT("USB disk");
+
+  LSTR MSG_HOST_SHUTDOWN                  = _UxGT("Vypnúť hosta");
 }
