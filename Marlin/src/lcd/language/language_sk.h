@@ -419,7 +419,6 @@ namespace Language_sk {
   LSTR MSG_ADVANCE_K_E                    = _UxGT("K pre posun *");
   LSTR MSG_CONTRAST                       = _UxGT("Kontrast LCD");
   LSTR MSG_BRIGHTNESS                     = _UxGT("Jas LCD");
-  LSTR MSG_LCD_TIMEOUT_SEC                = _UxGT("Čas. limit LCD (s)");
   LSTR MSG_SCREEN_TIMEOUT                 = _UxGT("Čas. limit LCD (m)");
   LSTR MSG_BRIGHTNESS_OFF                 = _UxGT("Podsviet. vyp.");
   LSTR MSG_STORE_EEPROM                   = _UxGT("Uložiť nastavenie");
@@ -598,8 +597,6 @@ namespace Language_sk {
   LSTR MSG_DELTA_CALIBRATE_CENTER         = _UxGT("Kalibrovať stred");
   LSTR MSG_DELTA_SETTINGS                 = _UxGT("Delta nastavenia");
   LSTR MSG_DELTA_AUTO_CALIBRATE           = _UxGT("Auto-kalibrácia");
-  LSTR MSG_DELTA_HEIGHT_CALIBRATE         = _UxGT("Nast. výšku delty");
-  LSTR MSG_DELTA_Z_OFFSET_CALIBRATE       = _UxGT("Ofset sondy Z");
   LSTR MSG_DELTA_DIAG_ROD                 = _UxGT("Diag. rameno");
   LSTR MSG_DELTA_HEIGHT                   = _UxGT("Výška");
   LSTR MSG_DELTA_RADIUS                   = _UxGT("Polomer");
