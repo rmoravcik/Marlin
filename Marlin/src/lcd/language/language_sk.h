@@ -370,19 +370,12 @@ namespace Language_sk {
   LSTR MSG_PID_TEMP_TOO_HIGH              = _UxGT("Auto-kal. zlyhala! Príliš vysoká tepl.");
   LSTR MSG_PID_TIMEOUT                    = _UxGT("Auto-kal. zlyhala! Čas vypršal.");
   LSTR MSG_MPC_MEASURING_AMBIENT          = _UxGT("Test. tepl. straty");
-  LSTR MSG_MPC_HEATING_PAST_200           = _UxGT("Zahriať na >200C");
-  LSTR MSG_MPC_COOLING_TO_AMBIENT         = _UxGT("Schladiť na okolie");
   LSTR MSG_MPC_AUTOTUNE                   = _UxGT("Auto-kal. MPC");
   LSTR MSG_MPC_EDIT                       = _UxGT("Upraviť * MPC");
-  LSTR MSG_MPC_POWER                      = _UxGT("Výkon ohrievača");
   LSTR MSG_MPC_POWER_E                    = _UxGT("Výkon *");
-  LSTR MSG_MPC_BLOCK_HEAT_CAPACITY        = _UxGT("Tepelná kapacita");
   LSTR MSG_MPC_BLOCK_HEAT_CAPACITY_E      = _UxGT("Tepelná kap. *");
-  LSTR MSG_SENSOR_RESPONSIVENESS          = _UxGT("Reakcia senzoru");
   LSTR MSG_SENSOR_RESPONSIVENESS_E        = _UxGT("Reakcia senz. *");
-  LSTR MSG_MPC_AMBIENT_XFER_COEFF         = _UxGT("Koef. okolia");
   LSTR MSG_MPC_AMBIENT_XFER_COEFF_E       = _UxGT("Koef. okolia *");
-  LSTR MSG_MPC_AMBIENT_XFER_COEFF_FAN     = _UxGT("Koef. vent.");
   LSTR MSG_MPC_AMBIENT_XFER_COEFF_FAN_E   = _UxGT("Koef. vent. *");
   LSTR MSG_SELECT_E                       = _UxGT("Vybrať *");
   LSTR MSG_ACC                            = _UxGT("Zrýchlenie");
@@ -441,6 +434,7 @@ namespace Language_sk {
   LSTR MSG_DRAW_MIN_Y                     = _UxGT("Min. Y kresby");
   LSTR MSG_DRAW_MAX_Y                     = _UxGT("Max. Y kresby");
   LSTR MSG_MAX_BELT_LEN                   = _UxGT("Max. dĺžka pásu");
+  LSTR MSG_LINEAR_ADVANCE                 = _UxGT("Linear Advance");
   LSTR MSG_ADVANCE_K                      = _UxGT("K pre posun");
   LSTR MSG_ADVANCE_K_E                    = _UxGT("K pre posun *");
   LSTR MSG_CONTRAST                       = _UxGT("Kontrast LCD");
@@ -454,6 +448,7 @@ namespace Language_sk {
   LSTR MSG_ERR_EEPROM_CRC                 = _UxGT("Chyba: EEPROM CRC");
   LSTR MSG_ERR_EEPROM_SIZE                = _UxGT("Chyba: Veľkosť EEPROM");
   LSTR MSG_ERR_EEPROM_VERSION             = _UxGT("Chyba: Verzia EEPROM");
+  LSTR MSG_ERR_EEPROM_CORRUPT             = _UxGT("Chyba: Poškod. EEPROM");
   LSTR MSG_SETTINGS_STORED                = _UxGT("Nastavenie uložené");
   LSTR MSG_MEDIA_UPDATE                   = _UxGT("Aktualiz. z karty");
   LSTR MSG_RESET_PRINTER                  = _UxGT("Reštart. tlačiar.");
@@ -570,6 +565,7 @@ namespace Language_sk {
   #else
     LSTR MSG_ATTACH_MEDIA                 = _UxGT("Načítať kartu");
   #endif
+  LSTR MSG_ATTACH_SD_MEDIA                = _UxGT("Načítať SD kartu");
   LSTR MSG_CHANGE_MEDIA                   = _UxGT("Vymeniť kartu");
   LSTR MSG_RELEASE_MEDIA                  = _UxGT("Odpojiť kartu");
   LSTR MSG_ZPROBE_OUT                     = _UxGT("Sonda Z mimo podl.");
@@ -635,6 +631,7 @@ namespace Language_sk {
   LSTR MSG_CHAMBER_COOLING                = _UxGT("Ochladz. komory...");
   LSTR MSG_LASER_COOLING                  = _UxGT("Ochladz. lasera...");
   LSTR MSG_DELTA_CALIBRATE                = _UxGT("Delta kalibrácia");
+  LSTR MSG_DELTA_CALIBRATION_IN_PROGRESS  = _UxGT("Prebieha delta kalibrácia");
   LSTR MSG_DELTA_CALIBRATE_X              = _UxGT("Kalibrovať X");
   LSTR MSG_DELTA_CALIBRATE_Y              = _UxGT("Kalibrovať Y");
   LSTR MSG_DELTA_CALIBRATE_Z              = _UxGT("Kalibrovať Z");
@@ -746,6 +743,7 @@ namespace Language_sk {
   LSTR MSG_MMU2_RESET                     = _UxGT("Reštartovať MMU");
   LSTR MSG_MMU2_RESETTING                 = _UxGT("Reštart MMU...");
   LSTR MSG_MMU2_EJECT_RECOVER             = _UxGT("Odstráňte, kliknite");
+  LSTR MSG_MMU2_REMOVE_AND_CLICK          = _UxGT("Odstráň. a kliknite...");
 
   LSTR MSG_MIX                            = _UxGT("Mix");
   LSTR MSG_MIX_COMPONENT_N                = _UxGT("Zložka ~");
