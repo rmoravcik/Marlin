@@ -122,11 +122,8 @@
    * Setting a 'TFT_RESET_PIN' may cause a flicker when switching menus
    * because Marlin uses the reset as a failsafe to revive a glitchy LCD.
    */
-  #define LCD_RESET_PIN                     PD13
-  #define LCD_BACKLIGHT_PIN                 PD12
-
-  #define TFT_RESET_PIN            LCD_RESET_PIN
-  #define TFT_BACKLIGHT_PIN    LCD_BACKLIGHT_PIN
+  #define TFT_RESET_PIN                     PD13
+  #define TFT_BACKLIGHT_PIN                 PD12
 
   #define LCD_USE_DMA_FSMC
   #define FSMC_CS_PIN                       PG12  // NE4

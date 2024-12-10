@@ -136,6 +136,12 @@ public:
     static void autofile_cancel() { autofile_index = 0; }
   #endif
 
+  #if ENABLED(ONE_CLICK_PRINT)
+    static bool one_click_check();  // Check for the newest file and prompt to run it.
+    static void diveToNewestFile(MediaFile parent, uint32_t &compareDateTime, MediaFile &outdir, char * const outname);
+    static bool selectNewestFile();
+  #endif
+
   // Basic file ops
   static void openFileRead(const char * const path, const uint8_t subcall=0);
   static void openFileWrite(const char * const path);
@@ -146,6 +152,7 @@ public:
   static char* longest_filename() { return longFilename[0] ? longFilename : filename; }
   #if ENABLED(LONG_FILENAME_HOST_SUPPORT)
     static void printLongPath(char * const path);   // Used by M33
+    static void getLongPath(char * const pathLong, char * const pathShort); // Used by anycubic_vyper
   #endif
 
   // Working Directory for SD card menu
@@ -159,7 +166,7 @@ public:
   static void selectFileByName(const char * const match);  // (working directory only)
 
   // Print job
-  static void report_status();
+  static void report_status(TERN_(QUIETER_AUTO_REPORT_SD_STATUS, const bool isauto=false));
   static void getAbsFilenameInCWD(char *dst);
   static void printSelectedFilename();
   static void openAndPrintFile(const char *name);   // (working directory or full path)
@@ -170,6 +177,7 @@ public:
   static void abortFilePrintSoon() { flag.abort_sd_printing = isFileOpen(); }
   static void pauseSDPrint()       { flag.sdprinting = false; }
   static bool isPrinting()         { return flag.sdprinting; }
+  static bool isStillPrinting()    { return flag.sdprinting && !flag.abort_sd_printing; }
   static bool isPaused()           { return isFileOpen() && !isPrinting(); }
   #if HAS_PRINT_PROGRESS_PERMYRIAD
     static uint16_t permyriadDone() {
@@ -245,7 +253,7 @@ public:
     //
     // SD Auto Reporting
     //
-    struct AutoReportSD { static void report() { report_status(); } };
+    struct AutoReportSD { static void report() { report_status(TERN_(QUIETER_AUTO_REPORT_SD_STATUS, true)); } };
     static AutoReporter<AutoReportSD> auto_reporter;
   #endif
 
@@ -364,8 +372,9 @@ private:
   #define IS_SD_INSERTED() true
 #endif
 
-#define IS_SD_PRINTING()  (card.flag.sdprinting && !card.flag.abort_sd_printing)
-#define IS_SD_FETCHING()  (!card.flag.sdprintdone && IS_SD_PRINTING())
+#define IS_SD_MOUNTED()   card.isMounted()
+#define IS_SD_PRINTING()  card.isStillPrinting()
+#define IS_SD_FETCHING()  (!card.flag.sdprintdone && card.isStillPrinting())
 #define IS_SD_PAUSED()    card.isPaused()
 #define IS_SD_FILE_OPEN() card.isFileOpen()
 
@@ -373,6 +382,7 @@ extern CardReader card;
 
 #else // !HAS_MEDIA
 
+#define IS_SD_MOUNTED()   false
 #define IS_SD_PRINTING()  false
 #define IS_SD_FETCHING()  false
 #define IS_SD_PAUSED()    false

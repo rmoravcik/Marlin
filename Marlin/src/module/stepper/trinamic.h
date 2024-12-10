@@ -108,14 +108,12 @@
   #define CHOPPER_TIMING_E CHOPPER_TIMING
 #endif
 
-#if HAS_TMC220x
+#if HAS_TMC_UART
   void tmc_serial_begin();
 #endif
 
 void restore_trinamic_drivers();
 void reset_trinamic_drivers();
-
-#define AXIS_HAS_DEDGE(A) (AXIS_IS_TMC(A) && ENABLED(SQUARE_WAVE_STEPPING))
 
 // X Stepper
 #if AXIS_IS_TMC(X)

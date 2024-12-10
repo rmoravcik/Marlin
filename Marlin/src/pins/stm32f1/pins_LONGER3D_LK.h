@@ -135,8 +135,6 @@
 // TFT with FSMC interface
 //
 #if HAS_FSMC_TFT
-  #define FSMC_DMA_DEV                      DMA2
-  #define FSMC_DMA_CHANNEL               DMA_CH5
   #define LCD_USE_DMA_FSMC
   #define FSMC_CS_PIN                       PD7   // FSMC_NE1
   #define FSMC_RS_PIN                       PD11  // A16 Register. Only one address needed

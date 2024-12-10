@@ -178,7 +178,7 @@
  * Only the following displays are supported:
  *  ZONESTAR_LCD
  *  ANET_FULL_GRAPHICS_LCD
- *  ANET_FULL_GRAPHICS_LCD_ALT_WIRING
+ *  CTC_A10S_A13
  *  REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER
  */
 
@@ -203,10 +203,10 @@
     // display using an adapter board. See https://aisler.net/benlye/anet-lcd-adapter/pcb
     // See below for alternative pin definitions for use with https://www.thingiverse.com/thing:2103748
 
-    #if ENABLED(ANET_FULL_GRAPHICS_LCD_ALT_WIRING)
+    #if ENABLED(CTC_A10S_A13)
 
       /**
-       * ANET_FULL_GRAPHICS_LCD_ALT_WIRING pinout
+       * CTC_A10S_A13 pinout
        *
        *           ------
        *      GND | 1  2 | 5V

@@ -41,12 +41,13 @@
  */
 #define DISPLAY_CHARSET_ISO10646_SK
 
-namespace Language_sk {
+namespace LanguageNarrow_sk {
   using namespace Language_en; // Inherit undefined strings from English
 
   constexpr uint8_t CHARSIZE              = 2;
   LSTR LANGUAGE                           = _UxGT("Slovenčina");
 
+  // These strings should be translated
   LSTR WELCOME_MSG                        = MACHINE_NAME _UxGT(" pripravený.");
   LSTR MSG_YES                            = _UxGT("ÁNO");
   LSTR MSG_NO                             = _UxGT("NIE");
@@ -62,21 +63,26 @@ namespace Language_sk {
   LSTR MSG_MEDIA_READ_ERROR               = _UxGT("Chyba čítania karty");
   LSTR MSG_MEDIA_USB_REMOVED              = _UxGT("USB zaria. odstrán.");
   LSTR MSG_MEDIA_USB_FAILED               = _UxGT("Chyba spúšťania USB");
+  LSTR MSG_MEDIA_SORT                     = _UxGT("Sort ") MEDIA_TYPE_EN;
+  LSTR MSG_MEDIA_UPDATE                   = MEDIA_TYPE_EN _UxGT(" Update");
   LSTR MSG_KILL_SUBCALL_OVERFLOW          = _UxGT("Preteč. podprogramu");
   LSTR MSG_LCD_ENDSTOPS                   = _UxGT("Endstopy"); // max 8 znakov
   LSTR MSG_LCD_SOFT_ENDSTOPS              = _UxGT("Soft. endstopy");
   LSTR MSG_MAIN_MENU                      = _UxGT("Hlavná ponuka");
   LSTR MSG_ADVANCED_SETTINGS              = _UxGT("Pokročilé nastav.");
-  LSTR MSG_TOOLBAR_SETUP                  = _UxGT("Panel nástrojov");
-  LSTR MSG_OPTION_DISABLED                = _UxGT("Možnosť vypnutá");
   LSTR MSG_CONFIGURATION                  = _UxGT("Konfigurácia");
   LSTR MSG_RUN_AUTO_FILES                 = _UxGT("Auto-štart");
   LSTR MSG_DISABLE_STEPPERS               = _UxGT("Uvolniť motory");
   LSTR MSG_DEBUG_MENU                     = _UxGT("Ponuka ladenia");
   LSTR MSG_PROGRESS_BAR_TEST              = _UxGT("Test uk. priebehu");
+  LSTR MSG_ENDSTOP_TEST                   = _UxGT("Endstop Test");
+  LSTR MSG_Z_PROBE                        = _UxGT("Z Probe");
   LSTR MSG_HOMING                         = _UxGT("Parkovanie");
+  LSTR MSG_HOMING_FEEDRATE                = _UxGT("Homing Feedrate");
+  LSTR MSG_HOMING_FEEDRATE_N              = _UxGT("@ Homing FR");
   LSTR MSG_AUTO_HOME                      = _UxGT("Domovská pozícia");
-  LSTR MSG_AUTO_HOME_A                    = _UxGT("Domov os @");
+  LSTR MSG_HOME_ALL                       = _UxGT("Home All");
+  LSTR MSG_AUTO_HOME_N                    = _UxGT("Domov os @");
   LSTR MSG_AUTO_HOME_X                    = _UxGT("Domov os X");
   LSTR MSG_AUTO_HOME_Y                    = _UxGT("Domov os Y");
   LSTR MSG_AUTO_HOME_Z                    = _UxGT("Domov os Z");
@@ -84,11 +90,11 @@ namespace Language_sk {
   LSTR MSG_FILAMENT_SET                   = _UxGT("Nastav. filamentu");
   LSTR MSG_FILAMENT_MAN                   = _UxGT("Správa filamentu");
   LSTR MSG_MANUAL_LEVELING                = _UxGT("Ručné rovnanie");
-  LSTR MSG_LEVBED_FL                      = _UxGT("Ľavý predný");
-  LSTR MSG_LEVBED_FR                      = _UxGT("Pravý predný");
-  LSTR MSG_LEVBED_C                       = _UxGT("Stred");
-  LSTR MSG_LEVBED_BL                      = _UxGT("Ľavý zadný");
-  LSTR MSG_LEVBED_BR                      = _UxGT("Pravý zadný");
+  LSTR MSG_TRAM_FL                        = _UxGT("Ľavý predný");
+  LSTR MSG_TRAM_FR                        = _UxGT("Pravý predný");
+  LSTR MSG_TRAM_C                         = _UxGT("Stred");
+  LSTR MSG_TRAM_BL                        = _UxGT("Ľavý zadný");
+  LSTR MSG_TRAM_BR                        = _UxGT("Pravý zadný");
   LSTR MSG_MANUAL_MESH                    = _UxGT("Ručná mriežka");
   LSTR MSG_AUTO_MESH                      = _UxGT("Automat. mriežka");
   LSTR MSG_AUTO_Z_ALIGN                   = _UxGT("Auto-zarovn. Z");
@@ -101,40 +107,38 @@ namespace Language_sk {
   LSTR MSG_LEVEL_BED_DONE                 = _UxGT("Vyrovnanie hotové!");
   LSTR MSG_Z_FADE_HEIGHT                  = _UxGT("Výška rovnania");
   LSTR MSG_SET_HOME_OFFSETS               = _UxGT("Nastav. dom. ofsety");
-  LSTR MSG_HOME_OFFSET_X                  = _UxGT("X Ofset");
-  LSTR MSG_HOME_OFFSET_Y                  = _UxGT("Y Ofset");
-  LSTR MSG_HOME_OFFSET_Z                  = _UxGT("Z Ofset");
+  LSTR MSG_HOME_OFFSET_X                  = _UxGT("X Ofset"); // DWIN
+  LSTR MSG_HOME_OFFSET_Y                  = _UxGT("Y Ofset"); // DWIN
+  LSTR MSG_HOME_OFFSET_Z                  = _UxGT("Z Ofset"); // DWIN
   LSTR MSG_HOME_OFFSETS_APPLIED           = _UxGT("Ofsety nastavené");
   LSTR MSG_ERR_M428_TOO_FAR               = _UxGT("Chyba: Príliš ďaleko!");
   LSTR MSG_TRAMMING_WIZARD                = _UxGT("Spriev. vyrovn.");
   LSTR MSG_SELECT_ORIGIN                  = _UxGT("Vyberte začiatok");
   LSTR MSG_LAST_VALUE_SP                  = _UxGT("Posl. hodnota ");
-  #if HAS_PREHEAT
-    LSTR MSG_PREHEAT_1                    = _UxGT("Zahriať ") PREHEAT_1_LABEL;
-    LSTR MSG_PREHEAT_1_H                  = _UxGT("Zahriať ") PREHEAT_1_LABEL " ~";
-    LSTR MSG_PREHEAT_1_END                = _UxGT("Zahriať ") PREHEAT_1_LABEL _UxGT(" hotend");
-    LSTR MSG_PREHEAT_1_END_E              = _UxGT("Zahriať ") PREHEAT_1_LABEL _UxGT(" hotend ~");
-    LSTR MSG_PREHEAT_1_ALL                = _UxGT("Zahriať ") PREHEAT_1_LABEL _UxGT(" všetko");
-    LSTR MSG_PREHEAT_1_BEDONLY            = _UxGT("Zahriať ") PREHEAT_1_LABEL _UxGT(" podlož");
-    LSTR MSG_PREHEAT_1_SETTINGS           = _UxGT("Zahriať ") PREHEAT_1_LABEL _UxGT(" nast.");
-    #ifdef PREHEAT_2_LABEL
-      LSTR MSG_PREHEAT_2                  = _UxGT("Zahriať ") PREHEAT_2_LABEL;
-      LSTR MSG_PREHEAT_2_SETTINGS         = _UxGT("Zahriať ") PREHEAT_2_LABEL _UxGT(" nast.");
-    #endif
-    #ifdef PREHEAT_3_LABEL
-      LSTR MSG_PREHEAT_3                  = _UxGT("Zahriať ") PREHEAT_3_LABEL;
-      LSTR MSG_PREHEAT_3_SETTINGS         = _UxGT("Zahriať ") PREHEAT_3_LABEL _UxGT(" nast.");
-    #endif
-    LSTR MSG_PREHEAT_M                    = _UxGT("Zahriať $");
-    LSTR MSG_PREHEAT_M_H                  = _UxGT("Zahriať $ ~");
-    LSTR MSG_PREHEAT_M_END                = _UxGT("Zahriať $ hotend");
-    LSTR MSG_PREHEAT_M_END_E              = _UxGT("Zahriať $ hotend ~");
-    LSTR MSG_PREHEAT_M_ALL                = _UxGT("Zahriať $ všetko");
-    LSTR MSG_PREHEAT_M_BEDONLY            = _UxGT("Zahriať $ podlož");
-    LSTR MSG_PREHEAT_M_SETTINGS           = _UxGT("Zahriať $ nast.");
-  #endif
+
+  LSTR MSG_PREHEAT_1                      = _UxGT("Zahriať ") PREHEAT_1_LABEL;
+  LSTR MSG_PREHEAT_1_H                    = _UxGT("Zahriať ") PREHEAT_1_LABEL " ~";
+  LSTR MSG_PREHEAT_1_END                  = _UxGT("Zahriať ") PREHEAT_1_LABEL _UxGT(" hotend");
+  LSTR MSG_PREHEAT_1_END_E                = _UxGT("Zahriať ") PREHEAT_1_LABEL _UxGT(" hotend ~");
+  LSTR MSG_PREHEAT_1_ALL                  = _UxGT("Zahriať ") PREHEAT_1_LABEL _UxGT(" všetko");
+  LSTR MSG_PREHEAT_1_BEDONLY              = _UxGT("Zahriať ") PREHEAT_1_LABEL _UxGT(" podlož");
+  LSTR MSG_PREHEAT_1_SETTINGS             = _UxGT("Zahriať ") PREHEAT_1_LABEL _UxGT(" nast.");
+
+  LSTR MSG_PREHEAT_2                      = _UxGT("Preheat ") PREHEAT_2_LABEL;
+  LSTR MSG_PREHEAT_3                      = _UxGT("Preheat ") PREHEAT_3_LABEL;
+  LSTR MSG_PREHEAT_4                      = PREHEAT_4_LABEL;
+
+  LSTR MSG_PREHEAT_M                      = _UxGT("Zahriať $");
+  LSTR MSG_PREHEAT_M_H                    = _UxGT("Zahriať $ ~");
+  LSTR MSG_PREHEAT_M_END                  = _UxGT("Zahriať $ hotend");
+  LSTR MSG_PREHEAT_M_END_E                = _UxGT("Zahriať $ hotend ~");
+  LSTR MSG_PREHEAT_M_ALL                  = _UxGT("Zahriať $ všetko");
+  LSTR MSG_PREHEAT_M_BEDONLY              = _UxGT("Zahriať $ podlož");
+  LSTR MSG_PREHEAT_M_SETTINGS             = _UxGT("Zahriať $ nast.");
+
   LSTR MSG_PREHEAT_HOTEND                 = _UxGT("Zahriať hotend");
   LSTR MSG_PREHEAT_CUSTOM                 = _UxGT("Vlastná teplota");
+  LSTR MSG_PREHEAT                        = _UxGT("Preheat");
   LSTR MSG_COOLDOWN                       = _UxGT("Schladiť");
 
   LSTR MSG_CUTTER_FREQUENCY               = _UxGT("Frekvencia");
@@ -154,9 +158,11 @@ namespace Language_sk {
   LSTR MSG_SPINDLE_REVERSE                = _UxGT("Spätný chod");
   LSTR MSG_SWITCH_PS_ON                   = _UxGT("Zapnúť napájanie");
   LSTR MSG_SWITCH_PS_OFF                  = _UxGT("Vypnúť napájanie");
+  LSTR MSG_POWER_EDM_FAULT                = _UxGT("Power EDM Fault");
   LSTR MSG_EXTRUDE                        = _UxGT("Vytlačiť (extr.)");
   LSTR MSG_RETRACT                        = _UxGT("Vytiahnuť (retr.)");
   LSTR MSG_MOVE_AXIS                      = _UxGT("Posunúť osy");
+  LSTR MSG_PROBE_AND_LEVEL                = _UxGT("Sonda a vyrovnanie");
   LSTR MSG_BED_LEVELING                   = _UxGT("Vyrovnanie podložky");
   LSTR MSG_LEVEL_BED                      = _UxGT("Vyrovnať podložku");
   LSTR MSG_BED_TRAMMING                   = _UxGT("Vyrovnať rohy");
@@ -185,7 +191,11 @@ namespace Language_sk {
   LSTR MSG_MESH_CENTER                    = _UxGT("Stredová oblasť");
   LSTR MSG_MESH_EDIT_Z                    = _UxGT("Hodnota Z");
   LSTR MSG_MESH_CANCEL                    = _UxGT("Mriežka zrušená");
+  LSTR MSG_MESH_RESET                     = _UxGT("Mesh reset");
   LSTR MSG_CUSTOM_COMMANDS                = _UxGT("Vlastné príkazy");
+  LSTR MSG_CUSTOM_MENU_MAIN_TITLE         = _UxGT(CUSTOM_MENU_MAIN_TITLE);
+  LSTR MSG_TOOL_HEAD_TH                   = _UxGT(CUSTOM_MENU_MAIN_TITLE" (TH)");
+  LSTR MSG_PRESENT_BED                    = _UxGT("Present Bed");
   LSTR MSG_M48_TEST                       = _UxGT("M48 Test sondy");
   LSTR MSG_M48_POINT                      = _UxGT("M48 Bod");
   LSTR MSG_M48_OUT_OF_BOUNDS              = _UxGT("Sonda mimo hraníc");
@@ -198,10 +208,9 @@ namespace Language_sk {
   LSTR MSG_IDEX_MODE_FULL_CTRL            = _UxGT("Plná kontrola");
   LSTR MSG_IDEX_DUPE_GAP                  = _UxGT("Duplik. medz.-X");
   LSTR MSG_HOTEND_OFFSET_Z                = _UxGT("2. tryska Z");
-  LSTR MSG_HOTEND_OFFSET_A                = _UxGT("2. tryska @");
+  LSTR MSG_HOTEND_OFFSET_N                = _UxGT("2. tryska @");
   LSTR MSG_UBL_DOING_G29                  = _UxGT("Vykonávam G29");
   LSTR MSG_UBL_TOOLS                      = _UxGT("Nástroje UBL");
-  LSTR MSG_UBL_LEVEL_BED                  = _UxGT("UBL rovnanie");
   LSTR MSG_LCD_TILTING_MESH               = _UxGT("Vyrovnávam bod");
   LSTR MSG_UBL_TILT_MESH                  = _UxGT("Nakloniť sieť");
   LSTR MSG_UBL_TILTING_GRID               = _UxGT("Veľkosť nakl. siete");
@@ -212,13 +221,10 @@ namespace Language_sk {
   LSTR MSG_UBL_BC_INSERT2                 = _UxGT("Zmerajte");
   LSTR MSG_UBL_BC_REMOVE                  = _UxGT("Odstráňte a zmerajte");
   LSTR MSG_UBL_MOVING_TO_NEXT             = _UxGT("Presun na ďalší");
-  LSTR MSG_UBL_ACTIVATE_MESH              = _UxGT("Aktivovať UBL");
-  LSTR MSG_UBL_DEACTIVATE_MESH            = _UxGT("Deaktivovať UBL");
   LSTR MSG_UBL_SET_TEMP_BED               = _UxGT("Teplota podložky");
   LSTR MSG_UBL_BED_TEMP_CUSTOM            = _UxGT("Teplota podložky");
   LSTR MSG_UBL_SET_TEMP_HOTEND            = _UxGT("Teplota hotendu");
   LSTR MSG_UBL_HOTEND_TEMP_CUSTOM         = _UxGT("Teplota hotendu");
-  LSTR MSG_UBL_MESH_EDIT                  = _UxGT("Úprava siete bodov");
   LSTR MSG_UBL_EDIT_CUSTOM_MESH           = _UxGT("Upraviť vlastnú sieť");
   LSTR MSG_UBL_FINE_TUNE_MESH             = _UxGT("Doladiť sieť bodov");
   LSTR MSG_UBL_DONE_EDITING_MESH          = _UxGT("Koniec úprav siete");
@@ -283,7 +289,8 @@ namespace Language_sk {
   LSTR MSG_UBL_7_SAVE_MESH                = _UxGT("7.Uložiť sieť bodov");
 
   LSTR MSG_LED_CONTROL                    = _UxGT("Nastavenie LED");
-  LSTR MSG_LEDS                           = _UxGT("Svetlo");
+  LSTR MSG_LIGHTS                         = _UxGT("Svetlo");
+  LSTR MSG_LIGHT_N                        = _UxGT("Svetlo #{");
   LSTR MSG_LED_PRESETS                    = _UxGT("Predvolby svetla");
   LSTR MSG_SET_LEDS_RED                   = _UxGT("Červená");
   LSTR MSG_SET_LEDS_ORANGE                = _UxGT("Oranžová");
@@ -295,7 +302,6 @@ namespace Language_sk {
   LSTR MSG_SET_LEDS_WHITE                 = _UxGT("Biela");
   LSTR MSG_SET_LEDS_DEFAULT               = _UxGT("Obnoviť nastavenie");
   LSTR MSG_LED_CHANNEL_N                  = _UxGT("Kanál {");
-  LSTR MSG_LEDS2                          = _UxGT("Svetlo #2");
   LSTR MSG_NEO2_PRESETS                   = _UxGT("Predvolby svetla #2");
   LSTR MSG_NEO2_BRIGHTNESS                = _UxGT("Jas");
   LSTR MSG_CUSTOM_LEDS                    = _UxGT("Vlastná farba");
@@ -304,6 +310,8 @@ namespace Language_sk {
   LSTR MSG_INTENSITY_B                    = _UxGT("Inten. modrej");
   LSTR MSG_INTENSITY_W                    = _UxGT("Inten. bielej");
   LSTR MSG_LED_BRIGHTNESS                 = _UxGT("Jas");
+  LSTR MSG_LIGHT_ENCODER                  = _UxGT("Encoder Light");
+  LSTR MSG_LIGHT_ENCODER_PRESETS          = _UxGT("Encoder Light Presets");
 
   LSTR MSG_MOVING                         = _UxGT("Posúvam...");
   LSTR MSG_FREE_XY                        = _UxGT("Uvolniť XY");
@@ -315,19 +323,11 @@ namespace Language_sk {
   LSTR MSG_MOVE_EN                        = _UxGT("Extrudér *");
   LSTR MSG_HOTEND_TOO_COLD                = _UxGT("Hotend je studený");
   LSTR MSG_MOVE_N_MM                      = _UxGT("Posunúť o $mm");
-  LSTR MSG_MOVE_01MM                      = _UxGT("Posunúť o 0,1mm");
-  LSTR MSG_MOVE_1MM                       = _UxGT("Posunúť o 1mm");
-  LSTR MSG_MOVE_10MM                      = _UxGT("Posunúť o 10mm");
-  LSTR MSG_MOVE_50MM                      = _UxGT("Posunúť o 50mm");
-  LSTR MSG_MOVE_100MM                     = _UxGT("Posunúť o 100mm");
-  LSTR MSG_MOVE_0001IN                    = _UxGT("Posunúť o 0,001in");
-  LSTR MSG_MOVE_001IN                     = _UxGT("Posunúť o 0,01in");
-  LSTR MSG_MOVE_01IN                      = _UxGT("Posunúť o 0,1in");
-  LSTR MSG_MOVE_05IN                      = _UxGT("Posunúť o 0,5in");
-  LSTR MSG_MOVE_1IN                       = _UxGT("Posunúť o 1,0in");
+  LSTR MSG_MOVE_N_IN                      = _UxGT("Posunúť o $in");
+  LSTR MSG_MOVE_N_DEG                     = _UxGT("Posunúť o $") LCD_STR_DEGREE;
   LSTR MSG_LIVE_MOVE                      = _UxGT("Živý pohyb");
   LSTR MSG_SPEED                          = _UxGT("Rýchlosť");
-  LSTR MSG_BED_Z                          = _UxGT("Výška podl.");
+  LSTR MSG_MESH_Z_OFFSET                  = _UxGT("Výška podl.");
   LSTR MSG_NOZZLE                         = _UxGT("Tryska");
   LSTR MSG_NOZZLE_N                       = _UxGT("Tryska ~");
   LSTR MSG_NOZZLE_PARKED                  = _UxGT("Tryska zaparkovaná");
@@ -349,6 +349,7 @@ namespace Language_sk {
   LSTR MSG_CONTROLLER_FAN_AUTO_ON         = _UxGT("Auto-režim");
   LSTR MSG_CONTROLLER_FAN_SPEED           = _UxGT("Aktív. rýchl.");
   LSTR MSG_CONTROLLER_FAN_DURATION        = _UxGT("Doba nečinnosti");
+  LSTR MSG_FLOW_PERCENTAGE                = _UxGT("Set Flowrate Percentage");
   LSTR MSG_FLOW                           = _UxGT("Prietok");
   LSTR MSG_FLOW_N                         = _UxGT("Prietok ~");
   LSTR MSG_CONTROL                        = _UxGT("Ovládanie");
@@ -356,27 +357,48 @@ namespace Language_sk {
   LSTR MSG_MAX                            = " " LCD_STR_THERMOMETER _UxGT(" Max");
   LSTR MSG_FACTOR                         = " " LCD_STR_THERMOMETER _UxGT(" Fakt");
   LSTR MSG_AUTOTEMP                       = _UxGT("Auto-teplota");
+  LSTR MSG_TIMEOUT                        = _UxGT("Čas vypršal");
   LSTR MSG_LCD_ON                         = _UxGT("Zap");
   LSTR MSG_LCD_OFF                        = _UxGT("Vyp");
+
   LSTR MSG_PID_AUTOTUNE                   = _UxGT("Kalibrácia PID");
   LSTR MSG_PID_AUTOTUNE_E                 = _UxGT("Kalibrácia PID *");
   LSTR MSG_PID_CYCLE                      = _UxGT("Cykly PID");
   LSTR MSG_PID_AUTOTUNE_DONE              = _UxGT("Kal. PID dokončená");
   LSTR MSG_PID_AUTOTUNE_FAILED            = _UxGT("Kal. PID zlyhala!");
-  LSTR MSG_BAD_EXTRUDER_NUM               = _UxGT("Zlý extrudér");
+
+  LSTR MSG_PID_FOR_NOZZLE                 = _UxGT("for Nozzle is running.");
+  LSTR MSG_PID_FOR_BED                    = _UxGT("for BED is running.");
+  LSTR MSG_PID_FOR_CHAMBER                = _UxGT("for CHAMBER is running.");
+
+  LSTR MSG_TEMP_NOZZLE                    = _UxGT("Nozzle Temperature");
+  LSTR MSG_TEMP_BED                       = _UxGT("Bed Temperature");
+  LSTR MSG_TEMP_CHAMBER                   = _UxGT("Chamber Temperature");
+
+  LSTR MSG_BAD_HEATER_ID                  = _UxGT("Zlý extrudér");
   LSTR MSG_TEMP_TOO_HIGH                  = _UxGT("Príliš vysoká tepl.");
-  LSTR MSG_TIMEOUT                        = _UxGT("Čas vypršal.");
-  LSTR MSG_PID_BAD_EXTRUDER_NUM           = _UxGT("Auto-kal. zlyhala! Zlý extrúder.");
+  LSTR MSG_TEMP_TOO_LOW                   = _UxGT("Temperature too low");
+
+  LSTR MSG_PID_BAD_HEATER_ID              = _UxGT("Auto-kal. zlyhala! Zlý extrúder.");
   LSTR MSG_PID_TEMP_TOO_HIGH              = _UxGT("Auto-kal. zlyhala! Príliš vysoká tepl.");
   LSTR MSG_PID_TIMEOUT                    = _UxGT("Auto-kal. zlyhala! Čas vypršal.");
+
   LSTR MSG_MPC_MEASURING_AMBIENT          = _UxGT("Test. tepl. straty");
+  LSTR MSG_MPC_HEATING_PAST_200           = _UxGT("Heating to >200C");
+  LSTR MSG_MPC_COOLING_TO_AMBIENT         = _UxGT("Cooling to ambient");
   LSTR MSG_MPC_AUTOTUNE                   = _UxGT("Auto-kal. MPC");
   LSTR MSG_MPC_EDIT                       = _UxGT("Upraviť * MPC");
+  LSTR MSG_MPC_POWER                      = _UxGT("Heater Power");
   LSTR MSG_MPC_POWER_E                    = _UxGT("Výkon *");
+  LSTR MSG_MPC_BLOCK_HEAT_CAPACITY        = _UxGT("Heat Capacity");
   LSTR MSG_MPC_BLOCK_HEAT_CAPACITY_E      = _UxGT("Tepelná kap. *");
+  LSTR MSG_SENSOR_RESPONSIVENESS          = _UxGT("Sensor Resp.");
   LSTR MSG_SENSOR_RESPONSIVENESS_E        = _UxGT("Reakcia senz. *");
+  LSTR MSG_MPC_AMBIENT_XFER_COEFF         = _UxGT("Ambient Coeff.");
   LSTR MSG_MPC_AMBIENT_XFER_COEFF_E       = _UxGT("Koef. okolia *");
+  LSTR MSG_MPC_AMBIENT_XFER_COEFF_FAN     = _UxGT("Fan coeff.");
   LSTR MSG_MPC_AMBIENT_XFER_COEFF_FAN_E   = _UxGT("Koef. vent. *");
+
   LSTR MSG_SELECT_E                       = _UxGT("Vybrať *");
   LSTR MSG_ACC                            = _UxGT("Zrýchlenie");
   LSTR MSG_JERK                           = _UxGT("Skok");
@@ -386,6 +408,7 @@ namespace Language_sk {
   LSTR MSG_VN_JERK                        = _UxGT("V@-skok");
   LSTR MSG_VE_JERK                        = _UxGT("Ve-skok");
   LSTR MSG_JUNCTION_DEVIATION             = _UxGT("Junction Dev");
+  LSTR MSG_STEP_SMOOTHING                 = _UxGT("Step Smoothing");
   LSTR MSG_MAX_SPEED                      = _UxGT("Max rýchl. (mm/s)");
   LSTR MSG_VMAX_A                         = _UxGT("Max rýchl. ") STR_A;
   LSTR MSG_VMAX_B                         = _UxGT("Max rýchl. ") STR_B;
@@ -405,10 +428,16 @@ namespace Language_sk {
   LSTR MSG_A_RETRACT                      = _UxGT("A-retrakt");
   LSTR MSG_A_TRAVEL                       = _UxGT("A-prejazd");
   LSTR MSG_INPUT_SHAPING                  = _UxGT("Tvarov. vstupu");
-  LSTR MSG_SHAPING_ENABLE                 = _UxGT("Povol. tvarov. @");
-  LSTR MSG_SHAPING_DISABLE                = _UxGT("Zakáz. tvarov. @");
-  LSTR MSG_SHAPING_FREQ                   = _UxGT("Frekvencia @");
-  LSTR MSG_SHAPING_ZETA                   = _UxGT("Tlmenie @");
+  LSTR MSG_SHAPING_ENABLE_N               = _UxGT("Povol. tvarov. @");
+  LSTR MSG_SHAPING_DISABLE_N              = _UxGT("Zakáz. tvarov. @");
+  LSTR MSG_SHAPING_FREQ_N                 = _UxGT("Frekvencia @");
+  LSTR MSG_SHAPING_ZETA_N                 = _UxGT("Tlmenie @");
+  LSTR MSG_SHAPING_A_FREQ                 = STR_A _UxGT(" frequency");  // ProUI
+  LSTR MSG_SHAPING_B_FREQ                 = STR_B _UxGT(" frequency");  // ProUI
+  LSTR MSG_SHAPING_C_FREQ                 = STR_C _UxGT(" frequency");  // ProUI
+  LSTR MSG_SHAPING_A_ZETA                 = STR_A _UxGT(" damping");    // ProUI
+  LSTR MSG_SHAPING_B_ZETA                 = STR_B _UxGT(" damping");    // ProUI
+  LSTR MSG_SHAPING_C_ZETA                 = STR_C _UxGT(" damping");    // ProUI
   LSTR MSG_XY_FREQUENCY_LIMIT             = _UxGT("Max. frekvencia");
   LSTR MSG_XY_FREQUENCY_FEEDRATE          = _UxGT("Min. posun");
   LSTR MSG_STEPS_PER_MM                   = _UxGT("Kroky/mm");
@@ -421,6 +450,7 @@ namespace Language_sk {
   LSTR MSG_TEMPERATURE                    = _UxGT("Teplota");
   LSTR MSG_MOTION                         = _UxGT("Pohyb");
   LSTR MSG_FILAMENT                       = _UxGT("Filament");
+  LSTR MSG_FILAMENT_EN                    = _UxGT("Filament *");
   LSTR MSG_VOLUMETRIC_ENABLED             = _UxGT("E v mm") SUPERSCRIPT_THREE;
   LSTR MSG_VOLUMETRIC_LIMIT               = _UxGT("E Limit v mm") SUPERSCRIPT_THREE;
   LSTR MSG_VOLUMETRIC_LIMIT_E             = _UxGT("E Limit *");
@@ -440,19 +470,22 @@ namespace Language_sk {
   LSTR MSG_CONTRAST                       = _UxGT("Kontrast LCD");
   LSTR MSG_BRIGHTNESS                     = _UxGT("Jas LCD");
   LSTR MSG_SCREEN_TIMEOUT                 = _UxGT("Čas. limit LCD (m)");
+  LSTR MSG_HOTEND_TEMP_GRAPH              = _UxGT("Hotend Temp Graph");
+  LSTR MSG_BED_TEMP_GRAPH                 = _UxGT("Bed Temp Graph");
   LSTR MSG_BRIGHTNESS_OFF                 = _UxGT("Podsviet. vyp.");
   LSTR MSG_STORE_EEPROM                   = _UxGT("Uložiť nastavenie");
   LSTR MSG_LOAD_EEPROM                    = _UxGT("Načítať nastavenie");
   LSTR MSG_RESTORE_DEFAULTS               = _UxGT("Obnoviť nastavenie");
   LSTR MSG_INIT_EEPROM                    = _UxGT("Inicializ. EEPROM");
+  LSTR MSG_EEPROM_INITIALIZED             = _UxGT("EEPROM Initialized");
   LSTR MSG_ERR_EEPROM_CRC                 = _UxGT("Chyba: EEPROM CRC");
   LSTR MSG_ERR_EEPROM_SIZE                = _UxGT("Chyba: Veľkosť EEPROM");
   LSTR MSG_ERR_EEPROM_VERSION             = _UxGT("Chyba: Verzia EEPROM");
   LSTR MSG_ERR_EEPROM_CORRUPT             = _UxGT("Chyba: Poškod. EEPROM");
   LSTR MSG_SETTINGS_STORED                = _UxGT("Nastavenie uložené");
-  LSTR MSG_MEDIA_UPDATE                   = _UxGT("Aktualiz. z karty");
+  LSTR MSG_HAS_PREVIEW                    = _UxGT("Has preview");
   LSTR MSG_RESET_PRINTER                  = _UxGT("Reštart. tlačiar.");
-  LSTR MSG_REFRESH                        = LCD_STR_REFRESH  _UxGT("Obnoviť");
+  LSTR MSG_REFRESH                        = LCD_STR_REFRESH _UxGT("Obnoviť");
   LSTR MSG_INFO_SCREEN                    = _UxGT("Info. obrazovka");
   LSTR MSG_INFO_MACHINENAME               = _UxGT("Názov stroja");
   LSTR MSG_INFO_SIZE                      = _UxGT("Rozmer");
@@ -490,26 +523,17 @@ namespace Language_sk {
   LSTR MSG_ADVANCED_PAUSE                 = _UxGT("Pokročil. pauza");
   LSTR MSG_RESUME_PRINT                   = _UxGT("Obnoviť tlač");
   LSTR MSG_STOP_PRINT                     = _UxGT("Zastaviť tlač");
+  LSTR MSG_CANCEL_PRINT                   = _UxGT("Cancel Print");
   LSTR MSG_OUTAGE_RECOVERY                = _UxGT("Obnova po výp. nap.");
-  #if LCD_WIDTH >= 20 || HAS_DWIN_E3V2
-    LSTR MSG_HOST_START_PRINT             = _UxGT("Spustiť z hosta");
-    LSTR MSG_PRINTING_OBJECT              = _UxGT("Tlačím objekt");
-    LSTR MSG_CANCEL_OBJECT                = _UxGT("Zrušiť objekt");
-    LSTR MSG_CANCEL_OBJECT_N              = _UxGT("Zrušiť objekt {");
-    LSTR MSG_CONTINUE_PRINT_JOB           = _UxGT("Pokračovať v úlohe");
-    LSTR MSG_MEDIA_MENU                   = _UxGT("Vytlačiť z karty");
-    LSTR MSG_TURN_OFF                     = _UxGT("Vypnite tlačiareň");
-    LSTR MSG_END_LOOPS                    = _UxGT("Ukončiť opak. sluč.");
-  #else
-    LSTR MSG_HOST_START_PRINT             = _UxGT("Spustiť z hosta");
-    LSTR MSG_PRINTING_OBJECT              = _UxGT("Tlačím obj.");
-    LSTR MSG_CANCEL_OBJECT                = _UxGT("Zrušiť obj.");
-    LSTR MSG_CANCEL_OBJECT_N              = _UxGT("Zrušiť obj. {");
-    LSTR MSG_CONTINUE_PRINT_JOB           = _UxGT("Pokrač. v úlohe");
-    LSTR MSG_MEDIA_MENU                   = _UxGT("Tlač z karty");
-    LSTR MSG_TURN_OFF                     = _UxGT("Vypnit. teraz");
-    LSTR MSG_END_LOOPS                    = _UxGT("Ukončiť sluč.");
-  #endif
+  LSTR MSG_RESUME_BED_TEMP                = _UxGT("Resume Bed Temp");
+  LSTR MSG_HOST_START_PRINT               = _UxGT("Spustiť z hosta");
+  LSTR MSG_PRINTING_OBJECT                = _UxGT("Tlačím obj.");
+  LSTR MSG_CANCEL_OBJECT                  = _UxGT("Zrušiť obj.");
+  LSTR MSG_CANCEL_OBJECT_N                = _UxGT("Zrušiť obj. {");
+  LSTR MSG_CONTINUE_PRINT_JOB             = _UxGT("Pokrač. v úlohe");
+  LSTR MSG_MEDIA_MENU                     = _UxGT("Tlač z karty");
+  LSTR MSG_TURN_OFF                       = _UxGT("Vypnit. teraz");
+  LSTR MSG_END_LOOPS                      = _UxGT("Ukončiť sluč.");
   LSTR MSG_NO_MEDIA                       = _UxGT("Žiadna karta");
   LSTR MSG_DWELL                          = _UxGT("Spím...");
   LSTR MSG_USERWAIT                       = _UxGT("Pokrač. kliknutím...");
@@ -537,6 +561,8 @@ namespace Language_sk {
   LSTR MSG_FILAMENT_SWAP_EXTRA            = _UxGT("Vymeniť naviac");
   LSTR MSG_FILAMENT_PURGE_LENGTH          = _UxGT("Dĺžka vytlačenia");
   LSTR MSG_TOOL_CHANGE                    = _UxGT("Výmena nástroja");
+  LSTR MSG_TOOL_HEAD_SWAP                 = _UxGT("Park For Tool Head Swap");
+  LSTR MSG_FILAMENT_SWAP                  = _UxGT("Park For Filament Change");
   LSTR MSG_TOOL_CHANGE_ZLIFT              = _UxGT("Zdvihnúť Z");
   LSTR MSG_SINGLENOZZLE_PRIME_SPEED       = _UxGT("Primárna rýchl.");
   LSTR MSG_SINGLENOZZLE_WIPE_RETRACT      = _UxGT("Očist. retrakciou");
@@ -559,13 +585,9 @@ namespace Language_sk {
   LSTR MSG_FILAMENTUNLOAD                 = _UxGT("Vysunúť filament");
   LSTR MSG_FILAMENTUNLOAD_E               = _UxGT("Vysunúť filament *");
   LSTR MSG_FILAMENTUNLOAD_ALL             = _UxGT("Vysunúť všetko");
-  #if ENABLED(MULTI_VOLUME)
-    LSTR MSG_ATTACH_MEDIA                 = _UxGT("Načítať SD kartu");
-    LSTR MSG_ATTACH_USB_MEDIA             = _UxGT("Načítať USB disk");
-  #else
-    LSTR MSG_ATTACH_MEDIA                 = _UxGT("Načítať kartu");
-  #endif
+  LSTR MSG_ATTACH_MEDIA                   = _UxGT("Načítať kartu");
   LSTR MSG_ATTACH_SD_MEDIA                = _UxGT("Načítať SD kartu");
+  LSTR MSG_ATTACH_USB_MEDIA               = _UxGT("Načítať USB disk");
   LSTR MSG_CHANGE_MEDIA                   = _UxGT("Vymeniť kartu");
   LSTR MSG_RELEASE_MEDIA                  = _UxGT("Odpojiť kartu");
   LSTR MSG_ZPROBE_OUT                     = _UxGT("Sonda Z mimo podl.");
@@ -590,6 +612,8 @@ namespace Language_sk {
   LSTR MSG_TOUCHMI_SAVE                   = _UxGT("Uložiť");
   LSTR MSG_MANUAL_DEPLOY_TOUCHMI          = _UxGT("Zasunúť TouchMI");
   LSTR MSG_MANUAL_DEPLOY                  = _UxGT("Zasunúť sondu Z");
+  LSTR MSG_MANUAL_PENUP                   = _UxGT("Pen up");
+  LSTR MSG_MANUAL_PENDOWN                 = _UxGT("Pen down");
   LSTR MSG_MANUAL_STOW                    = _UxGT("Vysunúť sondu Z");
   LSTR MSG_HOME_FIRST                     = _UxGT("Najskôr os %s domov");
   LSTR MSG_ZPROBE_SETTINGS                = _UxGT("Nastav. sondy");
@@ -597,7 +621,10 @@ namespace Language_sk {
   LSTR MSG_ZPROBE_XOFFSET                 = _UxGT("X ofset");
   LSTR MSG_ZPROBE_YOFFSET                 = _UxGT("Y ofset");
   LSTR MSG_ZPROBE_ZOFFSET                 = _UxGT("Z ofset");
+  LSTR MSG_ZPROBE_OFFSET_N                = _UxGT("@ ofset");
+  LSTR MSG_BABYSTEP_PROBE_Z               = _UxGT("Krok Z posuň");
   LSTR MSG_ZPROBE_MARGIN                  = _UxGT("Hranica sondy");
+  LSTR MSG_ZOFFSET                        = _UxGT("Z Offset");
   LSTR MSG_Z_FEED_RATE                    = _UxGT("Rýchl. posunu Z");
   LSTR MSG_ENABLE_HS_MODE                 = _UxGT("Povoliť rež. HS");
   LSTR MSG_MOVE_NOZZLE_TO_BED             = _UxGT("Pos. trysku k podl.");
@@ -607,14 +634,11 @@ namespace Language_sk {
   LSTR MSG_BABYSTEP_N                     = _UxGT("Babystep @");
   LSTR MSG_BABYSTEP_TOTAL                 = _UxGT("Celkom");
   LSTR MSG_ENDSTOP_ABORT                  = _UxGT("Zastavenie Endstop");
-  LSTR MSG_HEATING_FAILED_LCD             = _UxGT("Chyba ohrevu");
+  LSTR MSG_ERR_HEATING_FAILED             = _UxGT("Chyba ohrevu");
   LSTR MSG_ERR_REDUNDANT_TEMP             = _UxGT("Chyba: REDUND. TEP.");
-  LSTR MSG_THERMAL_RUNAWAY                = _UxGT("TEPLOTNÝ SKOK");
-  LSTR MSG_TEMP_MALFUNCTION               = _UxGT("TEPLOTNÁ PORUCHA");
-  LSTR MSG_THERMAL_RUNAWAY_BED            = _UxGT("TEPLOTNÝ SKOK PODL.");
-  LSTR MSG_THERMAL_RUNAWAY_CHAMBER        = _UxGT("TEPLOTNÝ SKOK KOMO.");
-  LSTR MSG_THERMAL_RUNAWAY_COOLER         = _UxGT("TEPLOTNÝ SKOK CHLAD.");
-  LSTR MSG_COOLING_FAILED                 = _UxGT("Ochladz. zlyhalo");
+  LSTR MSG_ERR_THERMAL_RUNAWAY            = _UxGT("TEPLOTNÝ SKOK");
+  LSTR MSG_ERR_TEMP_MALFUNCTION           = _UxGT("TEPLOTNÁ PORUCHA");
+  LSTR MSG_ERR_COOLING_FAILED             = _UxGT("Ochladz. zlyhalo");
   LSTR MSG_ERR_MAXTEMP                    = _UxGT("Chyba: MAXTEMP");
   LSTR MSG_ERR_MINTEMP                    = _UxGT("Chyba: MINTEMP");
   LSTR MSG_HALTED                         = _UxGT("TLAČIAREŇ ZASTAVENÁ");
@@ -625,6 +649,7 @@ namespace Language_sk {
   LSTR MSG_COOLING                        = _UxGT("Ochladzovanie...");
   LSTR MSG_BED_HEATING                    = _UxGT("Ohrev podložky...");
   LSTR MSG_BED_COOLING                    = _UxGT("Ochladz. podložky...");
+  LSTR MSG_BED_ANNEALING                  = _UxGT("Annealing...");
   LSTR MSG_PROBE_HEATING                  = _UxGT("Ohrev sondy...");
   LSTR MSG_PROBE_COOLING                  = _UxGT("Ochladz. sondy...");
   LSTR MSG_CHAMBER_HEATING                = _UxGT("Ohrev komory...");
@@ -649,6 +674,7 @@ namespace Language_sk {
   LSTR MSG_UBL_LEVELING                   = _UxGT("UBL rovnanie");
   LSTR MSG_MESH_LEVELING                  = _UxGT("Mriežkové rovnanie");
   LSTR MSG_MESH_DONE                      = _UxGT("Mriežka dokončená");
+  LSTR MSG_INFO_PRINTER_STATS_MENU        = _UxGT("Printer Stats");
   LSTR MSG_INFO_STATS_MENU                = _UxGT("Štatistika");
   LSTR MSG_RESET_STATS                    = _UxGT("Vynulovať štatis.?");
   LSTR MSG_INFO_BOARD_MENU                = _UxGT("Info. o doske");
@@ -659,47 +685,25 @@ namespace Language_sk {
   LSTR MSG_INFO_RUNAWAY_OFF               = _UxGT("Tepl. ochrana: VYP");
   LSTR MSG_INFO_RUNAWAY_ON                = _UxGT("Tepl. ochrana: ZAP");
   LSTR MSG_HOTEND_IDLE_TIMEOUT            = _UxGT("Vypr.čas nečinnosti");
+  LSTR MSG_BED_IDLE_TIMEOUT               = _UxGT("Bed Idle Timeout");
+  LSTR MSG_HOTEND_IDLE_DISABLE            = _UxGT("Disable Timeout");
+  LSTR MSG_HOTEND_IDLE_NOZZLE_TARGET      = _UxGT("Nozzle Idle Temp");
+  LSTR MSG_HOTEND_IDLE_BED_TARGET         = _UxGT("Bed Idle Temp");
   LSTR MSG_FAN_SPEED_FAULT                = _UxGT("Chyba rýchl. vent.");
 
   LSTR MSG_CASE_LIGHT                     = _UxGT("Osvetlenie");
   LSTR MSG_CASE_LIGHT_BRIGHTNESS          = _UxGT("Jas svetla");
   LSTR MSG_KILL_EXPECTED_PRINTER          = _UxGT("Nesprávna tlačiareň");
 
-  LSTR MSG_COLORS_GET                     = _UxGT("Zvoliť farbu");
-  LSTR MSG_COLORS_SELECT                  = _UxGT("Zvoliť farby");
-  LSTR MSG_COLORS_APPLIED                 = _UxGT("Farby aplikované");
-  LSTR MSG_COLORS_RED                     = _UxGT("Červená");
-  LSTR MSG_COLORS_GREEN                   = _UxGT("Zelená");
-  LSTR MSG_COLORS_BLUE                    = _UxGT("Modrá");
-  LSTR MSG_COLORS_WHITE                   = _UxGT("Biela");
-  LSTR MSG_UI_LANGUAGE                    = _UxGT("Jazyk rozhrania");
-  LSTR MSG_SOUND_ENABLE                   = _UxGT("Povoliť zvuky");
-  LSTR MSG_LOCKSCREEN                     = _UxGT("Uzamknúť obrazovku");
-  LSTR MSG_LOCKSCREEN_LOCKED              = _UxGT("Tlačiareň je uzamknutá,");
-  LSTR MSG_LOCKSCREEN_UNLOCK              = _UxGT("potiahnite pre odomknutie.");
-  LSTR MSG_PLEASE_WAIT_REBOOT             = _UxGT("Prosím čakajte do reštartu.");
-
-  #if LCD_WIDTH >= 20 || HAS_DWIN_E3V2
-    LSTR MSG_MEDIA_NOT_INSERTED           = _UxGT("Nie je vložená karta.");
-    LSTR MSG_PLEASE_PREHEAT               = _UxGT("Prosím zahrejte hotend.");
-    LSTR MSG_INFO_PRINT_COUNT_RESET       = _UxGT("Vynulovať počítadlo");
-    LSTR MSG_INFO_PRINT_COUNT             = _UxGT("Počet tlačí");
-    LSTR MSG_INFO_PRINT_TIME              = _UxGT("Celkový čas");
-    LSTR MSG_INFO_PRINT_LONGEST           = _UxGT("Najdlhšia tlač");
-    LSTR MSG_INFO_PRINT_FILAMENT          = _UxGT("Celkom vytlačené");
-  #else
-    LSTR MSG_MEDIA_NOT_INSERTED           = _UxGT("Žiadna karta");
-    LSTR MSG_PLEASE_PREHEAT               = _UxGT("Prosím zahrejte");
-    LSTR MSG_INFO_PRINT_COUNT             = _UxGT("Tlače");
-    LSTR MSG_INFO_PRINT_TIME              = _UxGT("Čas");
-    LSTR MSG_INFO_PRINT_LONGEST           = _UxGT("Najdlhšia");
-    LSTR MSG_INFO_PRINT_FILAMENT          = _UxGT("Vytlačené");
-  #endif
-
+  LSTR MSG_INFO_PRINT_COUNT               = _UxGT("Tlače");
+  LSTR MSG_INFO_PRINT_TIME                = _UxGT("Čas");
+  LSTR MSG_INFO_PRINT_LONGEST             = _UxGT("Najdlhšia");
+  LSTR MSG_INFO_PRINT_FILAMENT            = _UxGT("Vytlačené");
   LSTR MSG_INFO_COMPLETED_PRINTS          = _UxGT("Dokončené");
   LSTR MSG_INFO_MIN_TEMP                  = _UxGT("Teplota min");
   LSTR MSG_INFO_MAX_TEMP                  = _UxGT("Teplota max");
   LSTR MSG_INFO_PSU                       = _UxGT("Nap. zdroj");
+
   LSTR MSG_DRIVE_STRENGTH                 = _UxGT("Budenie motorov");
   LSTR MSG_DAC_PERCENT_N                  = _UxGT("@ Motor %");
   LSTR MSG_ERROR_TMC                      = _UxGT("CHYBA KOMUNIKÁ. TMC");
@@ -711,18 +715,34 @@ namespace Language_sk {
   LSTR MSG_FILAMENT_CHANGE_OPTION_HEADER  = _UxGT("MOŽNOSTI POKRAČ.:");
   LSTR MSG_FILAMENT_CHANGE_OPTION_PURGE   = _UxGT("Vytlačiť viacej");
   LSTR MSG_FILAMENT_CHANGE_OPTION_RESUME  = _UxGT("Obnoviť tlač");
-  LSTR MSG_FILAMENT_CHANGE_PURGE_CONTINUE = _UxGT("Vytlač. alebo pokrač.?");
+  LSTR MSG_FILAMENT_CHANGE_PURGE_CONTINUE = _UxGT("Vytlač. alebo pokrač.?");  // ProUI
   LSTR MSG_FILAMENT_CHANGE_NOZZLE         = _UxGT("  Tryska: ");
   LSTR MSG_RUNOUT_SENSOR                  = _UxGT("Senzor filamentu");
+  LSTR MSG_SENSOR                         = _UxGT("Sensor");
   LSTR MSG_RUNOUT_DISTANCE_MM             = _UxGT("Vzd. mm fil. senz.");
-  LSTR MSG_RUNOUT_ENABLE                  = _UxGT("Zapnúť senzor");
-  LSTR MSG_RUNOUT_ACTIVE                  = _UxGT("Senz. fil. zapn.");
-  LSTR MSG_INVERT_EXTRUDER                = _UxGT("Invert. extrudér");
-  LSTR MSG_EXTRUDER_MIN_TEMP              = _UxGT("Min. tepl. extrud.");
+  LSTR MSG_EXTRUDER_MIN_TEMP              = _UxGT("Min. tepl. extrud.");      // ProUI
   LSTR MSG_FANCHECK                       = _UxGT("Kontrola rýchl.");
   LSTR MSG_KILL_HOMING_FAILED             = _UxGT("Parkovanie zlyhalo");
   LSTR MSG_LCD_PROBING_FAILED             = _UxGT("Kalibrácia zlyhala");
 
+  // Ender-3 V2 DWIN - ProUI / JyersUI
+  LSTR MSG_COLORS_GET                     = _UxGT("Zvoliť farbu");                // ProUI
+  LSTR MSG_COLORS_SELECT                  = _UxGT("Zvoliť farby");                // ProUI
+  LSTR MSG_COLORS_APPLIED                 = _UxGT("Farby aplikované");            // ProUI
+  LSTR MSG_COLORS_RED                     = _UxGT("Červená");                     // ProUI / JyersUI
+  LSTR MSG_COLORS_GREEN                   = _UxGT("Zelená");                      // ProUI / JyersUI
+  LSTR MSG_COLORS_BLUE                    = _UxGT("Modrá");                       // ProUI / JyersUI
+  LSTR MSG_COLORS_WHITE                   = _UxGT("Biela");                       // ProUI
+  LSTR MSG_UI_LANGUAGE                    = _UxGT("Jazyk rozhrania");             // ProUI
+  LSTR MSG_SOUND_ENABLE                   = _UxGT("Povoliť zvuky");               // ProUI
+  LSTR MSG_LOCKSCREEN                     = _UxGT("Uzamknúť obrazovku");          // ProUI
+  LSTR MSG_LOCKSCREEN_LOCKED              = _UxGT("Tlačiareň je uzamknutá,");     // ProUI
+  LSTR MSG_LOCKSCREEN_UNLOCK              = _UxGT("potiahnite pre odomknutie.");  // ProUI
+  LSTR MSG_PLEASE_WAIT_REBOOT             = _UxGT("Prosím čakajte do reštartu."); // ProUI
+  LSTR MSG_MEDIA_NOT_INSERTED             = _UxGT("Žiadna karta");                // ProUI
+  LSTR MSG_PLEASE_PREHEAT                 = _UxGT("Prosím zahrejte");             // ProUI
+
+  // Prusa MMU 2
   LSTR MSG_MMU2_CHOOSE_FILAMENT_HEADER    = _UxGT("VYBERTE FILAMENT");
   LSTR MSG_MMU2_MENU                      = _UxGT("MMU2");
   LSTR MSG_KILL_MMU2_FIRMWARE             = _UxGT("Aktualizujte FW MMU!");
@@ -732,10 +752,12 @@ namespace Language_sk {
   LSTR MSG_MMU2_LOAD_FILAMENT             = _UxGT("Zaviesť filament");
   LSTR MSG_MMU2_LOAD_ALL                  = _UxGT("Zaviesť všetky");
   LSTR MSG_MMU2_LOAD_TO_NOZZLE            = _UxGT("Zaviesť po trysku");
+  LSTR MSG_MMU2_CUT_FILAMENT              = _UxGT("Cut");
   LSTR MSG_MMU2_EJECT_FILAMENT            = _UxGT("Vysunúť filament");
   LSTR MSG_MMU2_EJECT_FILAMENT_N          = _UxGT("Vysunúť filament ~");
   LSTR MSG_MMU2_UNLOAD_FILAMENT           = _UxGT("Vyňať filament");
   LSTR MSG_MMU2_LOADING_FILAMENT          = _UxGT("Zavádzanie fil. %i...");
+  LSTR MSG_MMU2_CUTTING_FILAMENT          = _UxGT("Filament %i Cut...");
   LSTR MSG_MMU2_EJECTING_FILAMENT         = _UxGT("Vysúvanie fil. ...");
   LSTR MSG_MMU2_UNLOADING_FILAMENT        = _UxGT("Vysúvanie fil. ...");
   LSTR MSG_MMU2_ALL                       = _UxGT("Všetky");
@@ -745,6 +767,31 @@ namespace Language_sk {
   LSTR MSG_MMU2_EJECT_RECOVER             = _UxGT("Odstráňte, kliknite");
   LSTR MSG_MMU2_REMOVE_AND_CLICK          = _UxGT("Odstráň. a kliknite...");
 
+  LSTR MSG_MMU_SENSITIVITY                = _UxGT("Sensitivity");
+  LSTR MSG_MMU_CUTTER                     = _UxGT("Cutter");
+  LSTR MSG_MMU_CUTTER_MODE                = _UxGT("Cutter Mode");
+  LSTR MSG_MMU_CUTTER_MODE_DISABLE        = _UxGT("Disable");
+  LSTR MSG_MMU_CUTTER_MODE_ENABLE         = _UxGT("Enable");
+  LSTR MSG_MMU_CUTTER_MODE_ALWAYS         = _UxGT("Always");
+  LSTR MSG_MMU_SPOOL_JOIN                 = _UxGT("Spool Join");
+
+  LSTR MSG_MMU_STATISTICS                 = _UxGT("Statistics");
+  LSTR MSG_MMU_RESET_FAIL_STATS           = _UxGT("Reset Fail Stats");
+  LSTR MSG_MMU_RESET_STATS                = _UxGT("Reset All Stats");
+  LSTR MSG_MMU_CURRENT_PRINT              = _UxGT("Curr. print");
+  LSTR MSG_MMU_CURRENT_PRINT_FAILURES     = _UxGT("Curr. print failures");
+  LSTR MSG_MMU_LAST_PRINT                 = _UxGT("Last print");
+  LSTR MSG_MMU_LAST_PRINT_FAILURES        = _UxGT("Last print failures");
+  LSTR MSG_MMU_TOTAL                      = _UxGT("Total");
+  LSTR MSG_MMU_TOTAL_FAILURES             = _UxGT("Total failures");
+  LSTR MSG_MMU_DEV_INCREMENT_FAILS        = _UxGT("Increment fails");
+  LSTR MSG_MMU_DEV_INCREMENT_LOAD_FAILS   = _UxGT("Increment load fails");
+  LSTR MSG_MMU_FAILS                      = _UxGT("MMU fails");
+  LSTR MSG_MMU_LOAD_FAILS                 = _UxGT("MMU load fails");
+  LSTR MSG_MMU_POWER_FAILS                = _UxGT("MMU power fails");
+  LSTR MSG_MMU_MATERIAL_CHANGES           = _UxGT("Material changes");
+
+  // Mixing Extruder (e.g., Geeetech A10M / A20M)
   LSTR MSG_MIX                            = _UxGT("Mix");
   LSTR MSG_MIX_COMPONENT_N                = _UxGT("Zložka ~");
   LSTR MSG_MIXER                          = _UxGT("Mixér");
@@ -764,15 +811,18 @@ namespace Language_sk {
   LSTR MSG_START_Z                        = _UxGT("Počiat.Z:");
   LSTR MSG_END_Z                          = _UxGT("Konečn.Z:");
 
+  // Games Menu
   LSTR MSG_GAMES                          = _UxGT("Hry");
   LSTR MSG_BRICKOUT                       = _UxGT("Brickout");
   LSTR MSG_INVADERS                       = _UxGT("Nájazdníci");
   LSTR MSG_SNAKE                          = _UxGT("Had");
   LSTR MSG_MAZE                           = _UxGT("Bludisko");
 
+  // Direct Stepping
   LSTR MSG_BAD_PAGE                       = _UxGT("Chyb. index stránky");
   LSTR MSG_BAD_PAGE_SPEED                 = _UxGT("Chyb. rých. stránky");
 
+  // Password Lock
   LSTR MSG_EDIT_PASSWORD                  = _UxGT("Zmeniť heslo");
   LSTR MSG_LOGIN_REQUIRED                 = _UxGT("Vyžad. sa prihl.");
   LSTR MSG_PASSWORD_SETTINGS              = _UxGT("Nastavenie hesla");
@@ -784,37 +834,24 @@ namespace Language_sk {
   LSTR MSG_REMINDER_SAVE_SETTINGS         = _UxGT("Nezabudnite uložiť!");
   LSTR MSG_PASSWORD_REMOVED               = _UxGT("Heslo odstránené");
 
-  //
-  // Filament Change screens show up to 3 lines on a 4-line display
-  //                        ...or up to 2 lines on a 3-line display
-  //
-  #if LCD_HEIGHT >= 4
-    LSTR MSG_ADVANCED_PAUSE_WAITING       = _UxGT(MSG_2_LINE("Stlačte tlačidlo", "pre obnovu tlače"));
-    LSTR MSG_PAUSE_PRINT_PARKING          = _UxGT(MSG_1_LINE("Parkovanie..."));
-    LSTR MSG_FILAMENT_CHANGE_INIT         = _UxGT(MSG_3_LINE("Čakajte prosím", "na spustenie", "výmeny filamentu"));
-    LSTR MSG_FILAMENT_CHANGE_INSERT       = _UxGT(MSG_3_LINE("Vložte filament", "a stlačte tlačidlo", "pre pokračovanie"));
-    LSTR MSG_FILAMENT_CHANGE_HEAT         = _UxGT(MSG_2_LINE("Stlačte tlačidlo", "pre ohrev trysky"));
-    LSTR MSG_FILAMENT_CHANGE_HEATING      = _UxGT(MSG_2_LINE("Ohrev trysky", "Čakajte prosím..."));
-    LSTR MSG_FILAMENT_CHANGE_UNLOAD       = _UxGT(MSG_3_LINE("Čakajte prosím", "na vysunutie", "filamentu"));
-    LSTR MSG_FILAMENT_CHANGE_LOAD         = _UxGT(MSG_3_LINE("Čakajte prosím", "na zavedenie", "filamentu"));
-    LSTR MSG_FILAMENT_CHANGE_PURGE        = _UxGT(MSG_3_LINE("Čakajte prosím", "na vytlačenie", "filamentu"));
-    LSTR MSG_FILAMENT_CHANGE_CONT_PURGE   = _UxGT(MSG_3_LINE("Stlačte tlačidlo", "pre dokončenie", "vytláčania filam."));
-    LSTR MSG_FILAMENT_CHANGE_RESUME       = _UxGT(MSG_2_LINE("Čakajte prosím na", "obnovenie tlače..."));
-  #else
-    LSTR MSG_ADVANCED_PAUSE_WAITING       = _UxGT(MSG_1_LINE("Kliknite pre pokr."));
-    LSTR MSG_PAUSE_PRINT_PARKING          = _UxGT(MSG_1_LINE("Parkovanie..."));
-    LSTR MSG_FILAMENT_CHANGE_INIT         = _UxGT(MSG_1_LINE("Čakajte prosím..."));
-    LSTR MSG_FILAMENT_CHANGE_INSERT       = _UxGT(MSG_1_LINE("Vložte a kliknite"));
-    LSTR MSG_FILAMENT_CHANGE_HEAT         = _UxGT(MSG_1_LINE("Kliknite pre ohrev"));
-    LSTR MSG_FILAMENT_CHANGE_HEATING      = _UxGT(MSG_1_LINE("Ohrev..."));
-    LSTR MSG_FILAMENT_CHANGE_UNLOAD       = _UxGT(MSG_1_LINE("Vysúvanie..."));
-    LSTR MSG_FILAMENT_CHANGE_LOAD         = _UxGT(MSG_1_LINE("Zavádzanie..."));
-    LSTR MSG_FILAMENT_CHANGE_PURGE        = _UxGT(MSG_1_LINE("Vytlačovanie..."));
-    LSTR MSG_FILAMENT_CHANGE_CONT_PURGE   = _UxGT(MSG_1_LINE("Klik. pre dokonč."));
-    LSTR MSG_FILAMENT_CHANGE_RESUME       = _UxGT(MSG_1_LINE("Pokračovanie..."));
-  #endif
+  // Filament Change screens show up to 2 lines on a 3-line display
+  LSTR MSG_ADVANCED_PAUSE_WAITING         = _UxGT(MSG_1_LINE("Kliknite pre pokr."));
+  LSTR MSG_PAUSE_PRINT_PARKING            = _UxGT(MSG_1_LINE("Parkovanie..."));
+  LSTR MSG_FILAMENT_CHANGE_INIT           = _UxGT(MSG_1_LINE("Čakajte prosím..."));
+  LSTR MSG_FILAMENT_CHANGE_INSERT         = _UxGT(MSG_1_LINE("Vložte a kliknite"));
+  LSTR MSG_FILAMENT_CHANGE_HEAT           = _UxGT(MSG_1_LINE("Kliknite pre ohrev"));
+  LSTR MSG_FILAMENT_CHANGE_HEATING        = _UxGT(MSG_1_LINE("Ohrev..."));
+  LSTR MSG_FILAMENT_CHANGE_UNLOAD         = _UxGT(MSG_1_LINE("Vysúvanie..."));
+  LSTR MSG_FILAMENT_CHANGE_LOAD           = _UxGT(MSG_1_LINE("Zavádzanie..."));
+  LSTR MSG_FILAMENT_CHANGE_PURGE          = _UxGT(MSG_1_LINE("Vytlačovanie..."));
+  LSTR MSG_FILAMENT_CHANGE_CONT_PURGE     = _UxGT(MSG_1_LINE("Klik. pre dokonč."));
+  LSTR MSG_FILAMENT_CHANGE_RESUME         = _UxGT(MSG_1_LINE("Pokračovanie..."));
   LSTR MSG_TMC_DRIVERS                    = _UxGT("Ovládače TMC");
   LSTR MSG_TMC_CURRENT                    = _UxGT("Prúd ovládača");
+  LSTR MSG_TMC_ACURRENT                   = STR_A _UxGT("Driver Current");
+  LSTR MSG_TMC_BCURRENT                   = STR_B _UxGT("Driver Current");
+  LSTR MSG_TMC_CCURRENT                   = STR_C _UxGT("Driver Current");
+  LSTR MSG_TMC_ECURRENT                   = _UxGT("E Driver Current");
   LSTR MSG_TMC_HYBRID_THRS                = _UxGT("Hybridný prah");
   LSTR MSG_TMC_HOMING_THRS                = _UxGT("Bezsenzor. domov");
   LSTR MSG_TMC_STEPPING_MODE              = _UxGT("Režim krokovania");
@@ -825,13 +862,30 @@ namespace Language_sk {
   LSTR MSG_BACKLASH_CORRECTION            = _UxGT("Korekcia");
   LSTR MSG_BACKLASH_SMOOTHING             = _UxGT("Vyhladzovanie");
 
+  LSTR MSG_FIXED_TIME_MOTION              = _UxGT("Fixed-Time Motion");
+  LSTR MSG_FTM_CMPN_MODE                  = _UxGT("@ Comp. Mode:");
+  LSTR MSG_FTM_ZV                         = _UxGT("ZV");
+  LSTR MSG_FTM_ZVD                        = _UxGT("ZVD");
+  LSTR MSG_FTM_ZVDD                       = _UxGT("ZVDD");
+  LSTR MSG_FTM_ZVDDD                      = _UxGT("ZVDDD");
+  LSTR MSG_FTM_EI                         = _UxGT("EI");
+  LSTR MSG_FTM_2HEI                       = _UxGT("2HEI");
+  LSTR MSG_FTM_3HEI                       = _UxGT("3HEI");
+  LSTR MSG_FTM_MZV                        = _UxGT("MZV");
+  //LSTR MSG_FTM_ULENDO_FBS               = _UxGT("Ulendo FBS");
+  //LSTR MSG_FTM_DISCTF                   = _UxGT("DISCTF");
+  LSTR MSG_FTM_DYN_MODE                   = _UxGT("DF Mode:");
+  LSTR MSG_FTM_Z_BASED                    = _UxGT("Z-based");
+  LSTR MSG_FTM_MASS_BASED                 = _UxGT("Mass-based");
+  LSTR MSG_FTM_BASE_FREQ_N                = _UxGT("@ Base Freq.");
+  LSTR MSG_FTM_DFREQ_K_N                  = _UxGT("@ Dyn. Freq.");
+  LSTR MSG_FTM_ZETA_N                     = _UxGT("@ Damping");
+  LSTR MSG_FTM_VTOL_N                     = _UxGT("@ Vib. Level");
+
   LSTR MSG_LEVEL_X_AXIS                   = _UxGT("Vyrovnať os X");
   LSTR MSG_AUTO_CALIBRATE                 = _UxGT("Auto-kalibrovať");
-  #if ENABLED(TOUCH_UI_FTDI_EVE)
-    LSTR MSG_HEATER_TIMEOUT               = _UxGT("Vypršal čas ohrevu, znížená teplota. Stlačte OK pre ohrev a ešte raz pre obnovu.");
-  #else
-    LSTR MSG_HEATER_TIMEOUT               = _UxGT("Vypršal čas ohrevu");
-  #endif
+  LSTR MSG_FTDI_HEATER_TIMEOUT            = _UxGT("Vypršal čas ohrevu, znížená teplota. Stlačte OK pre ohrev a ešte raz pre obnovu.");
+  LSTR MSG_HEATER_TIMEOUT                 = _UxGT("Vypršal čas ohrevu");
   LSTR MSG_REHEAT                         = _UxGT("Zohriať");
   LSTR MSG_REHEATING                      = _UxGT("Zohrievanie...");
   LSTR MSG_REHEATDONE                     = _UxGT("Zohrievanie dokonč.");
@@ -859,4 +913,180 @@ namespace Language_sk {
   LSTR MSG_USB_DISK                       = _UxGT("USB disk");
 
   LSTR MSG_HOST_SHUTDOWN                  = _UxGT("Vypnúť hosta");
+
+  // DGUS-Specific message strings, not used elsewhere
+  LSTR DGUS_MSG_NOT_WHILE_PRINTING        = _UxGT("Not allowed during print");
+  LSTR DGUS_MSG_NOT_WHILE_IDLE            = _UxGT("Not allowed while idle");
+  LSTR DGUS_MSG_NO_FILE_SELECTED          = _UxGT("No file selected");
+  LSTR DGUS_MSG_EXECUTING_COMMAND         = _UxGT("Executing command...");
+  LSTR DGUS_MSG_BED_PID_DISABLED          = _UxGT("Bed PID disabled");
+  LSTR DGUS_MSG_PID_DISABLED              = _UxGT("PID disabled");
+  LSTR DGUS_MSG_PID_AUTOTUNING            = _UxGT("PID autotuning...");
+  LSTR DGUS_MSG_INVALID_RECOVERY_DATA     = _UxGT("Invalid recovery data");
+
+  LSTR DGUS_MSG_HOMING_REQUIRED           = _UxGT("Homing required");
+  LSTR DGUS_MSG_BUSY                      = _UxGT("Busy");
+  LSTR DGUS_MSG_HOMING                    = _UxGT("Homing...");
+  LSTR DGUS_MSG_FW_OUTDATED               = _UxGT("DWIN GUI/OS update required");
+  LSTR DGUS_MSG_ABL_REQUIRED              = _UxGT("Auto bed leveling required");
+  LSTR DGUS_MSG_PROBING_FAILED            = _UxGT("Probing failed");
+  LSTR DGUS_MSG_PROBING_SUCCESS           = _UxGT("Probing successful");
+  LSTR DGUS_MSG_RESET_EEPROM              = _UxGT("EEPROM reset");
+  LSTR DGUS_MSG_WRITE_EEPROM_FAILED       = _UxGT("EEPROM write failed");
+  LSTR DGUS_MSG_READ_EEPROM_FAILED        = _UxGT("EEPROM read failed");
+  LSTR DGUS_MSG_FILAMENT_RUNOUT           = _UxGT("Filament runout E%d");
+
+  //
+  // MMU3 Translatable Strings
+  //
+
+  LSTR MSG_TITLE_FINDA_DIDNT_TRIGGER      = _UxGT("FINDA DIDNT TRIGGER");
+  LSTR MSG_TITLE_FINDA_FILAMENT_STUCK     = _UxGT("FINDA FILAM. STUCK");
+  LSTR MSG_TITLE_FSENSOR_DIDNT_TRIGGER    = _UxGT("FSENSOR DIDNT TRIGG.");
+  LSTR MSG_TITLE_FSENSOR_FILAMENT_STUCK   = _UxGT("FSENSOR FIL. STUCK");
+  LSTR MSG_TITLE_PULLEY_CANNOT_MOVE       = _UxGT("PULLEY CANNOT MOVE");
+  LSTR MSG_TITLE_FSENSOR_TOO_EARLY        = _UxGT("FSENSOR TOO EARLY");
+  LSTR MSG_TITLE_INSPECT_FINDA            = _UxGT("INSPECT FINDA");
+  LSTR MSG_TITLE_LOAD_TO_EXTRUDER_FAILED  = _UxGT("LOAD TO EXTR. FAILED");
+  LSTR MSG_TITLE_SELECTOR_CANNOT_MOVE     = _UxGT("SELECTOR CANNOT MOVE");
+  LSTR MSG_TITLE_SELECTOR_CANNOT_HOME     = _UxGT("SELECTOR CANNOT HOME");
+  LSTR MSG_TITLE_IDLER_CANNOT_MOVE        = _UxGT("IDLER CANNOT MOVE");
+  LSTR MSG_TITLE_IDLER_CANNOT_HOME        = _UxGT("IDLER CANNOT HOME");
+  LSTR MSG_TITLE_TMC_WARNING_TMC_TOO_HOT  = _UxGT("WARNING TMC TOO HOT");
+  LSTR MSG_TITLE_TMC_OVERHEAT_ERROR       = _UxGT("TMC OVERHEAT ERROR");
+  LSTR MSG_TITLE_TMC_DRIVER_ERROR         = _UxGT("TMC DRIVER ERROR");
+  LSTR MSG_TITLE_TMC_DRIVER_RESET         = _UxGT("TMC DRIVER RESET");
+  LSTR MSG_TITLE_TMC_UNDERVOLTAGE_ERROR   = _UxGT("TMC UNDERVOLTAGE ERR");
+  LSTR MSG_TITLE_TMC_DRIVER_SHORTED       = _UxGT("TMC DRIVER SHORTED");
+  LSTR MSG_TITLE_SELFTEST_FAILED          = _UxGT("MMU SELFTEST FAILED");
+  LSTR MSG_TITLE_MMU_MCU_ERROR            = _UxGT("MMU MCU ERROR");
+  LSTR MSG_TITLE_MMU_NOT_RESPONDING       = _UxGT("MMU NOT RESPONDING");
+  LSTR MSG_TITLE_COMMUNICATION_ERROR      = _UxGT("COMMUNICATION ERROR");
+  LSTR MSG_TITLE_FILAMENT_ALREADY_LOADED  = _UxGT("FIL. ALREADY LOADED");
+  LSTR MSG_TITLE_INVALID_TOOL             = _UxGT("INVALID TOOL");
+  LSTR MSG_TITLE_QUEUE_FULL               = _UxGT("QUEUE FULL");
+  LSTR MSG_TITLE_FW_UPDATE_NEEDED         = _UxGT("MMU FW UPDATE NEEDED");
+  LSTR MSG_TITLE_FW_RUNTIME_ERROR         = _UxGT("FW RUNTIME ERROR");
+  LSTR MSG_TITLE_UNLOAD_MANUALLY          = _UxGT("UNLOAD MANUALLY");
+  LSTR MSG_TITLE_FILAMENT_EJECTED         = _UxGT("FILAMENT EJECTED");
+  LSTR MSG_TITLE_FILAMENT_CHANGE          = _UxGT("FILAMENT CHANGE");
+  LSTR MSG_TITLE_UNKNOWN_ERROR            = _UxGT("UNKNOWN ERROR");
+
+  LSTR MSG_DESC_FINDA_DIDNT_TRIGGER       = _UxGT("FINDA didn't trigger while loading the filament. Ensure the filament can move and FINDA works.");
+  LSTR MSG_DESC_FINDA_FILAMENT_STUCK      = _UxGT("FINDA didn't switch off while unloading filament. Try unloading manually. Ensure filament can move and FINDA works.");
+  LSTR MSG_DESC_FSENSOR_DIDNT_TRIGGER     = _UxGT("Filament sensor didn't trigger while loading the filament. Ensure the sensor is calibrated and the filament reached it.");
+  LSTR MSG_DESC_FSENSOR_FILAMENT_STUCK    = _UxGT("Filament sensor didn't switch off while unloading filament. Ensure filament can move and the sensor works.");
+  LSTR MSG_DESC_PULLEY_CANNOT_MOVE        = _UxGT("Pulley motor stalled. Ensure the pulley can move and check the wiring.");
+  LSTR MSG_DESC_FSENSOR_TOO_EARLY         = _UxGT("Filament sensor triggered too early while loading to extruder. Check there isn't anything stuck in PTFE tube. Check that sensor reads properly.");
+  LSTR MSG_DESC_INSPECT_FINDA             = _UxGT("Selector can't move due to FINDA detecting a filament. Make sure no filament is in Selector and FINDA works properly.");
+  LSTR MSG_DESC_LOAD_TO_EXTRUDER_FAILED   = _UxGT("Loading to extruder failed. Inspect the filament tip shape. Refine the sensor calibration, if needed.");
+  LSTR MSG_DESC_SELECTOR_CANNOT_HOME      = _UxGT("The Selector cannot home properly. Check for anything blocking its movement.");
+  LSTR MSG_DESC_CANNOT_MOVE               = _UxGT("Can't move Selector or Idler.");
+  LSTR MSG_DESC_IDLER_CANNOT_HOME         = _UxGT("The Idler cannot home properly. Check for anything blocking its movement.");
+  LSTR MSG_DESC_TMC                       = _UxGT("More details online.");
+  LSTR MSG_DESC_MMU_NOT_RESPONDING        = _UxGT("MMU not responding. Check the wiring and connectors.");
+  LSTR MSG_DESC_COMMUNICATION_ERROR       = _UxGT("MMU not responding correctly. Check the wiring and connectors.");
+  LSTR MSG_DESC_FILAMENT_ALREADY_LOADED   = _UxGT("Cannot perform the action, filament is already loaded. Unload it first.");
+  LSTR MSG_DESC_INVALID_TOOL              = _UxGT("Requested filament tool is not available on this hardware. Check the G-code for tool index out of range (T0-T4).");
+  LSTR MSG_DESC_QUEUE_FULL                = _UxGT("MMU Firmware internal error, please reset the MMU.");
+  LSTR MSG_DESC_FW_RUNTIME_ERROR          = _UxGT("Internal runtime error. Try resetting the MMU or updating the firmware.");
+  LSTR MSG_DESC_UNLOAD_MANUALLY           = _UxGT("Filament detected unexpectedly. Ensure no filament is loaded. Check the sensors and wiring.");
+  LSTR MSG_DESC_FILAMENT_EJECTED          = _UxGT("Remove the ejected filament from the front of the MMU.");
+  LSTR MSG_DESC_FILAMENT_CHANGE           = _UxGT("M600 Filament Change. Load a new filament or eject the old one.");
+  LSTR MSG_DESC_UNKNOWN_ERROR             = _UxGT("Unexpected error occurred.");
+
+  LSTR MSG_DESC_FW_UPDATE_NEEDED          = _UxGT("MMU FW version is not supported. Update to version " STRINGIFY(mmuVersionMajor) "." STRINGIFY(mmuVersionMinor) "." STRINGIFY(mmuVersionPatch) ".");
+
+  LSTR MSG_BTN_RETRY                      = _UxGT("Retry");
+  LSTR MSG_BTN_RESET_MMU                  = _UxGT("ResetMMU");
+  LSTR MSG_BTN_UNLOAD                     = _UxGT("Unload");
+  LSTR MSG_BTN_LOAD                       = _UxGT("Load");
+  LSTR MSG_BTN_EJECT                      = _UxGT("Eject");
+  LSTR MSG_BTN_STOP                       = _UxGT("Stop");
+  LSTR MSG_BTN_DISABLE_MMU                = _UxGT("Disable");
+  LSTR MSG_BTN_MORE                       = _UxGT("More Info");
+
+  // Prusa MMU
+  LSTR MSG_DONE                           = _UxGT("Done");
+  LSTR MSG_FINISHING_MOVEMENTS            = _UxGT("Finishing movements");
+  LSTR MSG_LOADING_FILAMENT               = _UxGT("Loading filament");
+  LSTR MSG_UNLOADING_FILAMENT             = _UxGT("Unloading filament");
+  LSTR MSG_TESTING_FILAMENT               = _UxGT("Testing filament");
+  LSTR MSG_EJECT_FROM_MMU                 = _UxGT("Eject from MMU");
+  LSTR MSG_CUT_FILAMENT                   = _UxGT("Cut filament");
+  LSTR MSG_OFF                            = _UxGT("Off");
+  LSTR MSG_ON                             = _UxGT("On");
+  LSTR MSG_PROGRESS_OK                    = _UxGT("OK");
+  LSTR MSG_PROGRESS_ENGAGE_IDLER          = _UxGT("Engaging idler");
+  LSTR MSG_PROGRESS_DISENGAGE_IDLER       = _UxGT("Disengaging idler");
+  LSTR MSG_PROGRESS_UNLOAD_FINDA          = _UxGT("Unloading to FINDA");
+  LSTR MSG_PROGRESS_UNLOAD_PULLEY         = _UxGT("Unloading to pulley");
+  LSTR MSG_PROGRESS_FEED_FINDA            = _UxGT("Feeding to FINDA");
+  LSTR MSG_PROGRESS_FEED_EXTRUDER         = _UxGT("Feeding to extruder");
+  LSTR MSG_PROGRESS_FEED_NOZZLE           = _UxGT("Feeding to nozzle");
+  LSTR MSG_PROGRESS_AVOID_GRIND           = _UxGT("Avoiding grind");
+  LSTR MSG_PROGRESS_WAIT_USER             = _UxGT("ERR Wait for User");
+  LSTR MSG_PROGRESS_ERR_INTERNAL          = _UxGT("ERR Internal");
+  LSTR MSG_PROGRESS_ERR_HELP_FIL          = _UxGT("ERR Help filament");
+  LSTR MSG_PROGRESS_ERR_TMC               = _UxGT("ERR TMC failed");
+  LSTR MSG_PROGRESS_SELECT_SLOT           = _UxGT("Selecting fil. slot");
+  LSTR MSG_PROGRESS_PREPARE_BLADE         = _UxGT("Preparing blade");
+  LSTR MSG_PROGRESS_PUSH_FILAMENT         = _UxGT("Pushing filament");
+  LSTR MSG_PROGRESS_PERFORM_CUT           = _UxGT("Performing cut");
+  LSTR MSG_PROGRESSPSTRETURN_SELECTOR     = _UxGT("Returning selector");
+  LSTR MSG_PROGRESS_PARK_SELECTOR         = _UxGT("Parking selector");
+  LSTR MSG_PROGRESS_EJECT_FILAMENT        = _UxGT("Ejecting filament");
+  LSTR MSG_PROGRESSPSTRETRACT_FINDA       = _UxGT("Retract from FINDA");
+  LSTR MSG_PROGRESS_HOMING                = _UxGT("Homing");
+  LSTR MSG_PROGRESS_MOVING_SELECTOR       = _UxGT("Moving selector");
+  LSTR MSG_PROGRESS_FEED_FSENSOR          = _UxGT("Feeding to FSensor");
+}
+
+namespace LanguageWide_sk {
+  using namespace LanguageNarrow_sk;
+  #if LCD_WIDTH >= 20 || HAS_DWIN_E3V2
+    LSTR MSG_LIVE_MOVE                    = _UxGT("Live Movement");
+    LSTR MSG_HOST_START_PRINT             = _UxGT("Spustiť z hosta");
+    LSTR MSG_PRINTING_OBJECT              = _UxGT("Tlačím objekt");
+    LSTR MSG_CANCEL_OBJECT                = _UxGT("Zrušiť objekt");
+    LSTR MSG_CANCEL_OBJECT_N              = _UxGT("Zrušiť objekt {");
+    LSTR MSG_CONTINUE_PRINT_JOB           = _UxGT("Pokračovať v úlohe");
+    LSTR MSG_MEDIA_MENU                   = _UxGT("Vytlačiť z karty");
+    LSTR MSG_TURN_OFF                     = _UxGT("Vypnite tlačiareň");
+    LSTR MSG_END_LOOPS                    = _UxGT("Ukončiť opak. sluč.");
+    LSTR MSG_MEDIA_NOT_INSERTED           = _UxGT("Nie je vložená karta.");   // ProUI
+    LSTR MSG_PLEASE_PREHEAT               = _UxGT("Prosím zahrejte hotend."); // ProUI
+    LSTR MSG_INFO_PRINT_COUNT_RESET       = _UxGT("Vynulovať počítadlo");     // ProUI
+    LSTR MSG_INFO_PRINT_COUNT             = _UxGT("Počet tlačí");
+    LSTR MSG_INFO_PRINT_TIME              = _UxGT("Celkový čas");
+    LSTR MSG_INFO_PRINT_LONGEST           = _UxGT("Najdlhšia tlač");
+    LSTR MSG_INFO_PRINT_FILAMENT          = _UxGT("Celkom vytlačené");
+    LSTR MSG_HOMING_FEEDRATE_N            = _UxGT("@ Homing Feedrate");
+    LSTR MSG_HOMING_FEEDRATE_X            = _UxGT("X Homing Feedrate");
+    LSTR MSG_HOMING_FEEDRATE_Y            = _UxGT("Y Homing Feedrate");
+    LSTR MSG_HOMING_FEEDRATE_Z            = _UxGT("Z Homing Feedrate");
+    LSTR MSG_EEPROM_INITIALIZED           = _UxGT("Default Settings Restored");
+  #endif
+}
+
+namespace LanguageTall_sk {
+  using namespace LanguageWide_sk;
+  #if LCD_HEIGHT >= 4
+    // Filament Change screens show up to 3 lines on a 4-line display
+    LSTR MSG_ADVANCED_PAUSE_WAITING       = _UxGT(MSG_2_LINE("Stlačte tlačidlo", "pre obnovu tlače"));
+    LSTR MSG_PAUSE_PRINT_PARKING          = _UxGT(MSG_1_LINE("Parkovanie..."));
+    LSTR MSG_FILAMENT_CHANGE_INIT         = _UxGT(MSG_3_LINE("Čakajte prosím", "na spustenie", "výmeny filamentu"));
+    LSTR MSG_FILAMENT_CHANGE_INSERT       = _UxGT(MSG_3_LINE("Vložte filament", "a stlačte tlačidlo", "pre pokračovanie"));
+    LSTR MSG_FILAMENT_CHANGE_HEAT         = _UxGT(MSG_2_LINE("Stlačte tlačidlo", "pre ohrev trysky"));
+    LSTR MSG_FILAMENT_CHANGE_HEATING      = _UxGT(MSG_2_LINE("Ohrev trysky", "Čakajte prosím..."));
+    LSTR MSG_FILAMENT_CHANGE_UNLOAD       = _UxGT(MSG_3_LINE("Čakajte prosím", "na vysunutie", "filamentu"));
+    LSTR MSG_FILAMENT_CHANGE_LOAD         = _UxGT(MSG_3_LINE("Čakajte prosím", "na zavedenie", "filamentu"));
+    LSTR MSG_FILAMENT_CHANGE_PURGE        = _UxGT(MSG_3_LINE("Čakajte prosím", "na vytlačenie", "filamentu"));
+    LSTR MSG_FILAMENT_CHANGE_CONT_PURGE   = _UxGT(MSG_3_LINE("Stlačte tlačidlo", "pre dokončenie", "vytláčania filam."));
+    LSTR MSG_FILAMENT_CHANGE_RESUME       = _UxGT(MSG_2_LINE("Čakajte prosím na", "obnovenie tlače..."));
+  #endif
+}
+
+namespace Language_sk {
+  using namespace LanguageTall_sk;
 }

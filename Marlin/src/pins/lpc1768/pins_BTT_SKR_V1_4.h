@@ -286,8 +286,8 @@
 
 #elif HAS_WIRED_LCD
 
-  #if ENABLED(ANET_FULL_GRAPHICS_LCD_ALT_WIRING)
-    CONTROLLER_WARNING("BTT_SKR_V1_4", "ANET_FULL_GRAPHICS_LCD_ALT_WIRING")
+  #if ENABLED(CTC_A10S_A13)
+    CONTROLLER_WARNING("BTT_SKR_V1_4", "CTC_A10S_A13")
 
     /**
      * 1. Cut the tab off the LCD connector so it can be plugged into the "EXP1" connector the other way.
@@ -295,7 +295,7 @@
      *
      * !!! If you are unsure, ask for help! Your motherboard may be damaged in some circumstances !!!
      *
-     * The ANET_FULL_GRAPHICS_LCD_ALT_WIRING connector plug:
+     * The CTC_A10S_A13 connector plug:
      *
      *                BEFORE                     AFTER
      *                ------                     ------

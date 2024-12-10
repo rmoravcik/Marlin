@@ -128,7 +128,9 @@
  * M84  - Disable steppers until next move, or use S<seconds> to specify an idle
  *        duration after which steppers should turn off. S0 disables the timeout.
  * M85  - Set inactivity shutdown timer with parameter S<seconds>. To disable set zero (default)
- * M92  - Set planner.settings.axis_steps_per_mm for one or more axes.
+ * M86  - Set / Report Hotend Idle Timeout. (Requires HOTEND_IDLE_TIMEOUT)
+ * M87  - Cancel Hotend Idle Timeout (by setting the timeout period to 0). (Requires HOTEND_IDLE_TIMEOUT)
+ * M92  - Set planner.settings.axis_steps_per_mm for one or more axes. (Requires EDITABLE_STEPS_PER_UNIT)
  *
  * M100 - Watch Free Memory (for debugging) (Requires M100_FREE_MEMORY_WATCHER)
  *
@@ -143,13 +145,13 @@
  *        R<temp> Wait for extruder current temp to reach target temp. ** Wait for heating or cooling. **
  *        If AUTOTEMP is enabled, S<mintemp> B<maxtemp> F<factor>. Exit autotemp by any M109 without F
  *
- * M110 - Set the current line number. (Used by host printing)
+ * M110 - Get or set the current line number. (Used by host printing)
  * M111 - Set debug flags: "M111 S<flagbits>". See flag bits defined in enum.h.
  * M112 - Full Shutdown.
  *
  * M113 - Get or set the timeout interval for Host Keepalive "busy" messages. (Requires HOST_KEEPALIVE_FEATURE)
  * M114 - Report current position.
- * M115 - Report capabilities. (Extended capabilities requires EXTENDED_CAPABILITIES_REPORT)
+ * M115 - Report capabilities. (Requires CAPABILITIES_REPORT)
  * M117 - Display a message on the controller screen. (Requires an LCD)
  * M118 - Display a message in the host console.
  *
@@ -195,6 +197,7 @@
  * M208 - Set Recover (unretract) Additional (!) Length: S<length> and Feedrate: F<units/min>. (Requires FWRETRACT)
  * M209 - Turn Automatic Retract Detection on/off: S<0|1> (For slicers that don't support G10/11). (Requires FWRETRACT_AUTORETRACT)
           Every normal extrude-only move will be classified as retract depending on the direction.
+ * M210 - Set or Report the homing feedrate (Requires EDITABLE_HOMING_FEEDRATE)
  * M211 - Enable, Disable, and/or Report software endstops: S<0|1> (Requires MIN_SOFTWARE_ENDSTOPS or MAX_SOFTWARE_ENDSTOPS)
  * M217 - Set filament swap parameters: "M217 S<length> P<feedrate> R<feedrate>". (Requires SINGLENOZZLE)
  * M218 - Set/get a tool offset: "M218 T<index> X<offset> Y<offset>". (Requires 2 or more extruders)
@@ -212,6 +215,8 @@
  * M281 - Set servo min|max position: "M281 P<index> L<min> U<max>". (Requires EDITABLE_SERVO_ANGLES)
  * M282 - Detach servo: "M282 P<index>". (Requires SERVO_DETACH_GCODE)
  * M290 - Babystepping (Requires BABYSTEPPING)
+ * M293 - Babystep Z UP (Requires EP_BABYSTEPPING)
+ * M294 - Babystep Z DOWN (Requires EP_BABYSTEPPING)
  * M300 - Play beep sound S<frequency Hz> P<duration ms>
  * M301 - Set PID parameters P I and D. (Requires PIDTEMP)
  * M302 - Allow cold extrudes, or set the minimum extrude S<temperature>. (Requires PREVENT_COLD_EXTRUSION)
@@ -243,7 +248,9 @@
  * M425 - Enable/Disable and tune backlash correction. (Requires BACKLASH_COMPENSATION and BACKLASH_GCODE)
  * M428 - Set the home_offset based on the current_position. Nearest edge applies. (Disabled by NO_WORKSPACE_OFFSETS or DELTA)
  * M430 - Read the system current, voltage, and power (Requires POWER_MONITOR_CURRENT, POWER_MONITOR_VOLTAGE, or POWER_MONITOR_FIXED_VOLTAGE)
+ * M485 - Send RS485 packets (Requires RS485_SERIAL_PORT)
  * M486 - Identify and cancel objects. (Requires CANCEL_OBJECTS)
+ * M493 - Get or set input FT Motion / Shaping parameters. (Requires FT_MOTION)
  * M500 - Store parameters in EEPROM. (Requires EEPROM_SETTINGS)
  * M501 - Restore parameters from EEPROM. (Requires EEPROM_SETTINGS)
  * M502 - Revert to the default "factory settings". ** Does not write them to EEPROM! **
@@ -259,6 +266,7 @@
  * M554 - Get or set IP gateway. (Requires enabled Ethernet port)
  * M569 - Enable stealthChop on an axis. (Requires at least one _DRIVER_TYPE to be TMC2130/2160/2208/2209/5130/5160)
  * M575 - Change the serial baud rate. (Requires BAUD_RATE_GCODE)
+ * M592 - Get or set Nonlinear Extrusion parameters. (Requires NONLINEAR_EXTRUSION)
  * M593 - Get or set input shaping parameters. (Requires INPUT_SHAPING_[XY])
  * M600 - Pause for filament change: "M600 X<pos> Y<pos> Z<raise> E<first_retract> L<later_retract>". (Requires ADVANCED_PAUSE_FEATURE)
  * M603 - Configure filament change: "M603 T<tool> U<unload_length> L<load_length>". (Requires ADVANCED_PAUSE_FEATURE)
@@ -270,8 +278,18 @@
  * M672 - Set/Reset Duet Smart Effector's sensitivity. (Requires DUET_SMART_EFFECTOR and SMART_EFFECTOR_MOD_PIN)
  * M701 - Load filament (Requires FILAMENT_LOAD_UNLOAD_GCODES)
  * M702 - Unload filament (Requires FILAMENT_LOAD_UNLOAD_GCODES)
+ *
+ *** PRUSA_MMU3 ***
+ * M704 - Preload to MMU
+ * M705 - Eject filament
+ * M706 - Cut filament
+ * M707 - Read from MMU register
+ * M708 - Write to MMU register
+ * M709 - MMU power & reset
+ *
  * M808 - Set or Goto a Repeat Marker (Requires GCODE_REPEAT_MARKERS)
  * M810-M819 - Define/execute a G-code macro (Requires GCODE_MACROS)
+ * M820 - Report all defined M810-M819 G-code macros (Requires GCODE_MACROS)
  * M851 - Set Z probe's XYZ offsets in current units. (Negative values: X=left, Y=front, Z=below)
  * M852 - Set skew factors: "M852 [I<xy>] [J<xz>] [K<yz>]". (Requires SKEW_CORRECTION_GCODE, plus SKEW_CORRECTION_FOR_Z for IJ)
  *
@@ -336,8 +354,14 @@
   #include "../feature/encoder_i2c.h"
 #endif
 
-#if IS_SCARA || defined(G0_FEEDRATE)
+#if ANY(IS_SCARA, POLAR) || defined(G0_FEEDRATE)
   #define HAS_FAST_MOVES 1
+#endif
+
+#if ENABLED(MARLIN_SMALL_BUILD)
+  #define GCODE_ERR_MSG(V...) "?"
+#else
+  #define GCODE_ERR_MSG(V...) "?" V
 #endif
 
 enum AxisRelative : uint8_t {
@@ -598,7 +622,7 @@ private:
 
   #if SAVED_POSITIONS
     static void G60();
-    static void G61();
+    static void G61(int8_t slot=-1);
   #endif
 
   #if ENABLED(GCODE_MOTION_MODES)
@@ -711,8 +735,17 @@ private:
   #endif
 
   static void M85();
-  static void M92();
-  static void M92_report(const bool forReplay=true, const int8_t e=-1);
+
+  #if ENABLED(HOTEND_IDLE_TIMEOUT)
+    static void M86();
+    static void M86_report(const bool forReplay=true);
+    static void M87();
+  #endif
+
+  #if ENABLED(EDITABLE_STEPS_PER_UNIT)
+    static void M92();
+    static void M92_report(const bool forReplay=true, const int8_t e=-1);
+  #endif
 
   #if ENABLED(M100_FREE_MEMORY_WATCHER)
     static void M100();
@@ -720,7 +753,6 @@ private:
 
   #if ENABLED(BD_SENSOR)
     static void M102();
-    static void M102_report(const bool forReplay=true);
   #endif
 
   #if HAS_HOTEND
@@ -753,7 +785,10 @@ private:
   #endif
 
   static void M114();
-  static void M115();
+
+  #if ENABLED(CAPABILITIES_REPORT)
+    static void M115();
+  #endif
 
   #if HAS_STATUS_MESSAGE
     static void M117();
@@ -854,7 +889,7 @@ private:
   static void M205();
   static void M205_report(const bool forReplay=true);
 
-  #if HAS_M206_COMMAND
+  #if HAS_HOME_OFFSET
     static void M206();
     static void M206_report(const bool forReplay=true);
   #endif
@@ -870,8 +905,15 @@ private:
     #endif
   #endif
 
-  static void M211();
-  static void M211_report(const bool forReplay=true);
+  #if ENABLED(EDITABLE_HOMING_FEEDRATE)
+    static void M210();
+    static void M210_report(const bool forReplay=true);
+  #endif
+
+  #if HAS_SOFTWARE_ENDSTOPS
+    static void M211();
+    static void M211_report(const bool forReplay=true);
+  #endif
 
   #if HAS_MULTI_EXTRUDER
     static void M217();
@@ -902,7 +944,7 @@ private:
     static void M250_report(const bool forReplay=true);
   #endif
 
-  #if HAS_GCODE_M255
+  #if ENABLED(EDITABLE_DISPLAY_TIMEOUT)
     static void M255();
     static void M255_report(const bool forReplay=true);
   #endif
@@ -930,6 +972,10 @@ private:
 
   #if ENABLED(BABYSTEPPING)
     static void M290();
+    #if ENABLED(EP_BABYSTEPPING)
+      static void M293();
+      static void M294();
+    #endif
   #endif
 
   #if HAS_SOUND
@@ -1001,7 +1047,7 @@ private:
     static void M402();
   #endif
 
-  #if HAS_PRUSA_MMU2
+  #if HAS_PRUSA_MMU2 || HAS_PRUSA_MMU3
     static void M403();
   #endif
 
@@ -1033,7 +1079,7 @@ private:
     static void M425_report(const bool forReplay=true);
   #endif
 
-  #if HAS_M206_COMMAND
+  #if HAS_HOME_OFFSET
     static void M428();
   #endif
 
@@ -1041,8 +1087,17 @@ private:
     static void M430();
   #endif
 
+  #if HAS_RS485_SERIAL
+    static void M485();
+  #endif
+
   #if ENABLED(CANCEL_OBJECTS)
     static void M486();
+  #endif
+
+  #if ENABLED(FT_MOTION)
+    static void M493();
+    static void M493_report(const bool forReplay=true);
   #endif
 
   static void M500();
@@ -1091,6 +1146,11 @@ private:
     static void M575();
   #endif
 
+  #if ENABLED(NONLINEAR_EXTRUSION)
+    static void M592();
+    static void M592_report(const bool forReplay=true);
+  #endif
+
   #if HAS_ZV_SHAPING
     static void M593();
     static void M593_report(const bool forReplay=true);
@@ -1125,12 +1185,23 @@ private:
     static void M702();
   #endif
 
+  #if HAS_PRUSA_MMU3
+    static void M704();
+    static void M705();
+    static void M706();
+    static void M707();
+    static void M708();
+    static void M709();
+    static void MMU3_report(const bool forReplay=true);
+  #endif
+
   #if ENABLED(GCODE_REPEAT_MARKERS)
     static void M808();
   #endif
 
   #if ENABLED(GCODE_MACROS)
     static void M810_819();
+    static void M820();
   #endif
 
   #if HAS_BED_PROBE
@@ -1202,6 +1273,10 @@ private:
     static void M928();
   #endif
 
+  #if ENABLED(OTA_FIRMWARE_UPDATE)
+    static void M936();
+  #endif
+
   #if ENABLED(MAGNETIC_PARKING_EXTRUDER)
     static void M951();
   #endif
@@ -1210,7 +1285,7 @@ private:
     static void M995();
   #endif
 
-  #if ALL(SPI_FLASH, HAS_MEDIA)
+  #if SPI_FLASH_BACKUP
     static void M993();
     static void M994();
   #endif
@@ -1236,8 +1311,12 @@ private:
     static void M1001();
   #endif
 
-  #if ENABLED(DGUS_LCD_UI_MKS)
+  #if DGUS_LCD_UI_MKS
     static void M1002();
+  #endif
+
+  #if ENABLED(ONE_CLICK_PRINT)
+    static void M1003();
   #endif
 
   #if ENABLED(UBL_MESH_WIZARD)
@@ -1257,7 +1336,7 @@ private:
     static void M710_report(const bool forReplay=true);
   #endif
 
-  static void T(const int8_t tool_index);
+  static void T(const int8_t tool_index) IF_DISABLED(HAS_TOOLCHANGE, { UNUSED(tool_index); });
 
 };
 

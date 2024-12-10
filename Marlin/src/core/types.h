@@ -336,8 +336,6 @@ enum AxisEnum : uint8_t {
   ALL_AXES_ENUM = 0xFE, NO_AXIS_ENUM = 0xFF
 };
 
-typedef IF<(NUM_AXIS_HEADS > 8), uint16_t, uint8_t>::type axis_bits_t;
-
 //
 // Loop over axes
 //
